@@ -19,13 +19,7 @@ public class SocketServer {
             rocketServer.setHeartBeatRate(3000);
 
 
-            rocketServer.setOnClientConnectListener(new OnClientConnectListener() {
-
-                @Override
-                public void onClientConnect(Client client) {
-                    System.out.println("New client connected. ID: " + client.getId());
-                }
-            });
+            rocketServer.setOnClientConnectListener(client -> System.out.println("New client connected. ID: " + client.getId()));
 
             rocketServer.setOnClientDisconnectListener(new OnClientDisconnectListener() {
                 @Override

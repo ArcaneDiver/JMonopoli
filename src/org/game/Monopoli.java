@@ -2,15 +2,14 @@ package org.game;
 
 import org.game.core.socket.*;
 import org.game.core.system.*;
+import org.game.gui.networkConnection.ConnectionManager;
 
 import java.io.IOException;
+import java.sql.Connection;
 
 public class Monopoli {
     public static void main(String[] args) throws IOException {
-        SocketServer server = new SocketServer();
-        SocketClient client = new SocketClient();
-
-
-        Network.getNetworkIPs();
+        ConnectionManager connectionManager = new ConnectionManager();
+        connectionManager.startConnectionFlow();
     }
 }

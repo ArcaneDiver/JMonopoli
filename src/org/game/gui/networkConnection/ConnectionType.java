@@ -19,7 +19,7 @@ public class ConnectionType extends JFrame {
         super("Scegli se hostare o connetterti");
         setSize(700, 700);
         contentPane = getContentPane();
-
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         chooseCallBack = callback;
 
         buildChoose();
@@ -56,12 +56,12 @@ public class ConnectionType extends JFrame {
         public void mouseClicked(MouseEvent e) {
             super.mouseClicked(e);
             JButton source = (JButton) e.getSource();
-
             if(source.getName().equals("server"))
                 chooseCallBack.choose(true);
-            else
+            else {
+                System.out.println(source.getName());
                 chooseCallBack.choose(false);
-
+            }
             dispose();
         }
     };

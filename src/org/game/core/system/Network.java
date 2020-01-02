@@ -1,5 +1,8 @@
 package org.game.core.system;
 
+import org.game.gui.networkConnection.FoundNewServer;
+import sun.nio.ch.Net;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,7 +14,7 @@ public class Network {
     public static String gateway, ip;
     public static NetworkInterface actualInterface;
 
-    public static void getNetworkIPs() throws UnknownHostException, SocketException {
+    public static void getNetworkIPs(int port, FoundNewServer callback) throws UnknownHostException, SocketException, InterruptedException {
 
         /*
             Si potrebbe migliorare cercando dal mio ip in su ed in giu
@@ -42,13 +45,25 @@ public class Network {
 
                 if (address.isReachable(10)) {
                     String output = address.toString().substring(1);
-                    System.out.println(output + " is on the network");
+                    if(Network.isUsed(output, port)) {
+                        callback.found(output);
+                        System.out.println(output + " is on the network and port is open");
+                    } else {
+                        System.out.println(output + " is on the network but port is closed");
+
+                    }
+
+                    callback.found(output);
+                } else {
+                    String output = address.toString().substring(1);
+                    //System.out.println(output + " is not on the network");
+
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-
+            Thread.sleep(100);
         }
     }
 
@@ -100,6 +115,14 @@ public class Network {
         {
             System.err.println(e);
             e.printStackTrace();
+        }
+    }
+
+    private static boolean isUsed(String address, int port) {
+        try (Socket ignored = new Socket(address, port)) {
+            return true;
+        } catch (IOException ignored) {
+            return false;
         }
     }
 }

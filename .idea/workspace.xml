@@ -2,19 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b449004-755d-4559-8347-d0c883a27045" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ChooseConnection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ClientManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ConnectionManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ConnectionType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ServerManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/FoundNewServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/Monopoli.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/Monopoli.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/core/socket/SocketServer$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/core/socket/SocketServer$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/core/socket/SocketServer$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/core/socket/SocketServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/core/socket/SocketServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/Monopoli.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/Monopoli.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/core/socket/SocketServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/socket/SocketServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/core/system/Network.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/core/system/Network.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/core/system/Network.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/system/Network.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ClientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ClientManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ConnectionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ConnectionManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ConnectionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ConnectionType.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,8 +19,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -46,6 +40,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.customizations" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
@@ -92,7 +87,8 @@
       <option name="presentableId" value="Default" />
       <updated>1575014005222</updated>
       <workItem from="1575014007780" duration="1984000" />
-      <workItem from="1577721084151" duration="23451000" />
+      <workItem from="1577721084151" duration="26317000" />
+      <workItem from="1577969251607" duration="12160000" />
     </task>
     <servers />
   </component>
@@ -104,7 +100,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

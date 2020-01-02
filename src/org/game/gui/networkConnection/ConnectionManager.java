@@ -12,20 +12,20 @@ public class ConnectionManager {
 
     public void startConnectionFlow() {
         chooseConnectionType();
+        System.out.println(isServer);
 
-        if(isServer) {
-            asServer();
-        } else {
-            asClient();
-        }
     }
 
     // Se avete un altra idea per rendere sincrono un callback
     private void chooseConnectionType() {
-        new ConnectionType(choose -> isServer = choose);
-        while(true) {
-            if(isServer != null) break;
-        }
+        SwingUtilities.invokeLater(() -> new ConnectionType(choose -> {
+            isServer = choose;
+            if(isServer) {
+                asServer();
+            } else {
+                asClient();
+            }
+        }));
     }
 
     private void asServer() {
@@ -33,6 +33,6 @@ public class ConnectionManager {
     }
 
     private void asClient() {
-
+        SwingUtilities.invokeLater(() -> new ClientManager(30001));
     }
 }

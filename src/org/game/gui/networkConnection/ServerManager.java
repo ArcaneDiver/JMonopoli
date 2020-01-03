@@ -79,7 +79,6 @@ public class ServerManager extends JFrame {
         JLabel label = new JLabel("Client connessi: ");
         label.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 40));
 
-        //startGameButton.add(Box.createHorizontalGlue());
         startGameContainer.add(startGameButton);
 
 
@@ -116,7 +115,7 @@ public class ServerManager extends JFrame {
     }
 
     private void addNewClient(String name) {
-
+        System.out.println("New Client " + name);
         connectedClientList.addElement(name);
 
         paintComponents(getGraphics());

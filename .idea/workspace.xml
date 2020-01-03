@@ -7,29 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9b449004-755d-4559-8347-d0c883a27045" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/org/game/Monopoli.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/org/game/core/socket/SocketClient.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/org/game/core/system/IPv4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/org/game/core/system/Network.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/org/game/core/system/OSUtils.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/org/game/gui/networkConnection/ChooseConnection.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/org/game/gui/networkConnection/ClientManager$1$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/org/game/gui/networkConnection/ClientManager$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/org/game/gui/networkConnection/ClientManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/org/game/gui/networkConnection/ConnectionManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/org/game/gui/networkConnection/ConnectionType$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/org/game/gui/networkConnection/ConnectionType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/org/game/gui/networkConnection/FoundNewServer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/org/game/gui/networkConnection/ServerManager$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/org/game/gui/networkConnection/ServerManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/org/game/gui/networkConnection/StartGameAsClient.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/org/game/gui/networkConnection/StartGameAsServer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/test.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/core/system/Network.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/system/Network.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ClientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ClientManager.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -114,7 +92,7 @@
       <updated>1575014005222</updated>
       <workItem from="1575014007780" duration="1984000" />
       <workItem from="1577721084151" duration="26317000" />
-      <workItem from="1577969251607" duration="30900000" />
+      <workItem from="1577969251607" duration="31647000" />
     </task>
     <servers />
   </component>

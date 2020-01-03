@@ -102,8 +102,9 @@ public class ClientManager extends JFrame {
             JRocketClient client = JRocketClient.prepare(source.getName(), port, new JRocketClient.RocketClientListener() {
                 @Override
                 public void onConnect(JRocketClient socketClient) {
-                    dispose();
-                    callback.start(socketClient);
+                   /* dispose();
+                    callback.start(socketClient);*/
+                    System.out.println("Connesso");
                 }
 
                 @Override

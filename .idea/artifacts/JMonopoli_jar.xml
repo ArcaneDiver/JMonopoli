@@ -3,7 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts/JMonopoli_jar</output-path>
     <root id="archive" name="JMonopoli.jar">
       <element id="module-output" name="JMonopoli" />
-      <element id="extracted-dir" path="$USER_HOME$/Downloads/JRocket.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Desktop/JRocket-master/out/artifacts/JRocket_master_jar/JRocket-master.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

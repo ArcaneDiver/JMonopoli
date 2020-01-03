@@ -52,7 +52,6 @@ public class Network {
 
                     }
 
-                    callback.found(output);
                 } else {
                     String output = address.toString().substring(1);
                     //System.out.println(output + " is not on the network");

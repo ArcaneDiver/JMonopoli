@@ -42,7 +42,7 @@ public class ClientManager extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
-        displayNewServer("10.201.0.11");
+        displayNewServer("192.168.2.103");
 
     }
 

@@ -10,7 +10,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/JRocket.jar!/" />
+          <root url="jar://$USER_HOME$/Desktop/JRocket-master/out/artifacts/JRocket_master_jar/JRocket-master.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

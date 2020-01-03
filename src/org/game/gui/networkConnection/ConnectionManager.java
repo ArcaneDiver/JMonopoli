@@ -12,11 +12,9 @@ public class ConnectionManager {
 
     public void startConnectionFlow() {
         chooseConnectionType();
-        System.out.println(isServer);
-
     }
 
-    // Se avete un altra idea per rendere sincrono un callback
+    // Se un idea per rendere asincrono un callback senza un while(true)...
     private void chooseConnectionType() {
         SwingUtilities.invokeLater(() -> new ConnectionType(choose -> {
             isServer = choose;

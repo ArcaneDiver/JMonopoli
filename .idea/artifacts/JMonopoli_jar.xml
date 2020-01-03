@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="JMonopoli:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/JMonopoli_jar</output-path>
+    <root id="archive" name="JMonopoli.jar">
+      <element id="module-output" name="JMonopoli" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/JRocket.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

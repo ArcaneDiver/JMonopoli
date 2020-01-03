@@ -47,9 +47,9 @@ public class Network {
                     String output = address.toString().substring(1);
                     if(Network.isUsed(output, port)) {
                         callback.found(output);
-                        System.out.println(output + " is on the network and port is open");
+                        System.out.println(output + " is on the network and port is closed");
                     } else {
-                        System.out.println(output + " is on the network but port is closed");
+                        System.out.println(output + " is on the network but port is open");
 
                     }
 

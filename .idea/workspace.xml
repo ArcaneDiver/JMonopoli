@@ -2,13 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b449004-755d-4559-8347-d0c883a27045" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/FoundNewServer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/StartGameAsClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/StartGameAsServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/core/socket/SocketClient$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/core/socket/SocketClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/core/socket/SocketClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/core/socket/SocketServer$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/core/socket/SocketServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/core/socket/SocketServer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/core/system/Network.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/core/system/Network.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/core/socket/SocketClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/socket/SocketClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/core/socket/SocketServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/socket/SocketServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/core/system/Network.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/system/Network.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ClientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ClientManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ConnectionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ConnectionManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ConnectionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ConnectionType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ServerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ServerManager.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -88,7 +95,7 @@
       <updated>1575014005222</updated>
       <workItem from="1575014007780" duration="1984000" />
       <workItem from="1577721084151" duration="26317000" />
-      <workItem from="1577969251607" duration="12160000" />
+      <workItem from="1577969251607" duration="23192000" />
     </task>
     <servers />
   </component>

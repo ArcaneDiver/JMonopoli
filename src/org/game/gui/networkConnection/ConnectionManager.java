@@ -29,10 +29,16 @@ public class ConnectionManager {
     }
 
     private void asServer() {
+        SwingUtilities.invokeLater(() -> new ServerManager(30001, (server) -> {
+            System.out.println(server);
 
+            // Instanzi la finestra della partita
+        }));
     }
 
     private void asClient() {
-        SwingUtilities.invokeLater(() -> new ClientManager(30001));
+        SwingUtilities.invokeLater(() -> new ClientManager(30001, (client -> {
+            System.out.println(client);
+        })));
     }
 }

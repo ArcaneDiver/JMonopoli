@@ -1,6 +1,7 @@
 package org.game.gui.networkConnection;
 
 import org.game.core.system.Network;
+import xyz.farhanfarooqui.JRocket.JRocketClient;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,9 +17,16 @@ public class ClientManager extends JFrame {
 
     private JPanel avaiableServerList;
 
+    private final int port;
 
-    public ClientManager(int port) {
+    private StartGameAsClient callback;
+
+    public ClientManager(int port, StartGameAsClient callback) {
         super("Client");
+
+        this.port = port;
+        this.callback = callback;
+
         setSize(700, 700);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -34,7 +42,7 @@ public class ClientManager extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
-
+        displayNewServer("10.201.0.11");
 
     }
 
@@ -84,7 +92,39 @@ public class ClientManager extends JFrame {
 
             JButton source = (JButton) e.getSource();
 
-            avaiableServerList.setVisible(false);
+            String name = JOptionPane.showInputDialog(
+                    JOptionPane.getFrameForComponent(contentPane),
+                    "Inserisci il tuo nome",
+                    "Nome giocatore",
+                    JOptionPane.PLAIN_MESSAGE
+            );
+
+            JRocketClient client = JRocketClient.prepare(source.getName(), port, new JRocketClient.RocketClientListener() {
+                @Override
+                public void onConnect(JRocketClient socketClient) {
+                    dispose();
+                    callback.start(socketClient);
+                }
+
+                @Override
+                public void onConnectFailed(JRocketClient socketClient) {
+                    System.out.println("Failed");
+                    JOptionPane.showMessageDialog(
+                            JOptionPane.getFrameForComponent(contentPane),
+                            "Connection failed with the server",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                }
+
+                @Override
+                public void onDisconnect(JRocketClient jRocketClient) {}
+
+            });
+
+            client.setHeartBeatRate(3000);
+            client.connect();
+            System.out.println("Socket started");
         }
     };
 

@@ -21,13 +21,7 @@ public class SocketServer {
 
             rocketServer.setOnClientConnectListener(client -> System.out.println("New client connected. ID: " + client.getId()));
 
-            rocketServer.setOnClientDisconnectListener(new OnClientDisconnectListener() {
-                @Override
-                public void onClientDisconnect(Client client) {
-                    System.out.println("Client disconnected. ID: " + client.getId());
-                }
-            });
-
+            rocketServer.setOnClientDisconnectListener(client -> System.out.println("Client disconnected. ID: " + client.getId()));
             // Start listening for the event named client_name.
             rocketServer.onReceive("client_name", (data, client) -> {
                 try {
@@ -38,6 +32,7 @@ public class SocketServer {
                     responseData.put("response", "Hey, " + data.getString("name") + "!");
                     // Send an event to the client with a data payload
                     client.send("greeting", responseData);
+
                     rocketServer.disconnect(client);
                 } catch(JSONException e) {
                     e.printStackTrace();

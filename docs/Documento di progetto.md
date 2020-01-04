@@ -187,6 +187,6 @@
 <p>Il documento di progetto è stato realizzato da Victor G. De Matteis integralmente, diagrammi compresi.<br>
 Le decisioni più importanti sono state prese all’unanimità dopo cinque ore di incontri all’Istituto Salesiano Bearzi.</p>
 <h3 id="diagrammi">Diagrammi</h3>
-<p><img src="https://github.com/VicDem/MonopolyProject/blob/master/FOTO%20formalizzazione.png?raw=true" alt="enter image description here"></p>
-<p><img src="https://github.com/VicDem/MonopolyProject/blob/master/FOTO%20Previsione%20classi.png?raw=true" alt=""></p>
+<p><img src="https://github.com/ArcaneDiver/JMonopoli/blob/master/docs/FOTO%20formalizzazione.png?raw=true" alt="enter image description here"></p>
+<p><img src="https://github.com/ArcaneDiver/JMonopoli/blob/master/docs/FOTO%20Previsione%20classi.png?raw=true" alt=""></p>
 

@@ -1,7 +1,3 @@
----
-
-
----
 
 <h1 id="documento-del-progetto-monopoly">Documento del progetto Monopoly</h1>
 <h3 id="gruppo-e-obiettivo">Gruppo e obiettivo</h3>
@@ -152,10 +148,10 @@
 <li>
 <p>Fase iniziale</p>
 <ul>
-<li>[NOME] Sviluppo di tutti i comandi MINIMI per la comunicazione Client Server</li>
+<li>[MARIAN] Sviluppo di tutti i comandi MINIMI per la comunicazione Client Server</li>
 <li>[VICTOR] Client su console automatico per il testing</li>
-<li>[NOME] Server su console</li>
-<li>[NOME] Elementi del gioco MINIMI
+<li>[MICHELE] Server su console</li>
+<li>[MARIAN] Elementi del gioco MINIMI
 <ul>
 <li>Industrie</li>
 <li>Costanti</li>
@@ -168,13 +164,13 @@
 <p>Terminato lo sviluppo del client su console avverrà la seconda fase della progettazione</p>
 <ul>
 <li>[VICTOR] Client a GUI per il giocatore</li>
-<li>[NOME] Ampliamento degli elementi di gioco</li>
-<li>[NOME] Sviluppo della chat per la trattativa</li>
-<li>[NOME] Sviluppo del resto dei comandi sia per chat che per Server Client</li>
+<li>[MARIAN] Ampliamento degli elementi di gioco</li>
+<li>[MICHELE] Sviluppo della chat per la trattativa</li>
+<li>[MARIAN] Sviluppo del resto dei comandi sia per chat che per Server Client</li>
 </ul>
 </li>
 <li>
-<p>Terminato lo sviluppo di Server, Client, GUI, Elementi di gioco [NOME] procederà con la fase di orchestrazione di tutte le parti in modo tale che tutto funzioni</p>
+<p>Terminato lo sviluppo di Server, Client, GUI, Elementi di gioco, tutti i componenti del gruppo procederanno con la fase di orchestrazione di tutte le parti in modo tale che tutto funzioni</p>
 </li>
 <li>
 <p>Alla fine, [VICTOR] procederà con la fase di testing e delivering del prodotto</p>

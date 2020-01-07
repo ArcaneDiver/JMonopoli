@@ -9,7 +9,7 @@ import java.sql.Connection;
 
 public class Monopoli {
     public static void main(String[] args) throws IOException {
-        ConnectionManager connectionManager = new ConnectionManager();
-        connectionManager.startConnectionFlow();
+        new ConnectionManager().startConnectionFlow();
+        new ConnectionManager().startConnectionFlow();
     }
 }

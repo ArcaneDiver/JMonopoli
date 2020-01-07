@@ -7,63 +7,70 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.*;
 import java.util.*;
+import java.util.function.Consumer;
 
 public class Network {
-    public static IPv4 localIp;
-    public static String gateway, ip;
-    public static NetworkInterface actualInterface;
+    private static IPv4 localIp;
+    private static String gateway, ip;
+    private static NetworkInterface actualInterface;
+
 
     public static void getNetworkIPs(int port, FoundNewServer callback) throws UnknownHostException, SocketException, InterruptedException {
 
-        /*
-            Si potrebbe migliorare cercando dal mio ip in su ed in giu
-            invece che partire dall`inizio della subnet mask
-         */
+
 
         if(localIp == null)
             getLocalData();
 
-        List<String> avaiableIp = Network.localIp.getAvailableIPs((int) Network.localIp.getNumberOfHosts());
 
-        for (String stringIp : avaiableIp) {
+        isReachable("localhost", port, callback);
 
-            byte[] ip = new byte[0];
-            try {
-                ip = InetAddress.getByName(stringIp).getAddress();
-            } catch (UnknownHostException e) {
-                e.printStackTrace();
-            }
-            InetAddress address = null;
-            try {
-                address = InetAddress.getByAddress(ip);
-            } catch (UnknownHostException e) {
-                e.printStackTrace();
-            }
+        // Bruuuuuuuuuuuuuum
+        Network.localIp.getAvailableIPs((int) Network.localIp.getNumberOfHosts())
+            .parallelStream()
+            .forEach(HOCisReachable(port, callback));
 
-            try {
 
-                if (address.isReachable(10)) {
-                    String output = address.toString().substring(1);
-                    if(Network.isUsed(output, port)) {
-                        callback.found(output);
-                        System.out.println(output + " is on the network and port is closed");
-                    } else {
-                        System.out.println(output + " is on the network but port is open");
-
-                    }
-
-                } else {
-                    String output = address.toString().substring(1);
-                    //System.out.println(output + " is not on the network");
-
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            Thread.sleep(100);
-        }
     }
+
+    private static Consumer<String> HOCisReachable(int port, FoundNewServer callback) {
+        // isReachable
+        return actualHost -> isReachable(actualHost, port, callback);
+    }
+
+    private static void isReachable(String actualHost, int port, FoundNewServer callback) {
+        byte[] ip = new byte[0];
+        try {
+            ip = InetAddress.getByName(actualHost).getAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        InetAddress address = null;
+        try {
+            address = InetAddress.getByAddress(ip);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        try {
+            assert address != null;
+            if (address.isReachable(100)) {
+                String output = address.toString().substring(1);
+                if(Network.isUsed(output, port)) {
+                    callback.found(output);
+                    System.out.println(output + " is on the network and port is closed");
+                } else {
+                   // System.out.println(output + " is on the network but port is open");
+                }
+
+            } else {
+                String output = address.toString().substring(1);
+                //System.out.println(output + " is not on the network");
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    };
 
     private static void getLocalData() throws SocketException, UnknownHostException {
         if(OSUtils.isWindows()) {
@@ -111,7 +118,6 @@ public class Network {
         }
         catch(IOException e)
         {
-            System.err.println(e);
             e.printStackTrace();
         }
     }

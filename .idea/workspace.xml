@@ -8,10 +8,17 @@
   <component name="ChangeListManager">
     <list default="true" id="9b449004-755d-4559-8347-d0c883a27045" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/JMonopoli_jar/JMonopoli.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/JMonopoli_jar/JMonopoli.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/Monopoli.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/Monopoli.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/core/system/Network.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/core/system/Network.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ClientManager$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ClientManager$1$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ClientManager$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ClientManager$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ClientManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ClientManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ServerManager$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ServerManager$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ServerManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ServerManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/Monopoli.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/Monopoli.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/core/system/Network.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/system/Network.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ClientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ClientManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ServerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ServerManager.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -96,7 +103,7 @@
       <updated>1575014005222</updated>
       <workItem from="1575014007780" duration="1984000" />
       <workItem from="1577721084151" duration="26317000" />
-      <workItem from="1577969251607" duration="32343000" />
+      <workItem from="1577969251607" duration="38571000" />
     </task>
     <servers />
   </component>

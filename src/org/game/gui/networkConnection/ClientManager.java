@@ -1,6 +1,8 @@
 package org.game.gui.networkConnection;
 
 import org.game.core.system.Network;
+import org.json.JSONException;
+import org.json.JSONObject;
 import xyz.farhanfarooqui.JRocket.JRocketClient;
 
 import javax.swing.*;
@@ -41,7 +43,7 @@ public class ClientManager extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
-        displayNewServer("192.168.2.103");
+
 
     }
 
@@ -59,13 +61,13 @@ public class ClientManager extends JFrame {
     }
 
     private void startSearchServer(int port){
-
-        try {
-            Network.getNetworkIPs(port, this::displayNewServer);
-        } catch (UnknownHostException | SocketException | InterruptedException e) {
-            e.printStackTrace();
+        while(true) {
+            try {
+                Network.getNetworkIPs(port, this::displayNewServer);
+            } catch (UnknownHostException | SocketException | InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-
     }
 
     private void displayNewServer(String address) {
@@ -101,9 +103,20 @@ public class ClientManager extends JFrame {
             JRocketClient client = JRocketClient.prepare(source.getName(), port, new JRocketClient.RocketClientListener() {
                 @Override
                 public void onConnect(JRocketClient socketClient) {
-                   /* dispose();
-                    callback.start(socketClient);*/
-                    System.out.println("Connesso");
+
+
+                    JSONObject info = new JSONObject();
+
+                    try {
+                        info.put("name", name);
+                        info.put("ip", socketClient.getInetAddress().getHostAddress());
+                    } catch (JSONException ex) {
+                        ex.printStackTrace();
+                    }
+
+                    socketClient.send("client_info", info);
+                    System.out.println("Socket started");
+
                 }
 
                 @Override
@@ -124,7 +137,8 @@ public class ClientManager extends JFrame {
 
             client.setHeartBeatRate(3000);
             client.connect();
-            System.out.println("Socket started");
+
+
         }
     };
 

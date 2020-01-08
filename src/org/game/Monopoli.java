@@ -10,6 +10,6 @@ import java.sql.Connection;
 public class Monopoli {
     public static void main(String[] args) throws IOException {
         new ConnectionManager().startConnectionFlow();
-        new ConnectionManager().startConnectionFlow();
+        //new ConnectionManager().startConnectionFlow(); // emulo un altro host
     }
 }

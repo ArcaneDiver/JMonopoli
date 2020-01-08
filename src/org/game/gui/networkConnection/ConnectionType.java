@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class ConnectionType extends JFrame {
+class ConnectionType extends JFrame {
 
     private Container contentPane;
     private JPanel choose;

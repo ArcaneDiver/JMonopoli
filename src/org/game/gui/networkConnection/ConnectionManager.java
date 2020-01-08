@@ -1,5 +1,7 @@
 package org.game.gui.networkConnection;
 
+import org.game.gui.match.Game;
+
 import javax.swing.*;
 
 public class ConnectionManager {
@@ -27,16 +29,10 @@ public class ConnectionManager {
     }
 
     private void asServer() {
-        SwingUtilities.invokeLater(() -> new ServerManager(30001, (server) -> {
-            System.out.println(server);
-
-            // Instanzi la finestra della partita
-        }));
+        SwingUtilities.invokeLater(() -> new ServerManager(30001, Game::new));
     }
 
     private void asClient() {
-        SwingUtilities.invokeLater(() -> new ClientManager(30001, (client -> {
-            System.out.println(client);
-        })));
+        SwingUtilities.invokeLater(() -> new ClientManager(30001, Game::new));
     }
 }

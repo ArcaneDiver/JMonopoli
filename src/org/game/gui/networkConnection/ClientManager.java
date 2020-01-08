@@ -12,7 +12,7 @@ import java.awt.event.MouseEvent;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
-public class ClientManager extends JFrame {
+class ClientManager extends JFrame {
 
     private final Container contentPane;
 
@@ -115,7 +115,13 @@ public class ClientManager extends JFrame {
                     }
 
                     socketClient.send("client_info", info);
-                    System.out.println("Socket started");
+                    JOptionPane.showMessageDialog(
+                            JOptionPane.getFrameForComponent(contentPane),
+                            "Connessione con il server completata",
+                            "Success",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+                    dispose();
 
                 }
 

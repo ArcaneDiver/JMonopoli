@@ -1,5 +1,5 @@
 package org.game.gui.networkConnection;
 
-public interface ChooseConnection {
+interface ChooseConnection {
     public void choose(boolean isServer);
 }

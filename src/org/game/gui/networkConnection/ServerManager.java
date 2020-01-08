@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.util.ArrayList;
 
-public class ServerManager extends JFrame {
+class ServerManager extends JFrame {
 
     private StartGameAsServer callback;
     private final Container contentPane;
@@ -102,7 +102,6 @@ public class ServerManager extends JFrame {
                     String name = data.getString("name");
                     String ip = data.getString("ip");
 
-                    System.out.println(ip);
 
                     SocketClient socketClient = new SocketClient(client, name);
                     clients.add(socketClient);

@@ -59,12 +59,12 @@ public class Network {
                     callback.found(output);
                     System.out.println(output + " is on the network and port is closed");
                 } else {
-                   // System.out.println(output + " is on the network but port is open");
+                   //System.out.println(output + " is on the network but port is open");
                 }
 
             } else {
                 String output = address.toString().substring(1);
-                //System.out.println(output + " is not on the network");
+                System.out.println(output + " is not on the network");
 
             }
         } catch (IOException e) {

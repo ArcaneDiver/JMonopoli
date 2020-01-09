@@ -34,7 +34,7 @@ class ClientManager extends JFrame {
         contentPane = getContentPane();
 
 
-        buildAvaibleServerList();
+        buildAvailableServerList();
 
         contentPane.add(avaiableServerList);
 
@@ -47,7 +47,7 @@ class ClientManager extends JFrame {
 
     }
 
-    private void buildAvaibleServerList() {
+    private void buildAvailableServerList() {
         avaiableServerList = new JPanel();
 
         avaiableServerList.setLayout(new BoxLayout(avaiableServerList, BoxLayout.Y_AXIS));

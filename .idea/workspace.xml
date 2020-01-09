@@ -7,30 +7,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9b449004-755d-4559-8347-d0c883a27045" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/org/game/gui/match/Game.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/org/game/gui/match/Window.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/Box.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/Corner.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/Property.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/Monopoli.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/Monopoli.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/core/socket/SocketServer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ChooseConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ChooseConnection.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ClientManager$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ClientManager$1$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ClientManager$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ClientManager$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/core/system/Network.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/core/system/Network.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/Window.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ClientManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ClientManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ConnectionManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ConnectionManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ConnectionType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ConnectionType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ServerManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ServerManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/StartGameAsClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/StartGameAsClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/StartGameAsServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/StartGameAsServer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/Monopoli.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/Monopoli.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/core/socket/SocketServer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ChooseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ChooseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/core/system/Network.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/system/Network.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/Window.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ClientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ClientManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ConnectionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ConnectionManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ConnectionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ConnectionType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ServerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ServerManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/StartGameAsClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/StartGameAsClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/StartGameAsServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/StartGameAsServer.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,6 +30,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="package-info" />
         <option value="Class" />
       </list>
     </option>
@@ -115,7 +104,7 @@
       <updated>1575014005222</updated>
       <workItem from="1575014007780" duration="1984000" />
       <workItem from="1577721084151" duration="26317000" />
-      <workItem from="1577969251607" duration="45507000" />
+      <workItem from="1577969251607" duration="58817000" />
     </task>
     <servers />
   </component>

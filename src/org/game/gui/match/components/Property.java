@@ -2,16 +2,14 @@ package org.game.gui.match.components;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentEvent;
 
 public class Property extends Box {
 
 
-    public Property(ImageIcon icon) {
-        super(icon);
+    public Property(String icon, int width, int height) {
+        super(new ImageIcon(icon), width, height);
 
-        setMargin(new Insets(0,0,0,0));
-        setBorder(BorderFactory.createEmptyBorder());
-
-        setPreferredSize(new Dimension(56, 98));
     }
+
 }

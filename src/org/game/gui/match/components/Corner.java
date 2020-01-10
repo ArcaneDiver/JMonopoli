@@ -6,11 +6,17 @@ import java.awt.*;
 public class Corner extends Box {
 
     public Corner() {
-        super(new ImageIcon("assets/corner.png"));
+        this(98);
+    }
 
-        setMargin(new Insets(0,0,0,0));
-        setBorder(BorderFactory.createEmptyBorder());
+    public Corner(String iconPath) {
+        this(iconPath, 98);
+    }
 
-        setPreferredSize(new Dimension(98, 98));
+    public Corner(String iconPath, int dim) {
+        super(new ImageIcon(iconPath), dim, dim);
+    }
+    public Corner(int dim) {
+        super(new ImageIcon("assets/corner.png"), dim, dim);
     }
 }

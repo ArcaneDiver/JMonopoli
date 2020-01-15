@@ -7,13 +7,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9b449004-755d-4559-8347-d0c883a27045" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/miglayout-3.5.5.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JMonopoli.iml" beforeDir="false" afterPath="$PROJECT_DIR$/JMonopoli.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/Window.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/Box.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/Box.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/Corner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/Corner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/Property.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/Property.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/components/Box$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/components/Box.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/components/Box.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/components/Corner.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/components/Corner.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/components/Property.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/components/Property.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,6 +31,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="mhzEyzLy" />
+  </component>
   <component name="ProjectId" id="1UHWT5EoBstMOrbnFbjeY3sK8Pv" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -46,11 +47,12 @@
     <property name="last.edited.regexp" value="Sample Text" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/miglayout-3.5.5.jar!/" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.customizations" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
@@ -90,6 +92,9 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="RustProjectSettings">
+    <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -103,6 +108,8 @@
       <workItem from="1575014007780" duration="1984000" />
       <workItem from="1577721084151" duration="26317000" />
       <workItem from="1577969251607" duration="71784000" />
+      <workItem from="1578905438071" duration="1608000" />
+      <workItem from="1579100280374" duration="105000" />
     </task>
     <servers />
   </component>

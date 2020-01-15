@@ -2,7 +2,6 @@ package org.game.gui.match.components;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
@@ -10,9 +9,10 @@ import java.awt.event.ComponentListener;
 abstract class Box extends JButton implements ComponentListener {
 
     protected ImageIcon icon;
+    protected String name;
 
-    public Box(ImageIcon icon, int width, int height) {
-        super(new ImageIcon(icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH)));
+    public Box(String name, ImageIcon icon) {
+        super(icon);
 
         this.icon = icon;
 

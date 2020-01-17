@@ -5,7 +5,7 @@ import javax.swing.*;
 public class NonBuyable extends Box {
 
     public NonBuyable(String iconName) {
-       this("",iconName);
+       this("", iconName);
     }
 
     public NonBuyable(String name, String iconName) {

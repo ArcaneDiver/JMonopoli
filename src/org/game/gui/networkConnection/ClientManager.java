@@ -86,7 +86,7 @@ class ClientManager extends JFrame {
         paintComponents(getGraphics());
     }
 
-    private MouseAdapter buttonClick = new MouseAdapter() {
+    private final MouseAdapter buttonClick = new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
             super.mouseClicked(e);
@@ -121,8 +121,10 @@ class ClientManager extends JFrame {
                             "Success",
                             JOptionPane.INFORMATION_MESSAGE
                     );
+
                     dispose();
 
+                    callback.start(socketClient, name);
                 }
 
                 @Override
@@ -137,7 +139,8 @@ class ClientManager extends JFrame {
                 }
 
                 @Override
-                public void onDisconnect(JRocketClient jRocketClient) {}
+                public void onDisconnect(JRocketClient jRocketClient) {
+                }
 
             });
 

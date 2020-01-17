@@ -1,24 +1,21 @@
 package org.game.gui.match;
 
-import net.miginfocom.layout.AC;
-import net.miginfocom.layout.CC;
-import net.miginfocom.layout.LC;
+import net.miginfocom.layout.*;
 import net.miginfocom.swing.MigLayout;
-import org.game.gui.match.components.Buyable;
-import org.game.gui.match.components.Corner;
-import org.game.gui.match.components.NonBuyable;
 
-import javax.imageio.ImageIO;
+import org.game.core.game.Player;
+import org.game.gui.match.components.*;
+
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Vector;
 
 class Window extends JFrame {
+
+    private Player player;
+    private JLabel budgetIndicator;
 
     private JPanel window;
 
@@ -27,8 +24,10 @@ class Window extends JFrame {
 
     private Container contentPane;
 
-    public Window() {
+    public Window(Player player) {
         super("Monopoli");
+
+        this.player = player;
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,8 +48,8 @@ class Window extends JFrame {
         buildPanel();
 
 
-        contentPane.add(board, new CC().growX(70).growY());
-        contentPane.add(panel, new CC().growX(30).growY());
+        contentPane.add(board, new CC().growX(60).growY());
+        contentPane.add(panel, new CC().growX(40).growY());
 
         // Full screen
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -92,6 +91,42 @@ class Window extends JFrame {
 
         Corner start = new Corner();
         board.add(start, buildConstraintsWithWrap());
+    }
+
+    private void buildPanel() {
+        panel = new JPanel();
+        panel.setLayout(new MigLayout(
+                new LC().insets("60").fill().alignX("center"),
+                new AC(),
+                new AC()
+        ));
+
+        panel.setBorder(BorderFactory.createTitledBorder("Ciao"));
+
+        // Uso un jbutton per poter usare lo sfondo nero
+        JPanel budgetContainer = new JPanel();
+        budgetContainer.setLayout(new MigLayout(
+                new LC().alignX("right")
+        ));
+
+        budgetContainer.setBackground(new Color(0, 0, 0));
+
+        budgetIndicator = new JLabel(String.valueOf(player.getBudget()));
+        budgetIndicator.setForeground(new Color(2, 255, 0));
+        budgetIndicator.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
+
+        budgetContainer.add(budgetIndicator);
+
+
+
+        panel.add(budgetContainer, new CC().growX().alignX("right").wrap());
+
+
+        JLabel playerName = new JLabel(player.getName());
+        playerName.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
+
+        panel.add(playerName, new CC().alignX("left").wrap().grow());
+
     }
 
     private void buildMiddleOfBoard() {
@@ -282,9 +317,5 @@ class Window extends JFrame {
 
     private CC buildConstraintsWithWrap(int width, int height) {
         return buildConstraints(width, height).wrap();
-    }
-
-    private void buildPanel() {
-        panel = new JPanel();
     }
 }

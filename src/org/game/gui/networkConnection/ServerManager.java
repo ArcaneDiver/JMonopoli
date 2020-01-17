@@ -70,8 +70,16 @@ class ServerManager extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
+
                 dispose();
-                callback.start(server);
+
+                String name = JOptionPane.showInputDialog(
+                        JOptionPane.getFrameForComponent(contentPane),
+                        "Inserisci il tuo nome",
+                        "Nome giocatore",
+                        JOptionPane.PLAIN_MESSAGE
+                );
+                callback.start(server, name);
             }
         });
 

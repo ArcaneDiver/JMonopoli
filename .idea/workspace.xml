@@ -7,53 +7,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9b449004-755d-4559-8347-d0c883a27045" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/RET_ORR_BIANCO.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/RET_VER_BIANCO.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/property/RET_ORI_ARANCIONE.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/property/RET_ORI_ROSA.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/property/RET_ORI_VERDE.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/property/RET_ORI_VIOLA.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/property/RET_VER_GIALLO.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/property/RET_VER_MARRONE.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/property/RET_VER_ROSSO.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/property/RET_XVER_MARRONE.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/org/game/core/game/PropertyType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/Buyable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/NonBuyable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/game/core/game/Hoverable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/game/core/game/Player.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/Unforeseen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/Chance.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/QUADRATO_ANGOLO.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/QUADRATO_CENTRO.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_ORI_ARANCIONE.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_ORI_ARANCIONE.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_ORI_BIANCO.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_ORI_ROSA.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_ORI_ROSA.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_ORI_VERDE.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_ORI_VERDE.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_ORI_VIOLA.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_ORI_VIOLA.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_VER_BIANCO.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_VER_GIALLO.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_VER_GIALLO.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_VER_MARRONE.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_VER_MARRONE.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_VER_ROSSO.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_VER_ROSSO.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_XVER_MARRONE.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_XVER_MARRONE.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/Short line.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/corner.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/corner.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/main.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/main.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/property/Atlantic Avenue.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/property/BoardWalk.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/property/Illinois Avenue.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/property/Mediteranean Avenue.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/property/New York avenue.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/property/North Carolina Avenue.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/property/Oriental avenue.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/Monopoli.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/Monopoli.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/0000_ISTRUZIONI.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_ORI_ARANCIONE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_ORI_ROSA.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_ORI_VERDE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_ORI_VIOLA.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_VER_GIALLO.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_VER_MARRONE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_VER_ROSSO.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_XVER_MARRONE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/Game.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/Window.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/Window.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/components/Box.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/components/Box.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/components/Corner.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/components/Corner.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/components/Property.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/Monopoli.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/Monopoli.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/components/NonBuyable.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/components/NonBuyable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ClientManager$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ClientManager$1$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ClientManager$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ClientManager$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ClientManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ClientManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ConnectionManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ConnectionManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ServerManager$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ServerManager$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ServerManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ServerManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/StartGameAsClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/StartGameAsClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/StartGameAsServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/StartGameAsServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/Window.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/Box.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/Box.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/Corner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/Corner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/Property.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/NonBuyable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/NonBuyable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ClientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ClientManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ServerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ServerManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/StartGameAsClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/StartGameAsClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/StartGameAsServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/StartGameAsServer.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -78,10 +64,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="package-info" />
         <option value="Enum" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -170,7 +156,7 @@
       <workItem from="1577721084151" duration="26317000" />
       <workItem from="1577969251607" duration="71784000" />
       <workItem from="1578905438071" duration="1608000" />
-      <workItem from="1579100280374" duration="12090000" />
+      <workItem from="1579100280374" duration="22248000" />
     </task>
     <servers />
   </component>

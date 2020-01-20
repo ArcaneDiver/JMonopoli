@@ -1,33 +1,43 @@
 package org.game.gui.match;
 
+import javafx.util.Pair;
 import net.miginfocom.layout.*;
 import net.miginfocom.swing.MigLayout;
 
+import org.game.core.Utils;
+import org.game.core.game.NextTurnHandler;
 import org.game.core.game.Player;
+import org.game.core.game.PropertyType;
 import org.game.gui.match.components.*;
+import org.game.gui.match.components.Box;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Vector;
+import java.util.*;
 
-class Window extends JFrame {
+public class Window extends JFrame {
 
     private Player player;
-    private JLabel budgetIndicator;
+    private HashMap<PropertyType, ArrayList<Box>> proprieties = new HashMap<>();
+    private ArrayList<Box> street = new ArrayList<>();
+    private NextTurnHandler handler;
 
     private JPanel window;
 
     private JPanel board;
+
     private JPanel panel;
+    private JLabel budgetIndicator;
+
 
     private Container contentPane;
 
-    public Window(Player player) {
+    public Window(Player player, NextTurnHandler handleNextTurn) {
+
         super("Monopoli");
 
         this.player = player;
+        this.handler = handleNextTurn;
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,6 +68,25 @@ class Window extends JFrame {
         pack();
 
         setVisible(true);
+
+
+        street.get(0).hoverActualPlayer(player);
+    }
+
+    public void startNewTurn() {
+        Pair<Integer, Integer> roll = roll();
+
+        System.out.println(street.size());
+        street.get(player.getPosition()).moveAwayPlayer(player);
+
+        player.move(/*roll.getKey() + roll.getValue()*/ 1);
+
+        street.get(player.getPosition()).hoverActualPlayer(player);
+
+    }
+
+    private Pair<Integer, Integer> roll() {
+        return new Pair<>((int) (Math.random() * 6 + 1), (int) (Math.random() * 6 + 1));
     }
 
     private void buildBoard() {
@@ -68,29 +97,9 @@ class Window extends JFrame {
                 new AC().gap("0")
         ));
 
-        Corner areaRiposo = new Corner();
-        board.add(areaRiposo, buildConstraints());
-
-        buildTessile();
-        NonBuyable nonBuyable1 = new NonBuyable("assets/RET_VER_BIANCO.png");
-        board.add(nonBuyable1, buildConstraints(56, 98));
-        buildSviluppo();
-
-        Corner toJail = new Corner();
-        board.add(toJail, buildConstraintsWithWrap());
-
+        buildTopOfBoard();
         buildMiddleOfBoard();
-
-        Corner jail = new Corner();
-        board.add(jail, buildConstraints());
-
-        buildSpaziale();
-        NonBuyable nonBuyable2 = new NonBuyable("assets/RET_VER_BIANCO.png");
-        board.add(nonBuyable2, buildConstraints(56, 98));
-        buildAutomobilistica();
-
-        Corner start = new Corner();
-        board.add(start, buildConstraintsWithWrap());
+        buildBottomOfBoard();
     }
 
     private void buildPanel() {
@@ -101,7 +110,6 @@ class Window extends JFrame {
                 new AC()
         ));
 
-        panel.setBorder(BorderFactory.createTitledBorder("Ciao"));
 
         // Uso un jbutton per poter usare lo sfondo nero
         JPanel budgetContainer = new JPanel();
@@ -117,86 +125,135 @@ class Window extends JFrame {
 
         budgetContainer.add(budgetIndicator);
 
-
-
         panel.add(budgetContainer, new CC().growX().alignX("right").wrap());
 
 
-        JLabel playerName = new JLabel(player.getName());
-        playerName.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
+        JPanel playerDatas = new JPanel();
+        playerDatas.setLayout(new MigLayout(
+                new LC().alignY("center")
+        ));
 
-        panel.add(playerName, new CC().alignX("left").wrap().grow());
+        JLabel nameLabel = new JLabel("Nome:");
+        nameLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
 
+        JLabel name = new JLabel(player.getName());
+        name.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 25));
+
+
+
+
+        JPanel ownedProperties = new JPanel();
+        ownedProperties.setLayout(new MigLayout(
+                new LC()
+        ));
+
+        JButton nextTurn = new JButton("Passa la turno successivo");
+        nextTurn.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
+        nextTurn.addActionListener(e -> {
+            this.handler.next(this);
+        });
+
+        /*
+        for (PropertyType type : proprieties.keySet()) {
+            for(int i = 0; i < prop)
+                JButton prop = new JButton(proprierty);
+                ownedProperties.add(prop, new CC().width("60!").height("60!"));
+            }
+        }*/
+        playerDatas.add(nameLabel);
+        playerDatas.add(name);
+
+        //playerDatas.add(ownedProperties, new CC());
+
+        panel.add(playerDatas, new CC().alignX("left").wrap().grow());
+        panel.add(nextTurn, new CC().dockSouth());
     }
 
+    private void buildTopOfBoard() {
+        Corner start = new Corner("Via");
+        board.add(start, buildConstraints());
+        street.add(start);
+
+        buildTessile();
+        NonBuyable nonBuyable1 = new NonBuyable("assets/RET_VER_BIANCO.png");
+        board.add(nonBuyable1, buildConstraints(56, 98));
+        street.add(nonBuyable1);
+
+        buildSviluppo();
+
+        Corner jail = new Corner("Gülag");
+        board.add(jail, buildConstraintsWithWrap());
+        street.add(jail);
+    }
+    
     private void buildMiddleOfBoard() {
-        Iterator<Buyable> armi = buildProdArmi();
-        Iterator<Buyable> cibarie = buildCibarie();
-        Iterator<Buyable> alberghiero = buildAlberghiera();
-        Iterator<Buyable> ferrovie = buildFerroviera();
+
+        Iterator<Box> alberghiero = buildAlberghiera();
+        Iterator<Box> ferrovie = buildFerroviera();
+
+        Iterator<Box> cibarie = buildCibarie();
+        Iterator<Box> armi = buildProdArmi();
+
+
+
 
         for(int i = 1; i <= 18; i++) {
-            switch (i) {
-                case 5: {
-                    NonBuyable probabilty1 = new NonBuyable("assets/RET_ORR_BIANCO.png");
-                    board.add(probabilty1, buildConstraints(98, 56));
+            System.out.println(i);
 
-                    break;
-                }
-                case 6: {
-                    NonBuyable probabilty2 = new NonBuyable("assets/RET_ORR_BIANCO.png");
-                    board.add(probabilty2, buildConstraintsWithWrap(98, 56));
 
-                    break;
+            if(i % 2 == 1) {
+                if(i < 11) {
+                    board.add(armi.next(), buildConstraints(98, 56));
+                } else {
+                    board.add(cibarie.next(), buildConstraints(98, 56));
                 }
-                case 9: {
-                    NonBuyable probabilty3 = new NonBuyable("assets/RET_ORR_BIANCO.png");
-                    board.add(probabilty3, buildConstraints(98, 56));
-
-                    break;
-                }
-                case 10: {
-                    NonBuyable probabilty4 = new NonBuyable("assets/RET_ORR_BIANCO.png");
-                    board.add(probabilty4, buildConstraintsWithWrap(98, 56));
-
-                    break;
-                }
-                case 15: {
-                    NonBuyable probabilty5 = new NonBuyable("assets/RET_ORR_BIANCO.png");
-                    board.add(probabilty5, buildConstraints(98, 56));
-                    break;
-                }
-                case 16: {
-                    NonBuyable probabilty6 = new NonBuyable("assets/RET_ORR_BIANCO.png");
-                    board.add(probabilty6, buildConstraintsWithWrap(98, 56));
-
-                    break;
-                }
-                default: {
-                    if(i % 2 == 1) {
-                        if(i < 9) {
-                            board.add(armi.next(), buildConstraints(98, 56));
-                        } else {
-                            board.add(cibarie.next(), buildConstraints(98, 56));
-                        }
-                    } else {
-                        if(i < 9) {
-                            board.add(alberghiero.next(), buildConstraintsWithWrap(98, 56));
-                        } else {
-                            board.add(ferrovie.next(), buildConstraintsWithWrap(98, 56));
-                        }
-                    }
-
-                    if(i == 1) {
-                        Corner main = new Corner("", "assets/main.png");
-                        board.add(main, buildConstraints(500, 500).span(9, 9));
-                    }
-                    break;
+            } else {
+                if(i < 11) {
+                    board.add(alberghiero.next(), buildConstraintsWithWrap(98, 56));
+                } else {
+                    board.add(ferrovie.next(), buildConstraintsWithWrap(98, 56));
                 }
             }
+
+            if(i == 1) {
+                Corner main = new Corner("", "assets/main.png");
+                board.add(main, buildConstraints(500, 500).span(9, 9));
+            }
+
+
+
         }
     }
 
+    private void buildBottomOfBoard() {
+        
+        
+        Corner areaRiposo = new Corner("Area riposo");
+        board.add(areaRiposo, buildConstraints());
+
+        buildSpaziale();
+
+        NonBuyable nonBuyable2 = new NonBuyable("assets/RET_VER_BIANCO.png");
+        board.add(nonBuyable2, buildConstraints(56, 98));
+
+        buildAutomobilistica();
+
+        Corner toJail = new Corner("Deportazione");
+        board.add(toJail, buildConstraintsWithWrap());
+
+
+        ArrayList<Box> bottom = new ArrayList<>();
+
+        bottom.add(areaRiposo);
+        bottom.addAll(proprieties.get(PropertyType.SPAZIALE));
+        bottom.add(nonBuyable2);
+        bottom.addAll(proprieties.get(PropertyType.AUTOMOBILISTICA));
+        bottom.add(toJail);
+
+        street.addAll(20, Utils.reverseList(bottom));
+        
+    }
+        
     private void buildTessile() {
         // Nome Temporanei
         Buyable tessile1 = new Buyable("assets/property/RET_VER_MARRONE.png");
@@ -213,6 +270,19 @@ class Window extends JFrame {
         Buyable tessile3 = new Buyable("assets/property/RET_VER_MARRONE.png");
         board.add(tessile3, buildConstraints(56, 98));
 
+
+        ArrayList<Box> vector = new ArrayList<>();
+
+        vector.add(tessile1);
+        vector.add(tessile2);
+        vector.add(tessile3);
+
+        street.add(tessile1);
+        street.add(nonBuyable1);
+        street.add(tessile2);
+        street.add(tessile3);
+
+        proprieties.put(PropertyType.TESSILE, vector);
     }
 
     private void buildSviluppo() {
@@ -229,44 +299,112 @@ class Window extends JFrame {
 
         Buyable sviluppo3 = new Buyable("assets/property/RET_XVER_MARRONE.png");
         board.add(sviluppo3, buildConstraints(56, 98));
+
+
+
+        ArrayList<Box> vector = new ArrayList<>();
+
+        vector.add(sviluppo1);
+        vector.add(sviluppo2);
+        vector.add(sviluppo3);
+
+        street.add(sviluppo1);
+        street.add(sviluppo2);
+        street.add(nonBuyable1);
+        street.add(sviluppo3);
+
+        proprieties.put(PropertyType.SVILUPPO, vector);
     }
 
-    private Iterator<Buyable> buildProdArmi() {
-        Vector<Buyable> vector = new Vector<>();
+    private Iterator<Box> buildProdArmi() {
+        ArrayList<Box> vector = new ArrayList<>();
 
-        vector.add(new Buyable("assets/property/RET_ORI_VIOLA.png"));
-        vector.add(new Buyable("assets/property/RET_ORI_VIOLA.png"));
-        vector.add(new Buyable("assets/property/RET_ORI_VIOLA.png"));
+        Buyable armi1 = new Buyable("assets/property/RET_ORI_VIOLA.png");
+        Unforeseen probilità = new Unforeseen("assets/RET_ORR_BIANCO.png");
+        Buyable armi2 = new Buyable("assets/property/RET_ORI_VIOLA.png");
+        Buyable armi3 = new Buyable("assets/property/RET_ORI_VIOLA.png");
+        Unforeseen probabilitàCentrale = new Unforeseen("assets/RET_ORR_BIANCO.png");
+
+        vector.add(armi1);
+        vector.add(probilità);
+        vector.add(armi2);
+        vector.add(armi3);
+        vector.add(probabilitàCentrale);
+
+
+        street.add(probabilitàCentrale);
+        street.add(armi3);
+        street.add(armi2);
+        street.add(probilità);
+        street.add(armi1);
+
+        proprieties.put(PropertyType.PRODUZIONE_ARMI, vector);
 
         return vector.iterator();
     }
 
-    private Iterator<Buyable> buildCibarie() {
-        Vector<Buyable> vector = new Vector<>();
+    private Iterator<Box> buildCibarie() {
+        ArrayList<Box> vector = new ArrayList<>();
 
-        vector.add(new Buyable("assets/property/RET_ORI_VERDE.png"));
-        vector.add(new Buyable("assets/property/RET_ORI_VERDE.png"));
-        vector.add(new Buyable("assets/property/RET_ORI_VERDE.png"));
+        Buyable alimenti1 = new Buyable("assets/property/RET_ORI_VERDE.png");
+        Unforeseen probilità = new Unforeseen("assets/RET_ORR_BIANCO.png");
+        Buyable alimenti2 = new Buyable("assets/property/RET_ORI_VERDE.png");
+        Buyable alimenti3 = new Buyable("assets/property/RET_ORI_VERDE.png");
+
+
+        vector.add(alimenti1);
+        vector.add(probilità);
+        vector.add(alimenti2);
+        vector.add(alimenti3);
+
+        street.add(alimenti3);
+        street.add(alimenti2);
+        street.add(probilità);
+        street.add(alimenti1);
+
+        proprieties.put(PropertyType.ALIMENTARI, vector);
 
         return vector.iterator();
     }
 
-    private Iterator<Buyable> buildAlberghiera() {
-        Vector<Buyable> vector = new Vector<>();
+    private Iterator<Box> buildAlberghiera() {
+        ArrayList<Box> vector = new ArrayList<>();
 
-        vector.add(new Buyable("assets/property/RET_ORI_ARANCIONE.png"));
-        vector.add(new Buyable("assets/property/RET_ORI_ARANCIONE.png"));
-        vector.add(new Buyable("assets/property/RET_ORI_ARANCIONE.png"));
+        Buyable alberghiero1 = new Buyable("assets/property/RET_ORI_ARANCIONE.png");
+        Unforeseen probabilità = new Unforeseen("assets/RET_ORR_BIANCO.png");
+        Buyable alberghiero2 = new Buyable("assets/property/RET_ORI_ARANCIONE.png");
+        Buyable alberghiero3 = new Buyable("assets/property/RET_ORI_ARANCIONE.png");
+        Unforeseen probabilitàCentrale = new Unforeseen("assets/RET_ORR_BIANCO.png");
+
+        vector.add(alberghiero1);
+        vector.add(probabilità);
+        vector.add(alberghiero2);
+        vector.add(alberghiero3);
+        vector.add(probabilitàCentrale);
+
+
+        street.add(alberghiero1);
+        street.add(probabilità);
+        street.add(alberghiero2);
+        street.add(alberghiero3);
+        street.add(probabilitàCentrale);
+
+        proprieties.put(PropertyType.ALBERGHERE, vector);
 
         return vector.iterator();
     }
 
-    private Iterator<Buyable> buildFerroviera() {
-        Vector<Buyable> vector = new Vector<>();
+    private Iterator<Box> buildFerroviera() {
+        ArrayList<Box> vector = new ArrayList<>();
 
         vector.add(new Buyable("assets/property/RET_ORI_ROSA.png"));
         vector.add(new Buyable("assets/property/RET_ORI_ROSA.png"));
+        vector.add(new Unforeseen("assets/RET_ORR_BIANCO.png"));
         vector.add(new Buyable("assets/property/RET_ORI_ROSA.png"));
+
+        street.addAll(vector);
+
+        proprieties.put(PropertyType.FERROVIERE, vector);
 
         return vector.iterator();
     }
@@ -281,10 +419,22 @@ class Window extends JFrame {
         Buyable spaziale2 = new Buyable("assets/property/RET_VER_GIALLO.png");
         board.add(spaziale2, buildConstraints(56, 98));
 
-
-
         Buyable spaziale3 = new Buyable("assets/property/RET_VER_GIALLO.png");
         board.add(spaziale3, buildConstraints(56, 98));
+
+        ArrayList<Box> vector = new ArrayList<>();
+
+        vector.add(spaziale1);
+        vector.add(nonBuyable);
+        vector.add(spaziale2);
+        vector.add(spaziale3);
+
+        street.add(spaziale1);
+        street.add(nonBuyable);
+        street.add(spaziale2);
+        street.add(spaziale3);
+
+        proprieties.put(PropertyType.SPAZIALE, vector);
     }
 
     private void buildAutomobilistica() {
@@ -294,13 +444,25 @@ class Window extends JFrame {
         Buyable automobilistica2 = new Buyable("assets/property/RET_VER_ROSSO.png");
         board.add(automobilistica2, buildConstraints(56, 98));
 
-
         NonBuyable nonBuyable = new NonBuyable("assets/RET_VER_BIANCO.png");
         board.add(nonBuyable, buildConstraints(56, 98));
 
-
         Buyable automobilistica3 = new Buyable("assets/property/RET_VER_ROSSO.png");
         board.add(automobilistica3, buildConstraints(56, 98));
+
+        ArrayList<Box> vector = new ArrayList<>();
+
+        vector.add(automobilistica1);
+        vector.add(automobilistica2);
+        vector.add(nonBuyable);
+        vector.add(automobilistica3);
+
+        street.add(automobilistica1);
+        street.add(automobilistica2);
+        street.add(nonBuyable);
+        street.add(automobilistica3);
+
+        proprieties.put(PropertyType.AUTOMOBILISTICA, vector);
     }
 
     private CC buildConstraints() {

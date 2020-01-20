@@ -7,39 +7,71 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9b449004-755d-4559-8347-d0c883a27045" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/org/game/core/game/Hoverable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/org/game/core/game/Player.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/Unforeseen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/pawn.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/row_counter.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/game/core/Utils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/game/core/game/NextTurnHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/0000_ISTRUZIONI.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_ORI_ARANCIONE.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_ORI_ROSA.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_ORI_VERDE.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_ORI_VIOLA.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_VER_GIALLO.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_VER_MARRONE.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_VER_ROSSO.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/MONOPOLY_BOARD/RET_XVER_MARRONE.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/Window.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/Window.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/components/Corner.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/components/Corner.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/components/NonBuyable.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/components/NonBuyable.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ClientManager$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ClientManager$1$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ClientManager$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ClientManager$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ClientManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ClientManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ConnectionManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ConnectionManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ServerManager$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ServerManager$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ServerManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ServerManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/StartGameAsClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/StartGameAsClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/StartGameAsServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/StartGameAsServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/JMonopoli_jar/JMonopoli.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/META-INF/JMonopoli.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/Monopoli.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/core/game/Hoverable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/core/game/Player.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/core/game/PropertyType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/core/socket/SocketClient.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/core/system/IPv4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/core/system/Network.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/core/system/OSUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/Game.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/Window.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/components/Box.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/components/Buyable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/components/Corner.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/components/NonBuyable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/match/components/Unforeseen.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ChooseConnection.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ClientManager$1$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ClientManager$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ClientManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ConnectionManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ConnectionType$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ConnectionType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/FoundNewServer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ServerManager$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/ServerManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/StartGameAsClient.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JMonopoli/org/game/gui/networkConnection/StartGameAsServer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JRocket-master/xyz/farhanfarooqui/JRocket/Client$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JRocket-master/xyz/farhanfarooqui/JRocket/Client$ClientListener.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JRocket-master/xyz/farhanfarooqui/JRocket/Client.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JRocket-master/xyz/farhanfarooqui/JRocket/ClientListeners/OnReceiveListener.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JRocket-master/xyz/farhanfarooqui/JRocket/ClientReceiver.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JRocket-master/xyz/farhanfarooqui/JRocket/Communicator$Receiver.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JRocket-master/xyz/farhanfarooqui/JRocket/Communicator$Sender.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JRocket-master/xyz/farhanfarooqui/JRocket/Communicator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JRocket-master/xyz/farhanfarooqui/JRocket/Constants.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JRocket-master/xyz/farhanfarooqui/JRocket/Converter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JRocket-master/xyz/farhanfarooqui/JRocket/JRocket.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JRocket-master/xyz/farhanfarooqui/JRocket/JRocketClient$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JRocket-master/xyz/farhanfarooqui/JRocket/JRocketClient$ConnectRunnable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JRocket-master/xyz/farhanfarooqui/JRocket/JRocketClient$RocketClientListener.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JRocket-master/xyz/farhanfarooqui/JRocket/JRocketClient.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JRocket-master/xyz/farhanfarooqui/JRocket/JRocketServer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JRocket-master/xyz/farhanfarooqui/JRocket/ServerListeners/OnClientConnectListener.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JRocket-master/xyz/farhanfarooqui/JRocket/ServerListeners/OnClientDisconnectListener.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JRocket-master/xyz/farhanfarooqui/JRocket/ServerListeners/OnReceiveListener.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JRocket-master/xyz/farhanfarooqui/JRocket/ServerListeners/OnServerStopListener.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JRocket-master/xyz/farhanfarooqui/JRocket/Utils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/core/game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/game/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/core/game/PropertyType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/game/PropertyType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/Window.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/Corner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/Corner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/Box.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/Box.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/Buyable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/Buyable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/NonBuyable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/NonBuyable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ClientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ClientManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ServerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ServerManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/StartGameAsClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/StartGameAsClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/StartGameAsServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/StartGameAsServer.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -66,8 +98,9 @@
       <list>
         <option value="package-info" />
         <option value="Enum" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Kotlin File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -141,6 +174,7 @@
   </component>
   <component name="RustProjectSettings">
     <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
+    <option name="version" value="2" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -156,7 +190,8 @@
       <workItem from="1577721084151" duration="26317000" />
       <workItem from="1577969251607" duration="71784000" />
       <workItem from="1578905438071" duration="1608000" />
-      <workItem from="1579100280374" duration="22248000" />
+      <workItem from="1579100280374" duration="30664000" />
+      <workItem from="1579461719768" duration="24315000" />
     </task>
     <servers />
   </component>

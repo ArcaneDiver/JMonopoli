@@ -21,7 +21,7 @@ public class Buyable extends Box {
     }
 
     public Buyable(String name, String iconName, Integer cost, PropertyType type) {
-        super(name, new ImageIcon(iconName));
+        super(name, new ImageIcon(iconName), 1000);
 
         this.baseCost = cost;
         this.type = type;

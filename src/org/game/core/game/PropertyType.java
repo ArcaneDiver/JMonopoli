@@ -8,5 +8,5 @@ public enum PropertyType {
     ALBERGHERE,
     FERROVIERE,
     SPAZIALE,
-    AUTOMOBILISTOCA
+    AUTOMOBILISTICA
 }

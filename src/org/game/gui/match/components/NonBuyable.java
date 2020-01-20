@@ -9,6 +9,6 @@ public class NonBuyable extends Box {
     }
 
     public NonBuyable(String name, String iconName) {
-        super(name, new ImageIcon(iconName));
+        super(name, new ImageIcon(iconName), 1000);
     }
 }

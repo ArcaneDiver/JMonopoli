@@ -5,7 +5,7 @@ import net.miginfocom.layout.*;
 import net.miginfocom.swing.MigLayout;
 
 import org.game.core.Utils;
-import org.game.core.game.NextTurnHandler;
+import org.game.core.game.TurnHook;
 import org.game.core.game.Player;
 import org.game.core.game.PropertyType;
 import org.game.gui.match.components.*;
@@ -17,10 +17,13 @@ import java.util.*;
 
 public class Window extends JFrame {
 
-    private Player player;
+    private ArrayList<Player> players;
+    private Player me;
+    private Player playingPlayer;
+
     private HashMap<PropertyType, ArrayList<Box>> proprieties = new HashMap<>();
     private ArrayList<Box> street = new ArrayList<>();
-    private NextTurnHandler handler;
+    private TurnHook handler;
 
     private JPanel window;
 
@@ -32,18 +35,21 @@ public class Window extends JFrame {
 
     private Container contentPane;
 
-    public Window(Player player, NextTurnHandler handleNextTurn) {
+    private boolean isMyTurn = false;
+    private boolean isRolled = false;
+
+    public Window(Player me, TurnHook handleNextTurn) {
 
         super("Monopoli");
 
-        this.player = player;
+        this.me = me;
+        System.out.println(me);
         this.handler = handleNextTurn;
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        window = new JPanel();
-        contentPane = window;
-        setContentPane(contentPane);
+        contentPane = getContentPane();
+
 
         contentPane.setSize(1000, 700);
 
@@ -52,6 +58,7 @@ public class Window extends JFrame {
             new AC().gap("0"),
             new AC().gap("0")
         ));
+
 
 
         buildBoard();
@@ -67,26 +74,35 @@ public class Window extends JFrame {
         setLocationRelativeTo(null);
         pack();
 
+        setVisible(false);
+
+
+        street.get(0).hoverActualPlayer(me);
+    }
+
+    public void startGame(ArrayList<Player> players) {
+        this.players = players;
         setVisible(true);
-
-
-        street.get(0).hoverActualPlayer(player);
+        System.out.println(players);
     }
 
-    public void startNewTurn() {
-        Pair<Integer, Integer> roll = roll();
+    public void startNewTurn(Player playerThatIsGoingToPlay) {
 
-        System.out.println(street.size());
-        street.get(player.getPosition()).moveAwayPlayer(player);
+        isRolled = false;
+        playingPlayer = playerThatIsGoingToPlay;
 
-        player.move(/*roll.getKey() + roll.getValue()*/ 1);
-
-        street.get(player.getPosition()).hoverActualPlayer(player);
-
+        isMyTurn = playingPlayer.equals(me);
+        System.out.println(me.getName() + " dice " + isMyTurn);
     }
 
-    private Pair<Integer, Integer> roll() {
-        return new Pair<>((int) (Math.random() * 6 + 1), (int) (Math.random() * 6 + 1));
+    public void movePawn(Pair<Integer, Integer> roll) {
+        isRolled = true;
+        street.get(playingPlayer.getPosition()).moveAwayPlayer(playingPlayer);
+
+        playingPlayer.move(/*roll.getKey() + roll.getValue()*/ 1);
+
+        street.get(playingPlayer.getPosition()).hoverActualPlayer(playingPlayer);
+
     }
 
     private void buildBoard() {
@@ -119,8 +135,8 @@ public class Window extends JFrame {
 
         budgetContainer.setBackground(new Color(0, 0, 0));
 
-        budgetIndicator = new JLabel(String.valueOf(player.getBudget()));
-        budgetIndicator.setForeground(new Color(2, 255, 0));
+        budgetIndicator = new JLabel(String.valueOf(me.getBudget()));
+        budgetIndicator.setForeground(new Color(33, 255, 34));
         budgetIndicator.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
 
         budgetContainer.add(budgetIndicator);
@@ -136,7 +152,7 @@ public class Window extends JFrame {
         JLabel nameLabel = new JLabel("Nome:");
         nameLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
 
-        JLabel name = new JLabel(player.getName());
+        JLabel name = new JLabel(me.getName());
         name.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 25));
 
 
@@ -147,10 +163,20 @@ public class Window extends JFrame {
                 new LC()
         ));
 
+        JButton rool = new JButton("Tira i dadi");
+        rool.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
+        rool.addActionListener(e -> {
+            if(isMyTurn && !isRolled) {
+                handler.roll(this);
+            }
+        });
+
         JButton nextTurn = new JButton("Passa la turno successivo");
         nextTurn.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
         nextTurn.addActionListener(e -> {
-            this.handler.next(this);
+            if(isMyTurn && isRolled) {
+                handler.next(this);
+            }
         });
 
         /*
@@ -167,6 +193,7 @@ public class Window extends JFrame {
 
         panel.add(playerDatas, new CC().alignX("left").wrap().grow());
         panel.add(nextTurn, new CC().dockSouth());
+        panel.add(rool, new CC().dockSouth());
     }
 
     private void buildTopOfBoard() {
@@ -198,7 +225,6 @@ public class Window extends JFrame {
 
 
         for(int i = 1; i <= 18; i++) {
-            System.out.println(i);
 
 
             if(i % 2 == 1) {

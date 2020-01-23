@@ -1,5 +1,6 @@
 package org.game.gui.match.components;
 
+import com.google.gson.annotations.SerializedName;
 import jdk.nashorn.internal.scripts.JO;
 import net.miginfocom.layout.CC;
 import net.miginfocom.layout.LC;
@@ -19,15 +20,14 @@ public abstract class Box extends JPanel implements ComponentListener, MouseList
     protected JLabel pawn;
     protected ImageIcon icon;
 
+    @SerializedName("boxName")
     protected String name;
-    protected int costo;
 
 
-    public Box(String name, ImageIcon icon, int costo) {
+    public Box(String name, ImageIcon icon) {
 
         this.icon = icon;
         this.name = name;
-        this.costo = costo;
 
 
         pawn = new JLabel();
@@ -38,7 +38,6 @@ public abstract class Box extends JPanel implements ComponentListener, MouseList
 
         addComponentListener(this);
         addMouseListener(this);
-
     }
 
     public void hoverActualPlayer(Player player) {
@@ -59,10 +58,16 @@ public abstract class Box extends JPanel implements ComponentListener, MouseList
 
         JOptionPane.showMessageDialog(null,
                 new JLabel(
-                        String.format("<html><p><b>Nome:</b> %s <br>Costo: %s</p></html>", name, costo)
+                        String.format("<html><h2>%s</h2></html>", this)
                 )
         );
     }
+
+    @Override
+    public String toString() {
+        return String.format("<b>Nome:</b> [ %s ]", name);
+    }
+
 
     @Override
     protected void paintComponent(Graphics g) {

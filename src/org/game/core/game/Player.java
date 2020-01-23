@@ -7,26 +7,37 @@ import java.util.ArrayList;
 
 public class Player {
 
+    private int UUID = (int) java.util.UUID.randomUUID().getLeastSignificantBits();
     private String name;
     private Integer budget;
     private ArrayList<Buyable> properties;
     private ImageIcon pawn;
+    private String pawnPath;
     private int position;
 
-    public Player(String name, int startBudget, ImageIcon icon) {
+    public Player(String name, int startBudget, String icon) {
         this.name = name;
 
         budget = startBudget;
-        pawn = icon;
+        pawn = new ImageIcon(icon);
+        pawnPath = icon;
 
         properties = new ArrayList<>();
+
+        System.out.println("Player called for " + name);
 
         position = 0;
     }
 
 
-    public void move(int steps) {
-        position += steps;
+    public boolean move(int steps) {
+        if(position + steps > Game.STREET_LENGTH - 1) {
+            position = steps - (Game.STREET_LENGTH - position);
+            return true;
+        } else {
+            position += steps;
+            return false;
+        }
     }
 
     public int getPosition() {
@@ -58,7 +69,22 @@ public class Player {
     }
 
     public ImageIcon getPawn() {
+        if(pawn.getImage() == null) {
+            pawn = new ImageIcon(pawnPath);
+        }
         return pawn;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Player && ((Player) obj).getUUID() == UUID;
+    }
+
+    public int getUUID() {
+        return UUID;
+    }
+
+    public void setUUID(int uuid) {
+        this.UUID = uuid;
+    }
 }

@@ -1,8 +1,9 @@
 package org.game.gui.networkConnection;
 
-import org.game.core.socket.SocketClient;
+import org.game.core.game.Player;
+import org.game.core.game.Game;
 import org.json.JSONException;
-import xyz.farhanfarooqui.JRocket.Client;
+import org.json.JSONObject;
 import xyz.farhanfarooqui.JRocket.JRocketServer;
 
 
@@ -11,7 +12,6 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.util.ArrayList;
 
 class ServerManager extends JFrame {
@@ -23,7 +23,7 @@ class ServerManager extends JFrame {
     private DefaultListModel<String> connectedClientList;
 
     private JRocketServer server;
-    private ArrayList<SocketClient> clients = new ArrayList<>();
+    private ArrayList<Player> clients = new ArrayList<>();
 
     public ServerManager(int port, StartGameAsServer callback) {
         super("Server");
@@ -79,7 +79,7 @@ class ServerManager extends JFrame {
                         "Nome giocatore",
                         JOptionPane.PLAIN_MESSAGE
                 );
-                callback.start(server, name);
+                callback.start(server, new Player(name, Game.INITIAL_BUDGET, "assets/pawn.png"), clients);
             }
         });
 
@@ -99,6 +99,7 @@ class ServerManager extends JFrame {
 
     private void initServer(int port){
         try {
+            System.out.println(port);
             server = JRocketServer.listen(port, 1000);
 
             server.setOnClientConnectListener(client -> System.out.println("New client connected. ID: " + client.getId()));
@@ -110,11 +111,14 @@ class ServerManager extends JFrame {
                     String name = data.getString("name");
                     String ip = data.getString("ip");
 
+                    Player me = addNewClient(name);
+                    String serializedMe = Game.GSON.toJson(me, Player.class);
 
-                    SocketClient socketClient = new SocketClient(client, name);
-                    clients.add(socketClient);
+                    System.out.println(serializedMe);
 
-                    addNewClient(name);
+                    client.send("player", new JSONObject()
+                        .put("data", serializedMe)
+                    );
 
 
                 } catch (JSONException e) {
@@ -128,11 +132,16 @@ class ServerManager extends JFrame {
         }
     }
 
-    private void addNewClient(String name) {
+    private Player addNewClient(String name) {
+
         System.out.println("aggiungo un client " + name);
+
         connectedClientList.addElement(name);
+        Player player = new Player(name, Game.INITIAL_BUDGET, "assets/pawn.png");
+        clients.add(player);
 
         paintComponents(getGraphics());
 
+        return player;
     }
 }

@@ -1,6 +1,8 @@
 package org.game.gui.networkConnection;
 
-import org.game.gui.match.Game;
+import org.game.core.game.Client;
+import org.game.core.game.Game;
+import org.game.core.game.Server;
 
 import javax.swing.*;
 
@@ -29,10 +31,10 @@ public class ConnectionManager {
     }
 
     private void asServer() {
-        SwingUtilities.invokeLater(() -> new ServerManager(30001, Game::new));
+        SwingUtilities.invokeLater(() -> new ServerManager(Game.PORT, Server::new));
     }
 
     private void asClient() {
-        SwingUtilities.invokeLater(() -> new ClientManager(30001, Game::new));
+        SwingUtilities.invokeLater(() -> new ClientManager(Game.PORT, Client::new));
     }
 }

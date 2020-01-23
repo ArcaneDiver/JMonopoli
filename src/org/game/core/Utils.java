@@ -10,4 +10,6 @@ public class Utils {
         Collections.reverse(newList);
         return newList;
     }
+
+    public static void Void(){}
 }

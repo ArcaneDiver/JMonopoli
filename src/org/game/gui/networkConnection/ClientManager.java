@@ -1,5 +1,8 @@
 package org.game.gui.networkConnection;
 
+import org.game.core.game.Game;
+import org.game.core.game.Player;
+import org.game.core.system.IPv4;
 import org.game.core.system.Network;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,16 +14,19 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 class ClientManager extends JFrame {
 
     private final Container contentPane;
-
     private JPanel avaiableServerList;
 
+    private ArrayList<String> foundAddresses = new ArrayList<>();
     private final int port;
-
     private StartGameAsClient callback;
+
+    private Thread netScanner;
 
     public ClientManager(int port, StartGameAsClient callback) {
         super("Client");
@@ -38,7 +44,8 @@ class ClientManager extends JFrame {
 
         contentPane.add(avaiableServerList);
 
-        new Thread(() -> startSearchServer(port)).start();
+        netScanner = new Thread(() -> startSearchServer(port));
+        netScanner.start();
 ;
         setLocationRelativeTo(null);
         setVisible(true);
@@ -56,21 +63,33 @@ class ClientManager extends JFrame {
         JLabel label = new JLabel("Lista server disponibili");
         label.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
 
+        JButton manual = new JButton("Manual connection");
+        manual.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
+        manual.setName("manual");
+        manual.addMouseListener(buttonClick);
+
         avaiableServerList.add(label);
+        avaiableServerList.add(Box.createRigidArea(new Dimension(0, 40)));
+        avaiableServerList.add(manual);
         avaiableServerList.add(Box.createRigidArea(new Dimension(0, 40)));
     }
 
     private void startSearchServer(int port){
         while(true) {
-            try {
-                Network.getNetworkIPs(port, this::displayNewServer);
-            } catch (UnknownHostException | SocketException | InterruptedException e) {
-                e.printStackTrace();
-            }
+            Network.getNetworkIPs(port, this::displayNewServer);
         }
     }
 
     private void displayNewServer(String address) {
+
+        for(String addr : foundAddresses) {
+            if(addr.equals(address)) {
+                return;
+            }
+        }
+
+        foundAddresses.add(address);
+
         JButton bt = new JButton(address);
 
         bt.setName(address);
@@ -93,28 +112,55 @@ class ClientManager extends JFrame {
 
             JButton source = (JButton) e.getSource();
 
-            String name = JOptionPane.showInputDialog(
-                    JOptionPane.getFrameForComponent(contentPane),
-                    "Inserisci il tuo nome",
-                    "Nome giocatore",
-                    JOptionPane.PLAIN_MESSAGE
-            );
+            if(source.getName().equals("manual")) {
+                String ip = JOptionPane.showInputDialog(
+                        JOptionPane.getFrameForComponent(contentPane),
+                        "Inserisci l` ip a cui vuoi connetterti",
+                        "IP",
+                        JOptionPane.PLAIN_MESSAGE
+                );
 
-            JRocketClient client = JRocketClient.prepare(source.getName(), port, new JRocketClient.RocketClientListener() {
-                @Override
-                public void onConnect(JRocketClient socketClient) {
+                if(Pattern.matches("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$", ip)) {
+                        connectToServer(ip);
+                } else {
+                    JOptionPane.showMessageDialog(
+                            JOptionPane.getFrameForComponent(contentPane),
+                            "IP non valido",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                }
+
+            } else connectToServer(source.getName());
+
+        }
+    };
+
+    private void connectToServer(String ip) {
+        String name = JOptionPane.showInputDialog(
+                JOptionPane.getFrameForComponent(contentPane),
+                "Inserisci il tuo nome",
+                "Nome giocatore",
+                JOptionPane.PLAIN_MESSAGE
+        );
+
+        JRocketClient client = JRocketClient.prepare(ip, port, new JRocketClient.RocketClientListener() {
+            @Override
+            public void onConnect(JRocketClient socketClient) {
 
 
-                    JSONObject info = new JSONObject();
+                JSONObject info = new JSONObject();
 
-                    try {
-                        info.put("name", name);
-                        info.put("ip", socketClient.getInetAddress().getHostAddress());
-                    } catch (JSONException ex) {
-                        ex.printStackTrace();
-                    }
+                try {
+                    info.put("name", name);
+                    info.put("ip", socketClient.getInetAddress().getHostAddress());
+                } catch (JSONException ex) {
+                    ex.printStackTrace();
+                }
 
-                    socketClient.send("client_info", info);
+                socketClient.send("client_info", info);
+
+                socketClient.onReceive("player", jsonObject -> {
                     JOptionPane.showMessageDialog(
                             JOptionPane.getFrameForComponent(contentPane),
                             "Connessione con il server completata",
@@ -123,37 +169,36 @@ class ClientManager extends JFrame {
                     );
 
                     dispose();
+                    netScanner.stop();
 
-                    callback.start(socketClient, name);
-                }
+                    try {
+                        callback.start(socketClient, Game.GSON.fromJson(jsonObject.getString("data"), Player.class));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                });
 
-                @Override
-                public void onConnectFailed(JRocketClient socketClient) {
-                    System.out.println("Failed");
-                    JOptionPane.showMessageDialog(
-                            JOptionPane.getFrameForComponent(contentPane),
-                            "Connection failed with the server",
-                            "Error",
-                            JOptionPane.ERROR_MESSAGE
-                    );
-                }
+            }
 
-                @Override
-                public void onDisconnect(JRocketClient jRocketClient) {
-                }
+            @Override
+            public void onConnectFailed(JRocketClient socketClient) {
+                System.out.println("Failed");
+                JOptionPane.showMessageDialog(
+                        JOptionPane.getFrameForComponent(contentPane),
+                        "Connection failed with the server",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
 
-            });
+            @Override
+            public void onDisconnect(JRocketClient jRocketClient) {
+            }
 
-            client.setHeartBeatRate(3000);
-            client.connect();
+        });
 
+        client.setHeartBeatRate(3000);
+        client.connect();
 
-        }
-    };
-
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-        System.out.println("Paint called");
     }
 }

@@ -2,6 +2,7 @@ package org.game.core.system;
 
 import org.game.gui.networkConnection.FoundNewServer;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,22 +16,20 @@ public class Network {
     private static NetworkInterface actualInterface;
 
 
-    public static void getNetworkIPs(int port, FoundNewServer callback) throws UnknownHostException, SocketException, InterruptedException {
-
-
-
-        if(localIp == null)
-            getLocalData();
-
+    public static void getNetworkIPs(int port, FoundNewServer callback) {
+        if(localIp == null) {
+            try {
+                getLocalData();
+            } catch (SocketException | UnknownHostException e) {
+                e.printStackTrace();
+            }
+        }
 
         isReachable("localhost", port, callback);
 
-        // Bruuuuuuuuuuuuuum
         Network.localIp.getAvailableIPs((int) Network.localIp.getNumberOfHosts())
-            .parallelStream()
-            .forEach(HOCisReachable(port, callback));
-
-
+                .parallelStream()
+                .forEach(HOCisReachable(port, callback));
     }
 
     private static Consumer<String> HOCisReachable(int port, FoundNewServer callback) {
@@ -40,6 +39,7 @@ public class Network {
 
     private static void isReachable(String actualHost, int port, FoundNewServer callback) {
         byte[] ip = new byte[0];
+
         try {
             ip = InetAddress.getByName(actualHost).getAddress();
         } catch (UnknownHostException e) {
@@ -57,14 +57,13 @@ public class Network {
                 String output = address.toString().substring(1);
                 if(Network.isUsed(output, port)) {
                     callback.found(output);
-                    System.out.println(output + " is on the network and port is closed");
+                    System.out.println(output + " is on the network and server available");
                 } else {
                    //System.out.println(output + " is on the network but port is open");
                 }
 
             } else {
                 String output = address.toString().substring(1);
-                System.out.println(output + " is not on the network");
 
             }
         } catch (IOException e) {
@@ -74,14 +73,20 @@ public class Network {
 
     private static void getLocalData() throws SocketException, UnknownHostException {
         if(OSUtils.isWindows()) {
-            System.out.println("Win");
             parseWindows();
         } else {
-            System.out.println("Cambia PC");
+            while(true) {
+                JOptionPane.showMessageDialog(null, "Cambia PC");
+            }
         }
 
         actualInterface = NetworkInterface.getByInetAddress(Inet4Address.getByName(ip));
-        localIp = new IPv4(ip + "/" + actualInterface.getInterfaceAddresses().get(0).getNetworkPrefixLength());
+
+        try {
+            localIp = new IPv4(ip + "/" + actualInterface.getInterfaceAddresses().get(0).getNetworkPrefixLength());
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
 
         System.out.println("My ip: " + ip + " " + actualInterface.getInterfaceAddresses().get(0).getNetworkPrefixLength());
     }

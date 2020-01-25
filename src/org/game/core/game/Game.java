@@ -7,7 +7,7 @@ public final class Game {
     public static final byte MAX_NUMBER_OF_PLAYERS = 4;
     public static final short INITIAL_BUDGET = 1000;
     public static final byte STREET_LENGTH = 40;
-    public static final short PORT = 30323;
+    public static final short PORT = 31234;
 
     public static final Gson GSON = new Gson();
 

@@ -99,7 +99,6 @@ class ServerManager extends JFrame {
 
     private void initServer(int port){
         try {
-            System.out.println(port);
             server = JRocketServer.listen(port, 1000);
 
             server.setOnClientConnectListener(client -> System.out.println("New client connected. ID: " + client.getId()));
@@ -111,13 +110,9 @@ class ServerManager extends JFrame {
                     String name = data.getString("name");
                     String ip = data.getString("ip");
 
-                    Player me = addNewClient(name);
-                    String serializedMe = Game.GSON.toJson(me, Player.class);
-
-                    System.out.println(serializedMe);
 
                     client.send("player", new JSONObject()
-                        .put("data", serializedMe)
+                        .put("data", Game.GSON.toJson(addNewClient(name), Player.class))
                     );
 
 

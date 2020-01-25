@@ -75,9 +75,7 @@ class ClientManager extends JFrame {
     }
 
     private void startSearchServer(int port){
-        while(true) {
             Network.getNetworkIPs(port, this::displayNewServer);
-        }
     }
 
     private void displayNewServer(String address) {
@@ -114,20 +112,20 @@ class ClientManager extends JFrame {
 
             if(source.getName().equals("manual")) {
                 String ip = JOptionPane.showInputDialog(
-                        JOptionPane.getFrameForComponent(contentPane),
-                        "Inserisci l` ip a cui vuoi connetterti",
-                        "IP",
-                        JOptionPane.PLAIN_MESSAGE
+                    JOptionPane.getFrameForComponent(contentPane),
+                    "Inserisci l` ip a cui vuoi connetterti",
+                    "IP",
+                    JOptionPane.PLAIN_MESSAGE
                 );
 
-                if(Pattern.matches("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$", ip)) {
-                        connectToServer(ip);
+                if(ip != null && Pattern.matches("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$", ip)) {
+                    connectToServer(ip);
                 } else {
                     JOptionPane.showMessageDialog(
-                            JOptionPane.getFrameForComponent(contentPane),
-                            "IP non valido",
-                            "Error",
-                            JOptionPane.ERROR_MESSAGE
+                        JOptionPane.getFrameForComponent(contentPane),
+                        "IP non valido",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
                     );
                 }
 
@@ -169,7 +167,7 @@ class ClientManager extends JFrame {
                     );
 
                     dispose();
-                    netScanner.stop();
+                    //netScanner.stop();
 
                     try {
                         callback.start(socketClient, Game.GSON.fromJson(jsonObject.getString("data"), Player.class));
@@ -193,6 +191,8 @@ class ClientManager extends JFrame {
 
             @Override
             public void onDisconnect(JRocketClient jRocketClient) {
+                System.out.println("Disconnected");
+                jRocketClient.connect();
             }
 
         });

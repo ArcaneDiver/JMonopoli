@@ -119,7 +119,6 @@ public class Network {
                     return;
                 }
             }
-            //pro.waitFor();
         }
         catch(IOException e)
         {

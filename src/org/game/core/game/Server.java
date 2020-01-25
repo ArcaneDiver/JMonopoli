@@ -1,5 +1,6 @@
 package org.game.core.game;
 
+import com.google.gson.reflect.TypeToken;
 import javafx.util.Pair;
 import org.game.gui.match.Window;
 import org.json.JSONException;
@@ -38,8 +39,10 @@ public class Server {
                 Pair<Player, Boolean> playerOfNextTurn = getNextPlayerInTheTurn(playerThatDone);
 
                 server.send("new_turn", new JSONObject()
-                        .put("player", Game.GSON.toJson(playerOfNextTurn, Player.class))
+                        .put("player", Game.GSON.toJson(playerOfNextTurn.getKey(), Player.class))
                 );
+
+                window.startNewTurn(playerOfNextTurn.getKey());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -50,7 +53,7 @@ public class Server {
 
             try {
                 server.send("roll_res", new JSONObject()
-                        .put("data", Game.GSON.toJson(roll, Pair.class))
+                        .put("data", Game.GSON.toJson(roll, new TypeToken<Pair<Integer, Integer>>(){}.getType()))
                 );
 
                 window.movePawn(roll);
@@ -85,7 +88,7 @@ public class Server {
 
                     try {
                         server.send("roll_res", new JSONObject()
-                                .put("data", Game.GSON.toJson(roll, Pair.class))
+                                .put("data", Game.GSON.toJson(roll, new TypeToken<Pair<Integer, Integer>>(){}.getType()))
                         );
 
                         window.movePawn(roll);
@@ -96,7 +99,9 @@ public class Server {
             });
 
             try {
-                server.send("start_game", new JSONObject().put("players", Game.GSON.toJson(players)));
+                server.send("start_game", new JSONObject()
+                        .put("players", Game.GSON.toJson(players, new TypeToken<ArrayList<Player>>(){}.getType()))
+                );
                 window.startGame(players);
 
                 server.send("new_turn", new JSONObject()

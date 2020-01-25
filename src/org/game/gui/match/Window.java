@@ -43,20 +43,21 @@ public class Window extends JFrame {
         super("Monopoli");
 
         this.me = me;
-        System.out.println(me);
         this.handler = handleNextTurn;
+
+        System.out.println(me);
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         contentPane = getContentPane();
 
 
-        contentPane.setSize(1000, 700);
+        contentPane.setBounds(0, 0, 1000, 700);
 
         contentPane.setLayout(new MigLayout(
-            new LC().fill(),
-            new AC().gap("0"),
-            new AC().gap("0")
+            new LC().fill().insets("0 0 0 0"),
+            new AC().gap("0").fill(),
+            new AC().gap("0").fill()
         ));
 
 
@@ -68,8 +69,10 @@ public class Window extends JFrame {
         contentPane.add(board, new CC().growX(60).growY());
         contentPane.add(panel, new CC().growX(40).growY());
 
+
         // Full screen
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+
 
         setLocationRelativeTo(null);
         pack();
@@ -77,13 +80,18 @@ public class Window extends JFrame {
         setVisible(false);
 
 
-        street.get(0).hoverActualPlayer(me);
     }
 
     public void startGame(ArrayList<Player> players) {
         this.players = players;
+
+        System.out.println(players.get(0));
+
+        for(Player player : players) {
+            street.get(0).hoverActualPlayer(player);
+        }
+
         setVisible(true);
-        System.out.println(players);
     }
 
     public void startNewTurn(Player playerThatIsGoingToPlay) {
@@ -108,7 +116,7 @@ public class Window extends JFrame {
     private void buildBoard() {
         board = new JPanel();
         board.setLayout(new MigLayout(
-                new LC().fill(),
+                new LC().fill().insets("0 0 0 0"),
                 new AC().gap("0"),
                 new AC().gap("0")
         ));
@@ -164,6 +172,7 @@ public class Window extends JFrame {
         ));
 
         JButton rool = new JButton("Tira i dadi");
+        rool.setMargin(new Insets(30,  30, 30, 30));
         rool.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
         rool.addActionListener(e -> {
             if(isMyTurn && !isRolled) {
@@ -172,6 +181,7 @@ public class Window extends JFrame {
         });
 
         JButton nextTurn = new JButton("Passa la turno successivo");
+        nextTurn.setMargin(new Insets(30,  30, 30, 30));
         nextTurn.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
         nextTurn.addActionListener(e -> {
             if(isMyTurn && isRolled) {

@@ -1,5 +1,6 @@
 package org.game.core.game;
 
+import com.google.gson.reflect.TypeToken;
 import javafx.util.Pair;
 import org.game.gui.match.Window;
 import org.json.JSONException;
@@ -28,12 +29,15 @@ public class Client  {
     private void initEvents() {
         client.onReceive("start_game", jsonObject -> {
             try {
-                ArrayList<Player> players = Game.GSON.fromJson(jsonObject.getString("players"), ArrayList.class);
+                ArrayList<Player> players = Game.GSON.fromJson(jsonObject.getString("players"), new TypeToken<ArrayList<Player>>(){}.getType());
+                System.out.println("Players recived => " + players);
+
                 window.startGame(players);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         });
+
         client.onReceive("new_turn", jsonObject -> {
             try {
                 Player player = Game.GSON.fromJson(jsonObject.getString("player"), Player.class);
@@ -50,7 +54,7 @@ public class Client  {
         client.onReceive("roll_res", jsonObject -> {
             System.out.println(me.getName() + " has got a roll response");
             try {
-                Pair rollData = Game.GSON.fromJson(jsonObject.getString("data"), Pair.class);
+                Pair<Integer, Integer> rollData = Game.GSON.fromJson(jsonObject.getString("data"), new TypeToken<Pair<Integer, Integer>>(){}.getType());
                 window.movePawn(rollData);
             } catch (JSONException e) {
                 e.printStackTrace();

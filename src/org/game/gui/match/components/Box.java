@@ -7,9 +7,7 @@ import net.miginfocom.layout.AC;
 import net.miginfocom.layout.CC;
 import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
-import org.game.core.game.Game;
 import org.game.core.game.Player;
-import sun.security.ec.point.ProjectivePoint;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +17,7 @@ import java.util.ArrayList;
 
 public abstract class Box extends JPanel implements ComponentListener, MouseListener {
 
+    private JPanel pawnContainer = new JPanel();
     protected ArrayList<Pair<JLabel, Player>> pawns = new ArrayList<>();
     protected ImageIcon icon;
 
@@ -31,12 +30,22 @@ public abstract class Box extends JPanel implements ComponentListener, MouseList
         this.icon = icon;
         this.name = name;
 
-
         setLayout(new MigLayout(
-                new LC().wrapAfter(2).fill().insets("0 0 30 0").debug(1000),
+                new LC().fill().insets("0 0 0 0"),
+                new AC().align("center"),
+                new AC().align("center")
+        ));
+
+        pawnContainer.setLayout(new MigLayout(
+                new LC().wrapAfter(2).fill().insets("0 0 0 0").debug(2000),
                 new AC().align("center").gap("2"),
                 new AC().align("center").gap("2")
         ));
+        pawnContainer.setOpaque(false);
+        pawnContainer.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
+
+
+        add(pawnContainer, new CC().grow());
 
         addComponentListener(this);
         addMouseListener(this);
@@ -45,21 +54,27 @@ public abstract class Box extends JPanel implements ComponentListener, MouseList
     public void hoverActualPlayer(Player player) {
 
         JLabel label = new JLabel();
-        label.setIcon(new ImageIcon(player.getPawn().getImage().getScaledInstance(40, 40, Image.SCALE_FAST)));
+        label.setIcon(new ImageIcon(player.getPawn().getImage().getScaledInstance(
+                label.getBounds().width != 0 ? label.getBounds().width : 20,
+                label.getBounds().height != 0 ? label.getBounds().height : 20,
+                Image.SCALE_FAST
+        )));
+
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setVerticalAlignment(SwingConstants.CENTER);
         label.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
                 super.componentResized(e);
-                //label.setIcon(new ImageIcon(player.getPawn().getImage().getScaledInstance(label.getBounds().width, label.getBounds().height, Image.SCALE_FAST)));
+                label.setIcon(new ImageIcon(player.getPawn().getImage().getScaledInstance(label.getBounds().width, label.getBounds().height, Image.SCALE_FAST)));
             }
         });
 
-        add(label, new CC().grow().height("20").width("20"));
+        pawnContainer.add(label, new CC().grow().height("20").width("20"));
         pawns.add(new Pair<>(label, player));
 
-        revalidate();
+        pawnContainer.revalidate();
+        pawnContainer.repaint();
     }
 
     public void moveAwayPlayer(Player player) {
@@ -70,9 +85,9 @@ public abstract class Box extends JPanel implements ComponentListener, MouseList
                 throw new Error("Sei un ritardato di merda impara a programmare");
             } else {
                 if(pawn.getValue().equals(player)) {
-                    remove(pawn.getKey());
-                    revalidate();
-                    repaint();
+                    pawnContainer.remove(pawn.getKey());
+                    pawnContainer.revalidate();
+                    pawnContainer.repaint();
 
                     pawns.remove(pawn);
                 }

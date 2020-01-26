@@ -31,7 +31,7 @@ public class Window extends JFrame {
 
     private JPanel panel;
     private JLabel budgetIndicator;
-
+    private JLabel actualPlayerName;
 
     private Container contentPane;
 
@@ -98,6 +98,7 @@ public class Window extends JFrame {
 
         isRolled = false;
         playingPlayer = playerThatIsGoingToPlay;
+        actualPlayerName.setText(playingPlayer.getName());
 
         isMyTurn = playingPlayer.equals(me);
         System.out.println(me.getName() + " dice " + isMyTurn);
@@ -157,14 +158,17 @@ public class Window extends JFrame {
                 new LC().alignY("center")
         ));
 
-        JLabel nameLabel = new JLabel("Nome:");
+        JLabel nameLabel = new JLabel("Io:");
         nameLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
 
         JLabel name = new JLabel(me.getName());
         name.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 25));
 
+        JLabel actualPlayerLabel = new JLabel("Giocatore attuale: ");
+        actualPlayerLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
 
-
+        actualPlayerName = new JLabel(playingPlayer != null ? playingPlayer.getName() : "null");
+        actualPlayerName.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 25));
 
         JPanel ownedProperties = new JPanel();
         ownedProperties.setLayout(new MigLayout(
@@ -196,8 +200,12 @@ public class Window extends JFrame {
                 ownedProperties.add(prop, new CC().width("60!").height("60!"));
             }
         }*/
+
         playerDatas.add(nameLabel);
-        playerDatas.add(name);
+        playerDatas.add(name, new CC().wrap());
+
+        playerDatas.add(actualPlayerLabel);
+        playerDatas.add(actualPlayerName);
 
         //playerDatas.add(ownedProperties, new CC());
 

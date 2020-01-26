@@ -7,19 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9b449004-755d-4559-8347-d0c883a27045" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/JMonopoli_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/JMonopoli_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JMonopoli.iml" beforeDir="false" afterPath="$PROJECT_DIR$/JMonopoli.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/JRocket-master.jar" beforeDir="false" afterPath="$PROJECT_DIR$/lib/JRocket-master.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/JMonopoli_jar/JMonopoli.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/JMonopoli_jar/JMonopoli.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/core/game/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/game/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/core/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/game/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/core/game/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/game/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/core/system/Network.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/system/Network.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/Window.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/Box.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/Box.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ClientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ClientManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ServerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ServerManager.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -126,7 +116,7 @@
       <workItem from="1577969251607" duration="71784000" />
       <workItem from="1578905438071" duration="1608000" />
       <workItem from="1579100280374" duration="30664000" />
-      <workItem from="1579461719768" duration="85989000" />
+      <workItem from="1579461719768" duration="90970000" />
     </task>
     <servers />
   </component>

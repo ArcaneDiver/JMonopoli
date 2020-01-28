@@ -5,7 +5,7 @@ public enum PropertyType {
     SVILUPPO,
     PRODUZIONE_ARMI,
     ALIMENTARI,
-    ALBERGHERE,
+    ALBERGHIERE,
     FERROVIERE,
     SPAZIALE,
     AUTOMOBILISTICA

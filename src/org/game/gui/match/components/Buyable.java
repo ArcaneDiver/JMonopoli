@@ -4,8 +4,6 @@ import org.game.core.game.Player;
 import org.game.core.game.PropertyType;
 
 import javax.swing.*;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 public class Buyable extends Box {
 
@@ -16,12 +14,10 @@ public class Buyable extends Box {
     private PropertyType type;
     private Player ownedBy;
 
-    private Integer numberOfHouses = 0;
+    private ImageIcon verticalIcon;
 
-    // Debug
-    public Buyable(String iconName) {
-        this("", iconName, 100, PropertyType.TESSILE);
-    }
+
+    private Integer numberOfHouses = 0;
 
     public Buyable(String name, String iconName, Integer cost, PropertyType type) {
         super(name, new ImageIcon(iconName));
@@ -29,6 +25,21 @@ public class Buyable extends Box {
         this.baseCost = cost;
         this.type = type;
         this.ownedBy = null;
+        this.verticalIcon = new ImageIcon(getVerticalIconFromType(type));
+    }
+
+    public boolean isBuyable() {
+        return ownedBy == null;
+    }
+
+    public boolean buy(Player player) {
+        ownedBy = player;
+
+        return player.buy(baseCost);
+    }
+
+    public void buyHome(Player player) {
+
     }
 
     public Integer getCostRelativeToHouses(int houses) {
@@ -37,6 +48,32 @@ public class Buyable extends Box {
         else return baseCost * ( houses + 1);
     }
 
+    public ImageIcon getVerticalIcon() {
+        return verticalIcon;
+    }
+
+    private String getVerticalIconFromType(PropertyType type) {
+        switch (type) {
+            case AUTOMOBILISTICA:
+                return "assets/mini_property/automobilistica.png";
+            case SPAZIALE:
+                return "assets/mini_property/spaziale.png";
+            case TESSILE:
+                return "assets/mini_property/tessile.png";
+            case SVILUPPO:
+                return "assets/mini_property/sviluppo.png";
+            case ALBERGHIERE:
+                return "assets/mini_property/alberghiere.png";
+            case ALIMENTARI:
+                return "assets/mini_property/alimentari.png";
+            case FERROVIERE:
+                return "assets/mini_property/ferroviere.png";
+            case PRODUZIONE_ARMI:
+                return "assets/mini_property/prod_armi.png";
+            default:
+                throw new Error("Michele è ritardato");
+        }
+    }
     @Override
     public String toString() {
         return super.toString() + "<br>" + String.format(

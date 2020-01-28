@@ -1,19 +1,24 @@
 package org.game.gui.match;
 
 import javafx.util.Pair;
-import net.miginfocom.layout.*;
+import net.miginfocom.layout.AC;
+import net.miginfocom.layout.CC;
+import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
-
 import org.game.core.Utils;
-import org.game.core.game.TurnHook;
 import org.game.core.game.Player;
 import org.game.core.game.PropertyType;
-import org.game.gui.match.components.*;
+import org.game.core.game.TurnHook;
 import org.game.gui.match.components.Box;
+import org.game.gui.match.components.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 public class Window extends JFrame {
 
@@ -108,9 +113,34 @@ public class Window extends JFrame {
         isRolled = true;
         street.get(playingPlayer.getPosition()).moveAwayPlayer(playingPlayer);
 
-        playingPlayer.move(/*roll.getKey() + roll.getValue()*/ 1);
+        if(playingPlayer.move(/*roll.getKey() + roll.getValue()*/ 1)) {
+            playingPlayer.passedFromTheStart();
+            budgetIndicator.setText(String.valueOf(playingPlayer.getBudget()));
+        }
 
-        street.get(playingPlayer.getPosition()).hoverActualPlayer(playingPlayer);
+        Box box = street.get(playingPlayer.getPosition());
+        box.hoverActualPlayer(playingPlayer);
+
+        if(isMyTurn) {
+            if (box instanceof Buyable) {
+                /*if (((Buyable) box).isBuyable()) {
+                    int res = JOptionPane.showConfirmDialog(contentPane, String.format("<html><h1>Vuoi comprare %s?</h1></html>", box.getName()));
+
+                    if (res == 0) {
+                        ((Buyable) box).buy(playingPlayer);
+                        budgetIndicator.setText(String.valueOf(playingPlayer.getBudget()));
+                    }
+                }*/
+            } else if (box instanceof Unforeseen) {
+
+            } else if (box instanceof DrinkingZone) {
+
+            } else if (box instanceof Gülag) {
+
+            } else if (box instanceof ToTheGülag) {
+
+            }
+        }
 
     }
 
@@ -170,14 +200,17 @@ public class Window extends JFrame {
         actualPlayerName = new JLabel(playingPlayer != null ? playingPlayer.getName() : "null");
         actualPlayerName.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 25));
 
-        JPanel ownedProperties = new JPanel();
-        ownedProperties.setLayout(new MigLayout(
-                new LC()
-        ));
+
 
         JButton rool = new JButton("Tira i dadi");
         rool.setMargin(new Insets(30,  30, 30, 30));
-        rool.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
+        rool.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 30));
+        rool.setBackground(Color.WHITE);
+        rool.setForeground(Color.BLACK);
+        rool.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.BLACK, 5),
+                BorderFactory.createEmptyBorder(30, 30, 30, 30)
+        ));
         rool.addActionListener(e -> {
             if(isMyTurn && !isRolled) {
                 handler.roll(this);
@@ -186,28 +219,65 @@ public class Window extends JFrame {
 
         JButton nextTurn = new JButton("Passa la turno successivo");
         nextTurn.setMargin(new Insets(30,  30, 30, 30));
-        nextTurn.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
+        nextTurn.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 30));
+        nextTurn.setBackground(Color.WHITE);
+        nextTurn.setForeground(Color.BLACK);
+        nextTurn.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        nextTurn.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.BLACK, 5),
+                BorderFactory.createEmptyBorder(30, 30, 30, 30)
+        ));
         nextTurn.addActionListener(e -> {
             if(isMyTurn && isRolled) {
                 handler.next(this);
             }
         });
 
-        /*
+        JLabel myProprieties = new JLabel("My own proprieties:");
+        myProprieties.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
+
+        JPanel ownedProperties = new JPanel();
+        ownedProperties.setLayout(new MigLayout(
+                new LC().wrapAfter(6).insets("0 0 0 0").gridGapY("10")
+        ));
+
         for (PropertyType type : proprieties.keySet()) {
-            for(int i = 0; i < prop)
-                JButton prop = new JButton(proprierty);
-                ownedProperties.add(prop, new CC().width("60!").height("60!"));
+            for(Box proprierty : proprieties.get(type)) {
+                if(proprierty instanceof Buyable) {
+                    JLabel label = new JLabel();
+                    label.setIcon(new ImageIcon(((Buyable) proprierty).getVerticalIcon().getImage().getScaledInstance(
+                            label.getBounds().width != 0 ? label.getBounds().width : 10,
+                            label.getBounds().height != 0 ? label.getBounds().height : 10,
+                            Image.SCALE_FAST
+                    )));
+
+                    label.addComponentListener(new ComponentAdapter() {
+                        @Override
+                        public void componentResized(ComponentEvent e) {
+                            super.componentResized(e);
+
+                            label.setIcon(new ImageIcon(((Buyable) proprierty).getVerticalIcon().getImage().getScaledInstance(
+                                    label.getBounds().width,
+                                    label.getBounds().height,
+                                    Image.SCALE_FAST
+                            )));
+                        }
+                    });
+
+
+                    ownedProperties.add(label, new CC().width("60").height("60").minHeight("1").minHeight("1"));
+                }
             }
-        }*/
+        }
 
         playerDatas.add(nameLabel);
         playerDatas.add(name, new CC().wrap());
 
         playerDatas.add(actualPlayerLabel);
-        playerDatas.add(actualPlayerName);
+        playerDatas.add(actualPlayerName, new CC().wrap().gapY("0", "70"));
 
-        //playerDatas.add(ownedProperties, new CC());
+        playerDatas.add(myProprieties, new CC().wrap());
+        playerDatas.add(ownedProperties, new CC().grow());
 
         panel.add(playerDatas, new CC().alignX("left").wrap().grow());
         panel.add(nextTurn, new CC().dockSouth());
@@ -215,18 +285,18 @@ public class Window extends JFrame {
     }
 
     private void buildTopOfBoard() {
-        Corner start = new Corner("Via");
+        Start start = new Start();
         board.add(start, buildConstraints());
         street.add(start);
 
         buildTessile();
-        NonBuyable nonBuyable1 = new NonBuyable("assets/RET_VER_BIANCO.png");
+        Unforeseen nonBuyable1 = new Unforeseen("assets/RET_VER_BIANCO.png");
         board.add(nonBuyable1, buildConstraints(56, 98));
         street.add(nonBuyable1);
 
         buildSviluppo();
 
-        Corner jail = new Corner("Gülag");
+        Gülag jail = new Gülag();
         board.add(jail, buildConstraintsWithWrap());
         street.add(jail);
     }
@@ -260,7 +330,7 @@ public class Window extends JFrame {
             }
 
             if(i == 1) {
-                Corner main = new Corner("", "assets/main.png");
+                DrinkingZone main = new DrinkingZone();
                 board.add(main, buildConstraints(500, 500).span(9, 9));
             }
 
@@ -270,29 +340,28 @@ public class Window extends JFrame {
     }
 
     private void buildBottomOfBoard() {
-        
-        
-        Corner areaRiposo = new Corner("Area riposo");
-        board.add(areaRiposo, buildConstraints());
+
+        ToTheGülag toTheGülag = new ToTheGülag();
+        board.add(toTheGülag, buildConstraints());
 
         buildSpaziale();
 
-        NonBuyable nonBuyable2 = new NonBuyable("assets/RET_VER_BIANCO.png");
-        board.add(nonBuyable2, buildConstraints(56, 98));
+        Unforeseen unforeseen = new Unforeseen("assets/RET_VER_BIANCO.png");
+        board.add(unforeseen, buildConstraints(56, 98));
 
         buildAutomobilistica();
 
-        Corner toJail = new Corner("Deportazione");
-        board.add(toJail, buildConstraintsWithWrap());
+        DrinkingZone drinkingZone = new DrinkingZone();
+        board.add(drinkingZone, buildConstraintsWithWrap());
 
 
         ArrayList<Box> bottom = new ArrayList<>();
 
-        bottom.add(areaRiposo);
+        bottom.add(toTheGülag);
         bottom.addAll(proprieties.get(PropertyType.SPAZIALE));
-        bottom.add(nonBuyable2);
+        bottom.add(unforeseen);
         bottom.addAll(proprieties.get(PropertyType.AUTOMOBILISTICA));
-        bottom.add(toJail);
+        bottom.add(drinkingZone);
 
         street.addAll(20, Utils.reverseList(bottom));
         
@@ -300,18 +369,18 @@ public class Window extends JFrame {
         
     private void buildTessile() {
         // Nome Temporanei
-        Buyable tessile1 = new Buyable("assets/property/RET_VER_MARRONE.png");
+        Buyable tessile1 = new Buyable("", "assets/property/tessile.png", 1000, PropertyType.TESSILE);
         board.add(tessile1, buildConstraints(56, 98));
 
 
-        NonBuyable nonBuyable1 = new NonBuyable("assets/RET_VER_BIANCO.png");
-        board.add(nonBuyable1, buildConstraints(56, 98));
+        Unforeseen unforeseen = new Unforeseen("assets/RET_VER_BIANCO.png");
+        board.add(unforeseen, buildConstraints(56, 98));
 
 
-        Buyable tessile2 = new Buyable("assets/property/RET_VER_MARRONE.png");
+        Buyable tessile2 = new Buyable("", "assets/property/tessile.png", 1000, PropertyType.TESSILE);
         board.add(tessile2, buildConstraints(56, 98));
 
-        Buyable tessile3 = new Buyable("assets/property/RET_VER_MARRONE.png");
+        Buyable tessile3 = new Buyable("", "assets/property/tessile.png", 1000, PropertyType.TESSILE);
         board.add(tessile3, buildConstraints(56, 98));
 
 
@@ -322,7 +391,7 @@ public class Window extends JFrame {
         vector.add(tessile3);
 
         street.add(tessile1);
-        street.add(nonBuyable1);
+        street.add(unforeseen);
         street.add(tessile2);
         street.add(tessile3);
 
@@ -330,18 +399,18 @@ public class Window extends JFrame {
     }
 
     private void buildSviluppo() {
-        Buyable sviluppo1 = new Buyable("assets/property/RET_XVER_MARRONE.png");
+        Buyable sviluppo1 = new Buyable("", "assets/property/sviluppo.png", 1000, PropertyType.SVILUPPO);
         board.add(sviluppo1, buildConstraints(56, 98));
 
-        Buyable sviluppo2 = new Buyable("assets/property/RET_XVER_MARRONE.png");
+        Buyable sviluppo2 = new Buyable("", "assets/property/sviluppo.png", 1000, PropertyType.SVILUPPO);
         board.add(sviluppo2, buildConstraints(56, 98));
 
 
-        NonBuyable nonBuyable1 = new NonBuyable("assets/RET_VER_BIANCO.png");
-        board.add(nonBuyable1, buildConstraints(56, 98));
+        Unforeseen unforeseen = new Unforeseen("assets/RET_VER_BIANCO.png");
+        board.add(unforeseen, buildConstraints(56, 98));
 
 
-        Buyable sviluppo3 = new Buyable("assets/property/RET_XVER_MARRONE.png");
+        Buyable sviluppo3 = new Buyable("", "assets/property/sviluppo.png", 1000, PropertyType.SVILUPPO);
         board.add(sviluppo3, buildConstraints(56, 98));
 
 
@@ -354,7 +423,7 @@ public class Window extends JFrame {
 
         street.add(sviluppo1);
         street.add(sviluppo2);
-        street.add(nonBuyable1);
+        street.add(unforeseen);
         street.add(sviluppo3);
 
         proprieties.put(PropertyType.SVILUPPO, vector);
@@ -363,10 +432,10 @@ public class Window extends JFrame {
     private Iterator<Box> buildProdArmi() {
         ArrayList<Box> vector = new ArrayList<>();
 
-        Buyable armi1 = new Buyable("assets/property/RET_ORI_VIOLA.png");
+        Buyable armi1 = new Buyable("", "assets/property/prod_armi.png", 1000, PropertyType.PRODUZIONE_ARMI);
         Unforeseen probilità = new Unforeseen("assets/RET_ORR_BIANCO.png");
-        Buyable armi2 = new Buyable("assets/property/RET_ORI_VIOLA.png");
-        Buyable armi3 = new Buyable("assets/property/RET_ORI_VIOLA.png");
+        Buyable armi2 = new Buyable("", "assets/property/prod_armi.png", 1000, PropertyType.PRODUZIONE_ARMI);
+        Buyable armi3 = new Buyable("", "assets/property/prod_armi.png", 1000, PropertyType.PRODUZIONE_ARMI);
         Unforeseen probabilitàCentrale = new Unforeseen("assets/RET_ORR_BIANCO.png");
 
         vector.add(armi1);
@@ -390,21 +459,21 @@ public class Window extends JFrame {
     private Iterator<Box> buildCibarie() {
         ArrayList<Box> vector = new ArrayList<>();
 
-        Buyable alimenti1 = new Buyable("assets/property/RET_ORI_VERDE.png");
+        Buyable alimentari1 = new Buyable("", "assets/property/alimentari.png", 1000, PropertyType.ALIMENTARI);
         Unforeseen probilità = new Unforeseen("assets/RET_ORR_BIANCO.png");
-        Buyable alimenti2 = new Buyable("assets/property/RET_ORI_VERDE.png");
-        Buyable alimenti3 = new Buyable("assets/property/RET_ORI_VERDE.png");
+        Buyable alimentari2 = new Buyable("", "assets/property/alimentari.png", 1000, PropertyType.ALIMENTARI);
+        Buyable alimentari3 = new Buyable("", "assets/property/alimentari.png", 1000, PropertyType.ALIMENTARI);
 
 
-        vector.add(alimenti1);
+        vector.add(alimentari1);
         vector.add(probilità);
-        vector.add(alimenti2);
-        vector.add(alimenti3);
+        vector.add(alimentari2);
+        vector.add(alimentari3);
 
-        street.add(alimenti3);
-        street.add(alimenti2);
+        street.add(alimentari3);
+        street.add(alimentari2);
         street.add(probilità);
-        street.add(alimenti1);
+        street.add(alimentari1);
 
         proprieties.put(PropertyType.ALIMENTARI, vector);
 
@@ -414,10 +483,10 @@ public class Window extends JFrame {
     private Iterator<Box> buildAlberghiera() {
         ArrayList<Box> vector = new ArrayList<>();
 
-        Buyable alberghiero1 = new Buyable("assets/property/RET_ORI_ARANCIONE.png");
+        Buyable alberghiero1 = new Buyable("", "assets/property/alberghiere.png", 1000, PropertyType.ALBERGHIERE);
         Unforeseen probabilità = new Unforeseen("assets/RET_ORR_BIANCO.png");
-        Buyable alberghiero2 = new Buyable("assets/property/RET_ORI_ARANCIONE.png");
-        Buyable alberghiero3 = new Buyable("assets/property/RET_ORI_ARANCIONE.png");
+        Buyable alberghiero2 = new Buyable("", "assets/property/alberghiere.png", 1000, PropertyType.ALBERGHIERE);
+        Buyable alberghiero3 = new Buyable("", "assets/property/alberghiere.png", 1000, PropertyType.ALBERGHIERE);
         Unforeseen probabilitàCentrale = new Unforeseen("assets/RET_ORR_BIANCO.png");
 
         vector.add(alberghiero1);
@@ -433,7 +502,7 @@ public class Window extends JFrame {
         street.add(alberghiero3);
         street.add(probabilitàCentrale);
 
-        proprieties.put(PropertyType.ALBERGHERE, vector);
+        proprieties.put(PropertyType.ALBERGHIERE, vector);
 
         return vector.iterator();
     }
@@ -441,10 +510,10 @@ public class Window extends JFrame {
     private Iterator<Box> buildFerroviera() {
         ArrayList<Box> vector = new ArrayList<>();
 
-        vector.add(new Buyable("assets/property/RET_ORI_ROSA.png"));
-        vector.add(new Buyable("assets/property/RET_ORI_ROSA.png"));
+        vector.add(new Buyable("", "assets/property/ferroviere.png", 1000, PropertyType.FERROVIERE));
+        vector.add(new Buyable("", "assets/property/ferroviere.png", 1000, PropertyType.FERROVIERE));
         vector.add(new Unforeseen("assets/RET_ORR_BIANCO.png"));
-        vector.add(new Buyable("assets/property/RET_ORI_ROSA.png"));
+        vector.add(new Buyable("", "assets/property/ferroviere.png", 1000, PropertyType.FERROVIERE));
 
         street.addAll(vector);
 
@@ -454,27 +523,27 @@ public class Window extends JFrame {
     }
 
     private void buildSpaziale() {
-        Buyable spaziale1 = new Buyable("assets/property/RET_VER_GIALLO.png");
+        Buyable spaziale1 = new Buyable("", "assets/property/spaziale.png", 1000, PropertyType.SPAZIALE);
         board.add(spaziale1, buildConstraints(56, 98));
 
-        NonBuyable nonBuyable = new NonBuyable("assets/RET_VER_BIANCO.png");
-        board.add(nonBuyable, buildConstraints(56, 98));
+        Unforeseen unforeseen = new Unforeseen("assets/RET_VER_BIANCO.png");
+        board.add(unforeseen, buildConstraints(56, 98));
 
-        Buyable spaziale2 = new Buyable("assets/property/RET_VER_GIALLO.png");
+        Buyable spaziale2 = new Buyable("", "assets/property/spaziale.png", 1000, PropertyType.SPAZIALE);
         board.add(spaziale2, buildConstraints(56, 98));
 
-        Buyable spaziale3 = new Buyable("assets/property/RET_VER_GIALLO.png");
+        Buyable spaziale3 = new Buyable("", "assets/property/spaziale.png", 1000, PropertyType.SPAZIALE);
         board.add(spaziale3, buildConstraints(56, 98));
 
         ArrayList<Box> vector = new ArrayList<>();
 
         vector.add(spaziale1);
-        vector.add(nonBuyable);
+        vector.add(unforeseen);
         vector.add(spaziale2);
         vector.add(spaziale3);
 
         street.add(spaziale1);
-        street.add(nonBuyable);
+        street.add(unforeseen);
         street.add(spaziale2);
         street.add(spaziale3);
 
@@ -482,28 +551,28 @@ public class Window extends JFrame {
     }
 
     private void buildAutomobilistica() {
-        Buyable automobilistica1 = new Buyable("assets/property/RET_VER_ROSSO.png");
+        Buyable automobilistica1 = new Buyable("", "assets/property/automobilistica.png", 1000, PropertyType.AUTOMOBILISTICA);
         board.add(automobilistica1, buildConstraints(56, 98));
 
-        Buyable automobilistica2 = new Buyable("assets/property/RET_VER_ROSSO.png");
+        Buyable automobilistica2 = new Buyable("", "assets/property/automobilistica.png", 1000, PropertyType.AUTOMOBILISTICA);
         board.add(automobilistica2, buildConstraints(56, 98));
 
-        NonBuyable nonBuyable = new NonBuyable("assets/RET_VER_BIANCO.png");
-        board.add(nonBuyable, buildConstraints(56, 98));
+        Unforeseen unforeseen = new Unforeseen("assets/RET_VER_BIANCO.png");
+        board.add(unforeseen, buildConstraints(56, 98));
 
-        Buyable automobilistica3 = new Buyable("assets/property/RET_VER_ROSSO.png");
+        Buyable automobilistica3 = new Buyable("", "assets/property/automobilistica.png", 1000, PropertyType.AUTOMOBILISTICA);
         board.add(automobilistica3, buildConstraints(56, 98));
 
         ArrayList<Box> vector = new ArrayList<>();
 
         vector.add(automobilistica1);
         vector.add(automobilistica2);
-        vector.add(nonBuyable);
+        vector.add(unforeseen);
         vector.add(automobilistica3);
 
         street.add(automobilistica1);
         street.add(automobilistica2);
-        street.add(nonBuyable);
+        street.add(unforeseen);
         street.add(automobilistica3);
 
         proprieties.put(PropertyType.AUTOMOBILISTICA, vector);

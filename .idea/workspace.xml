@@ -7,9 +7,47 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9b449004-755d-4559-8347-d0c883a27045" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/assets/mini_property/alberghiere.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mini_property/alimentari.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mini_property/automobilistica.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mini_property/ferroviere.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mini_property/prod_armi.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mini_property/spaziale.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mini_property/sviluppo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mini_property/tessile.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/property/alberghiere.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/property/alimentari.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/property/automobilistica.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/property/ferroviere.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/property/prod_armi.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/property/spaziale.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/property/sviluppo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/property/tessile.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/Gülag.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/Start.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/ToTheGülag.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/property/RET_ORI_ARANCIONE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/property/RET_ORI_ROSA.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/property/RET_ORI_VERDE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/property/RET_ORI_VIOLA.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/property/RET_VER_GIALLO.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/property/RET_VER_MARRONE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/property/RET_VER_ROSSO.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/property/RET_XVER_MARRONE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/JMonopoli_jar/JMonopoli.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/JMonopoli_jar/JMonopoli.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/Monopoli.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/Monopoli.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/core/game/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/game/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/core/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/game/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/core/game/Hoverable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/core/game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/game/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/core/game/PropertyType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/game/PropertyType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/Window.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/Box.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/Box.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/Buyable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/Buyable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/Corner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/DrinkingZone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/NonBuyable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/Unforeseen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/Unforeseen.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,8 +74,8 @@
       <list>
         <option value="package-info" />
         <option value="Enum" />
-        <option value="Interface" />
         <option value="Kotlin File" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -63,7 +101,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="last.edited.regexp" value="192.168.2.1" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/assets" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/out/artifacts/JMonopoli_jar/JMonopoli.jar" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
     <property name="project.structure.last.edited" value="Artifacts" />
@@ -74,6 +112,9 @@
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="org.game.gui.match.components" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\famiglia\IdeaProjects\JMonopoli" />
     </key>
@@ -90,7 +131,17 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Monopoli">
+    <configuration name="JAR Monopoli" type="JarApplication">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/JMonopoli_jar/JMonopoli.jar" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\famiglia\IdeaProjects\JMonopoli" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.Monopoli" />
+      <item itemvalue="JAR Application.JAR Monopoli" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Monopoli" />
@@ -116,7 +167,7 @@
       <workItem from="1577969251607" duration="71784000" />
       <workItem from="1578905438071" duration="1608000" />
       <workItem from="1579100280374" duration="30664000" />
-      <workItem from="1579461719768" duration="90970000" />
+      <workItem from="1579461719768" duration="124017000" />
     </task>
     <servers />
   </component>

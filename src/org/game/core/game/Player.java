@@ -8,14 +8,17 @@ import java.util.ArrayList;
 public class Player {
 
     private int UUID = (int) java.util.UUID.randomUUID().getLeastSignificantBits();
+
     private String name;
-    private Integer budget;
-    private ArrayList<Buyable> properties;
-    private ImageIcon pawn;
-    private String pawnPath;
+    private Long budget;
     private int position;
 
-    public Player(String name, int startBudget, String icon) {
+    private ArrayList<Buyable> properties;
+
+    private ImageIcon pawn;
+    private String pawnPath;
+
+    public Player(String name, Long startBudget, String icon) {
         this.name = name;
 
         budget = startBudget;
@@ -24,9 +27,12 @@ public class Player {
 
         properties = new ArrayList<>();
 
-        System.out.println("Player called for " + name);
 
         position = 0;
+    }
+
+    public void passedFromTheStart() {
+        budget += Game.START_GIFT;
     }
 
 
@@ -38,6 +44,12 @@ public class Player {
             position += steps;
             return false;
         }
+    }
+
+    public boolean buy(int cost) {
+        budget -= cost;
+
+        return budget < 0;
     }
 
     public int getPosition() {
@@ -52,11 +64,11 @@ public class Player {
         return name;
     }
 
-    public void setBudget(Integer budget) {
+    public void setBudget(Long budget) {
         this.budget = budget;
     }
 
-    public Integer getBudget() {
+    public Long getBudget() {
         return budget;
     }
 

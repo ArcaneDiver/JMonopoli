@@ -30,8 +30,7 @@ public class Client  {
         client.onReceive("start_game", jsonObject -> {
             try {
                 ArrayList<Player> players = Game.GSON.fromJson(jsonObject.getString("players"), new TypeToken<ArrayList<Player>>(){}.getType());
-                System.out.println("Players recived => " + players);
-
+                System.out.println("I am " + me.getName() + " and Players recived => " + players);
                 window.startGame(players);
             } catch (JSONException e) {
                 e.printStackTrace();

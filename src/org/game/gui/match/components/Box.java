@@ -2,11 +2,11 @@ package org.game.gui.match.components;
 
 import com.google.gson.annotations.SerializedName;
 import javafx.util.Pair;
-import jdk.nashorn.internal.scripts.JO;
 import net.miginfocom.layout.AC;
 import net.miginfocom.layout.CC;
 import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
+import org.game.core.game.Game;
 import org.game.core.game.Player;
 
 import javax.swing.*;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public abstract class Box extends JPanel implements ComponentListener, MouseListener {
 
     private JPanel pawnContainer = new JPanel();
-    protected ArrayList<Pair<JLabel, Player>> pawns = new ArrayList<>();
+    protected ArrayList<Pair<JLabel, Player>> pawns = new ArrayList<>(4);
     protected ImageIcon icon;
 
 
@@ -31,65 +31,64 @@ public abstract class Box extends JPanel implements ComponentListener, MouseList
         this.name = name;
 
         setLayout(new MigLayout(
-                new LC().fill().insets("0 0 0 0"),
+                new LC().fill().insets("0 0 0 0").wrapAfter(2),
                 new AC().align("center"),
                 new AC().align("center")
         ));
 
-        pawnContainer.setLayout(new MigLayout(
-                new LC().wrapAfter(2).fill().insets("0 0 0 0").debug(2000),
-                new AC().align("center").gap("2"),
-                new AC().align("center").gap("2")
-        ));
-        pawnContainer.setOpaque(false);
-        pawnContainer.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
+        for(int i = 0; i < Game.MAX_NUMBER_OF_PLAYERS; i++) {
+            JLabel label = new JLabel();
 
+            label.setHorizontalAlignment(SwingConstants.CENTER);
+            label.setVerticalAlignment(SwingConstants.CENTER);
 
-        add(pawnContainer, new CC().grow());
+            label.setBorder(BorderFactory.createEmptyBorder());
+
+            label.setVisible(false);
+
+            pawns.add(new Pair<>(label, null));
+            add(label, new CC().grow().minWidth("1").minHeight("1").width("20").height("20"));
+        }
 
         addComponentListener(this);
         addMouseListener(this);
     }
 
     public void hoverActualPlayer(Player player) {
-
-        JLabel label = new JLabel();
-        label.setIcon(new ImageIcon(player.getPawn().getImage().getScaledInstance(
-                label.getBounds().width != 0 ? label.getBounds().width : 20,
-                label.getBounds().height != 0 ? label.getBounds().height : 20,
-                Image.SCALE_FAST
-        )));
-
-        label.setHorizontalAlignment(SwingConstants.CENTER);
-        label.setVerticalAlignment(SwingConstants.CENTER);
-        label.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                super.componentResized(e);
-                label.setIcon(new ImageIcon(player.getPawn().getImage().getScaledInstance(label.getBounds().width, label.getBounds().height, Image.SCALE_FAST)));
+        for(Pair<JLabel, Player> pair : new ArrayList<>(pawns)) {
+            if(pair.getValue() == null) {
+                Pair<JLabel, Player> newPair = new Pair<>(pair.getKey(), player);
+                pawns.set(pawns.indexOf(pair), newPair);
+                pair = newPair;
             }
-        });
 
-        pawnContainer.add(label, new CC().grow().height("20").width("20"));
-        pawns.add(new Pair<>(label, player));
+            if(pair.getValue().equals(player)) {
+                int smallestSize = getBounds().width < getBounds().height ? getBounds().width : getBounds().height;
+                pair.getKey().setIcon(new ImageIcon(player.getPawn().getImage().getScaledInstance(
+                        smallestSize / 4 != 0 ? smallestSize / 4  : 20,
+                        smallestSize / 4 != 0 ? smallestSize / 4 : 20,
+                        Image.SCALE_FAST
+                )));
 
-        pawnContainer.revalidate();
-        pawnContainer.repaint();
+
+                pair.getKey().setVisible(true);
+
+                break;
+            }
+        }
     }
 
     public void moveAwayPlayer(Player player) {
 
         // https://stackoverflow.com/questions/9806421/concurrentmodificationexception-when-adding-inside-a-foreach-loop-in-arraylist
-        for(Pair<JLabel, Player> pawn : new ArrayList<>(pawns)) {
+        for(Pair<JLabel, Player> pawn : pawns) {
             if(pawn == null) {
                 throw new Error("Sei un ritardato di merda impara a programmare");
             } else {
-                if(pawn.getValue().equals(player)) {
-                    pawnContainer.remove(pawn.getKey());
-                    pawnContainer.revalidate();
-                    pawnContainer.repaint();
-
-                    pawns.remove(pawn);
+                System.out.println(pawn.getValue());
+                if(pawn.getValue() != null && pawn.getValue().equals(player)) {
+                    pawn.getKey().setVisible(false);
+                    break;
                 }
             }
         }
@@ -109,6 +108,7 @@ public abstract class Box extends JPanel implements ComponentListener, MouseList
                 )
         );
     }
+
 
     @Override
     public String toString() {

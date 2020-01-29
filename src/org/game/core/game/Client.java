@@ -39,6 +39,7 @@ public class Client  {
 
         client.onReceive("new_turn", jsonObject -> {
             try {
+
                 Player player = Game.GSON.fromJson(jsonObject.getString("player"), Player.class);
 
                 System.out.println(me.getName() + " turno di " + player.getName());
@@ -55,6 +56,26 @@ public class Client  {
             try {
                 Pair<Integer, Integer> rollData = Game.GSON.fromJson(jsonObject.getString("data"), new TypeToken<Pair<Integer, Integer>>(){}.getType());
                 window.movePawn(rollData);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        });
+
+        client.onReceive("buy", jsonObject -> {
+
+        });
+
+        client.onReceive("loose", jsonObject -> {
+
+            try {
+                Player playerThatLoose = Game.GSON.fromJson(jsonObject.getString("player"), new TypeToken<Player>(){}.getType());
+
+                if(me.equals(playerThatLoose)) {
+                    client.disconnect();
+                    window.dispose();
+                }
+
+                window.loosePlayer(playerThatLoose);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -80,6 +101,17 @@ public class Client  {
             public void roll(Window window) {
                 System.out.println(me.getName() + " has request a roll");
                 client.send("roll", new JSONObject());
+            }
+
+            @Override
+            public void loose(Window window) {
+                try {
+                    client.send("loose", new JSONObject()
+                            .put("player", Game.GSON.toJson(me))
+                    );
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }));
     }

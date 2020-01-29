@@ -17,6 +17,8 @@ import java.util.ArrayList;
 
 public abstract class Box extends JPanel implements ComponentListener, MouseListener {
 
+    private int UUID = (int) java.util.UUID.randomUUID().getLeastSignificantBits();
+
     private JPanel pawnContainer = new JPanel();
     protected ArrayList<Pair<JLabel, Player>> pawns = new ArrayList<>(4);
     protected ImageIcon icon;
@@ -115,6 +117,14 @@ public abstract class Box extends JPanel implements ComponentListener, MouseList
         return String.format("<b>Nome:</b> [ %s ]", name);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Box && ((Box) obj).getUUID() == UUID;
+    }
+
+    public int getUUID() {
+        return UUID;
+    }
 
     @Override
     protected void paintComponent(Graphics g) {

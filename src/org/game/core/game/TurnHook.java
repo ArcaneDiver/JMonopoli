@@ -6,4 +6,5 @@ import org.json.JSONException;
 public interface TurnHook {
     public void next(Window window);
     public void roll(Window window);
+    public void loose(Window window);
 }

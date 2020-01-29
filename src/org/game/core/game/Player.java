@@ -12,8 +12,9 @@ public class Player {
     private String name;
     private Long budget;
     private int position;
-
     private ArrayList<Buyable> properties;
+    private boolean deported;
+    private boolean inGame;
 
     private ImageIcon pawn;
     private String pawnPath;
@@ -27,7 +28,8 @@ public class Player {
 
         properties = new ArrayList<>();
 
-
+        deported = false;
+        inGame = true;
         position = 0;
     }
 
@@ -37,6 +39,7 @@ public class Player {
 
 
     public boolean move(int steps) {
+
         if(position + steps > Game.STREET_LENGTH - 1) {
             position = steps - (Game.STREET_LENGTH - position);
             return true;
@@ -50,6 +53,27 @@ public class Player {
         budget -= cost;
 
         return budget < 0;
+    }
+
+    public boolean isDeported() {
+        return deported;
+    }
+
+    public void deportToTheGülag() {
+        position = 10;
+        deported = true;
+    }
+
+    public void releaseFromTheGülag() {
+        deported = false;
+    }
+
+    public void loose() {
+        inGame = false;
+    }
+
+    public boolean isInGame() {
+        return inGame;
     }
 
     public int getPosition() {
@@ -96,7 +120,4 @@ public class Player {
         return UUID;
     }
 
-    public void setUUID(int uuid) {
-        this.UUID = uuid;
-    }
 }

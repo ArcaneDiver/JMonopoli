@@ -10,6 +10,7 @@ public final class Game {
     public static final long INITIAL_BUDGET = 100000;
     public static final int START_GIFT = 20000;
     public static final byte STREET_LENGTH = 40;
+    public static final byte GÜLAG_POSITION = 10;
     public static final short PORT = 31234;
 
     // Global Context perchè non ho voglia di modificare i construttori

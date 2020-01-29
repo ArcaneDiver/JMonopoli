@@ -22,7 +22,6 @@ import java.util.Iterator;
 
 public class Window extends JFrame {
 
-    private ArrayList<Player> players;
     private Player me;
     private Player playingPlayer;
 
@@ -71,8 +70,8 @@ public class Window extends JFrame {
         buildPanel();
 
 
-        contentPane.add(board, new CC().growX(60).growY());
-        contentPane.add(panel, new CC().growX(40).growY());
+        contentPane.add(board, new CC().growX(60).growY().minHeight("1").minWidth("1"));
+        contentPane.add(panel, new CC().growX(40).growY().minHeight("1").minWidth("1"));
 
 
         // Full screen
@@ -88,9 +87,7 @@ public class Window extends JFrame {
     }
 
     public void startGame(ArrayList<Player> players) {
-        this.players = players;
 
-        System.out.println(players.get(0));
 
         for(Player player : players) {
             street.get(0).hoverActualPlayer(player);
@@ -110,10 +107,13 @@ public class Window extends JFrame {
     }
 
     public void movePawn(Pair<Integer, Integer> roll) {
+
         isRolled = true;
+
         street.get(playingPlayer.getPosition()).moveAwayPlayer(playingPlayer);
 
-        if(playingPlayer.move(/*roll.getKey() + roll.getValue()*/ 1)) {
+
+        if (playingPlayer.move(/*roll.getKey() + roll.getValue()*/ 1)) {
             playingPlayer.passedFromTheStart();
             budgetIndicator.setText(String.valueOf(playingPlayer.getBudget()));
         }
@@ -134,14 +134,37 @@ public class Window extends JFrame {
             } else if (box instanceof Unforeseen) {
 
             } else if (box instanceof DrinkingZone) {
-
+                JOptionPane.showMessageDialog(null, messageBuilder("Fratelo russ"));
             } else if (box instanceof Gülag) {
-
+                if(playingPlayer.isDeported()) {
+                    JOptionPane.showMessageDialog(null, messageBuilder("Stai attento al sapone..."));
+                }
             } else if (box instanceof ToTheGülag) {
+                street.get(playingPlayer.getPosition()).moveAwayPlayer(playingPlayer);
+                playingPlayer.deportToTheGülag();
+                street.get(playingPlayer.getPosition()).hoverActualPlayer(playingPlayer);
 
+                JOptionPane.showMessageDialog(null, messageBuilder("Ti hanno catturato! <br>Sarai deportato nel Gülag mi raccomando stai attento al sapone...</h1></html>"));
             }
         }
 
+    }
+
+    public void updateProprierties(ArrayList<Player> players) {
+        for(Player player : players) {
+            for(Buyable proprierty : player.getProperties()) {
+                for(Box box : new ArrayList<>(street)) {
+                    if(box.equals(proprierty)) {
+                        street.set(street.indexOf(box), proprierty);
+                    }
+                }
+            }
+        }
+    }
+
+
+    public void loosePlayer(Player playerThatLoose) {
+        JOptionPane.showMessageDialog(null, messageBuilder(String.format("")));
     }
 
     private void buildBoard() {
@@ -212,7 +235,7 @@ public class Window extends JFrame {
                 BorderFactory.createEmptyBorder(30, 30, 30, 30)
         ));
         rool.addActionListener(e -> {
-            if(isMyTurn && !isRolled) {
+            if(isMyTurn && !isRolled && !playingPlayer.isDeported()) {
                 handler.roll(this);
             }
         });
@@ -228,7 +251,11 @@ public class Window extends JFrame {
                 BorderFactory.createEmptyBorder(30, 30, 30, 30)
         ));
         nextTurn.addActionListener(e -> {
+
             if(isMyTurn && isRolled) {
+                if(!playingPlayer.isInGame()) {
+                    dispose();
+                }
                 handler.next(this);
             }
         });
@@ -255,7 +282,6 @@ public class Window extends JFrame {
                         @Override
                         public void componentResized(ComponentEvent e) {
                             super.componentResized(e);
-
                             label.setIcon(new ImageIcon(((Buyable) proprierty).getVerticalIcon().getImage().getScaledInstance(
                                     label.getBounds().width,
                                     label.getBounds().height,
@@ -265,23 +291,23 @@ public class Window extends JFrame {
                     });
 
 
-                    ownedProperties.add(label, new CC().width("60").height("60").minHeight("1").minHeight("1"));
+                    ownedProperties.add(label, new CC().width("60").height("60").minHeight("1").minHeight("1").grow());
                 }
             }
         }
 
-        playerDatas.add(nameLabel);
-        playerDatas.add(name, new CC().wrap());
+        playerDatas.add(nameLabel, new CC().grow());
+        playerDatas.add(name, new CC().wrap().grow());
 
-        playerDatas.add(actualPlayerLabel);
-        playerDatas.add(actualPlayerName, new CC().wrap().gapY("0", "70"));
+        playerDatas.add(actualPlayerLabel, new CC().grow());
+        playerDatas.add(actualPlayerName, new CC().wrap().gapY("0", "70").grow());
 
-        playerDatas.add(myProprieties, new CC().wrap());
-        playerDatas.add(ownedProperties, new CC().grow());
+        playerDatas.add(myProprieties, new CC().wrap().grow());
+        playerDatas.add(ownedProperties, new CC().grow().minHeight("1").minWidth("1").height("100").width("200"));
 
-        panel.add(playerDatas, new CC().alignX("left").wrap().grow());
-        panel.add(nextTurn, new CC().dockSouth());
-        panel.add(rool, new CC().dockSouth());
+        panel.add(playerDatas, new CC().alignX("left").wrap().grow().minWidth("1").minHeight("1"));
+        panel.add(nextTurn, new CC().dockSouth().minWidth("1").minHeight("1"));
+        panel.add(rool, new CC().dockSouth().minWidth("1").minHeight("1"));
     }
 
     private void buildTopOfBoard() {
@@ -330,7 +356,7 @@ public class Window extends JFrame {
             }
 
             if(i == 1) {
-                DrinkingZone main = new DrinkingZone();
+                Main main = new Main();
                 board.add(main, buildConstraints(500, 500).span(9, 9));
             }
 
@@ -583,7 +609,7 @@ public class Window extends JFrame {
     }
 
     private CC buildConstraints(int width, int height) {
-        return new CC().grow().width(Integer.toString(width)).height(Integer.toString(height)).minWidth("10").minHeight("10");
+        return new CC().grow().width(Integer.toString(width)).height(Integer.toString(height)).minWidth("1").minHeight("1");
     }
 
     private CC buildConstraintsWithWrap() {
@@ -592,5 +618,9 @@ public class Window extends JFrame {
 
     private CC buildConstraintsWithWrap(int width, int height) {
         return buildConstraints(width, height).wrap();
+    }
+
+    private String messageBuilder(String body) {
+        return String.format("<html><h1>%s</h1></html>", body);
     }
 }

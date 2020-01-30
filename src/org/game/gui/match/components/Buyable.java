@@ -3,39 +3,43 @@ package org.game.gui.match.components;
 import org.game.core.game.Player;
 import org.game.core.game.PropertyType;
 
+import com.google.gson.annotations.*;
 import javax.swing.*;
 
 public class Buyable extends Box {
 
-    /**
-     * Costo di base che verra moltipicato in base alle case
-     */
-    private Integer baseCost;
-    private PropertyType type;
-    private Player ownedBy;
 
-    private ImageIcon verticalIcon;
+    @Expose private Integer baseCost;
 
+    @Expose private PropertyType type;
 
-    private Integer numberOfHouses = 0;
+    @Expose(serialize = false) private Player owner;
+
+    @Expose private ImageIcon verticalIcon;
+
+    @Expose private Integer numberOfHouses = 0;
 
     public Buyable(String name, String iconName, Integer cost, PropertyType type) {
         super(name, new ImageIcon(iconName));
 
         this.baseCost = cost;
         this.type = type;
-        this.ownedBy = null;
+        this.owner = null;
         this.verticalIcon = new ImageIcon(getVerticalIconFromType(type));
     }
 
     public boolean isBuyable() {
-        return ownedBy == null;
+        return owner == null;
     }
 
     public boolean buy(Player player) {
-        ownedBy = player;
+        owner = player;
 
-        return player.buy(baseCost);
+        return player.buy(baseCost, this);
+    }
+
+    public void setOwner(Player player) {
+        owner = player;
     }
 
     public void buyHome(Player player) {
@@ -48,6 +52,9 @@ public class Buyable extends Box {
         else return baseCost * ( houses + 1);
     }
 
+    public boolean isOwnedBy(Player player) {
+        return player.equals(owner);
+    }
     public ImageIcon getVerticalIcon() {
         return verticalIcon;
     }
@@ -80,6 +87,6 @@ public class Buyable extends Box {
                 "<b>Costo per acquistare:</b> %s<br>" +
                 "<b>Posseduto da:</b> <i>%s</i><br>" +
                 "<b>Tipologia:</b> %s<br>",
-                baseCost, ownedBy == null ? "terreno aquistabile" : ownedBy.getName(), type.name());
+                baseCost, owner == null ? "terreno aquistabile" : owner.getName(), type.name());
     }
 }

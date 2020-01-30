@@ -40,6 +40,7 @@ public class Server {
 
                 server.send("new_turn", new JSONObject()
                         .put("player", Game.GSON.toJson(playerOfNextTurn.getKey(), Player.class))
+                        .put("players", Game.GSON.toJson(players, new TypeToken<ArrayList<Player>>(){}.getType()))
                 );
 
                 window.startNewTurn(playerOfNextTurn.getKey());
@@ -72,7 +73,8 @@ public class Server {
                         Pair<Player, Boolean> nextPlayer = getNextPlayerInTheTurn(player);
 
                         server.send("new_turn", new JSONObject()
-                                .put("player", Game.GSON.toJson(nextPlayer.getKey()))
+                                .put("player", Game.GSON.toJson(nextPlayer.getKey(), new TypeToken<Player>(){}.getType()))
+                                .put("players", Game.GSON.toJson(players, new TypeToken<ArrayList<Player>>(){}.getType()))
                         );
 
                         window.startNewTurn(nextPlayer.getKey());
@@ -111,6 +113,7 @@ public class Server {
 
                 server.send("new_turn", new JSONObject()
                         .put("player", Game.GSON.toJson(player, Player.class))
+                        .put("players", Game.GSON.toJson(players, new TypeToken<ArrayList<Player>>(){}.getType()))
                 );
 
                 window.startNewTurn(player);

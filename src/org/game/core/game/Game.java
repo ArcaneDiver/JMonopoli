@@ -1,7 +1,9 @@
 package org.game.core.game;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.util.Pair;
+
 
 import java.util.ArrayList;
 
@@ -16,7 +18,7 @@ public final class Game {
     // Global Context perchè non ho voglia di modificare i construttori
     public static ArrayList<Player> players;
 
-    public static final Gson GSON = new Gson();
+    public static final Gson GSON = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 
     private Game() { }
 

@@ -1,7 +1,8 @@
 package org.game.gui.match.components;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import javafx.util.Pair;
+import org.javatuples.Pair;
 import net.miginfocom.layout.AC;
 import net.miginfocom.layout.CC;
 import net.miginfocom.layout.LC;
@@ -17,15 +18,13 @@ import java.util.ArrayList;
 
 public abstract class Box extends JPanel implements ComponentListener, MouseListener {
 
-    private int UUID = (int) java.util.UUID.randomUUID().getLeastSignificantBits();
-
     private JPanel pawnContainer = new JPanel();
     protected ArrayList<Pair<JLabel, Player>> pawns = new ArrayList<>(4);
     protected ImageIcon icon;
 
 
     @SerializedName("boxName")
-    protected String name;
+    @Expose protected String name;
 
     public Box(String name, ImageIcon icon) {
 
@@ -58,22 +57,22 @@ public abstract class Box extends JPanel implements ComponentListener, MouseList
 
     public void hoverActualPlayer(Player player) {
         for(Pair<JLabel, Player> pair : new ArrayList<>(pawns)) {
-            if(pair.getValue() == null) {
-                Pair<JLabel, Player> newPair = new Pair<>(pair.getKey(), player);
+            if(pair.getValue1() == null) {
+                Pair<JLabel, Player> newPair = new Pair<>(pair.getValue0(), player);
                 pawns.set(pawns.indexOf(pair), newPair);
                 pair = newPair;
             }
 
-            if(pair.getValue().equals(player)) {
-                int smallestSize = getBounds().width < getBounds().height ? getBounds().width : getBounds().height;
-                pair.getKey().setIcon(new ImageIcon(player.getPawn().getImage().getScaledInstance(
+            if(pair.getValue1().equals(player)) {
+                int smallestSize = Math.min(getBounds().width, getBounds().height);
+                pair.getValue0().setIcon(new ImageIcon(player.getPawn().getImage().getScaledInstance(
                         smallestSize / 4 != 0 ? smallestSize / 4  : 20,
                         smallestSize / 4 != 0 ? smallestSize / 4 : 20,
-                        Image.SCALE_FAST
+                        Image.SCALE_SMOOTH
                 )));
 
 
-                pair.getKey().setVisible(true);
+                pair.getValue0().setVisible(true);
 
                 break;
             }
@@ -87,18 +86,23 @@ public abstract class Box extends JPanel implements ComponentListener, MouseList
             if(pawn == null) {
                 throw new Error("Sei un ritardato di merda impara a programmare");
             } else {
-                System.out.println(pawn.getValue());
-                if(pawn.getValue() != null && pawn.getValue().equals(player)) {
-                    pawn.getKey().setVisible(false);
+                System.out.println(pawn.getValue1());
+                if(pawn.getValue1() != null && pawn.getValue1().equals(player)) {
+                    pawn.getValue0().setVisible(false);
                     break;
                 }
             }
         }
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public void componentResized(ComponentEvent e) {
-        icon = new ImageIcon(icon.getImage().getScaledInstance(getBounds().width, getBounds().height, Image.SCALE_FAST));
+        icon = new ImageIcon(icon.getImage().getScaledInstance(getBounds().width, getBounds().height, Image.SCALE_AREA_AVERAGING));
+        repaint();
     }
 
     @Override
@@ -119,12 +123,9 @@ public abstract class Box extends JPanel implements ComponentListener, MouseList
 
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof Box && ((Box) obj).getUUID() == UUID;
+        return obj instanceof Box && ((Box) obj).getName().equals(name);
     }
 
-    public int getUUID() {
-        return UUID;
-    }
 
     @Override
     protected void paintComponent(Graphics g) {

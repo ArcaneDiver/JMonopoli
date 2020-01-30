@@ -1,5 +1,6 @@
 package org.game.gui.match;
 
+
 import javafx.util.Pair;
 import net.miginfocom.layout.AC;
 import net.miginfocom.layout.CC;
@@ -11,6 +12,7 @@ import org.game.core.game.PropertyType;
 import org.game.core.game.TurnHook;
 import org.game.gui.match.components.Box;
 import org.game.gui.match.components.*;
+import org.javatuples.Triplet;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,7 +28,7 @@ public class Window extends JFrame {
     private Player playingPlayer;
 
     private HashMap<PropertyType, ArrayList<Box>> proprieties = new HashMap<>();
-    private ArrayList<Pair<JLabel, Buyable>> ownedProps = new ArrayList<>();
+    private ArrayList<Triplet<JLabel, Buyable, Boolean>> ownedProps = new ArrayList<>();
     private ArrayList<Box> street = new ArrayList<>();
     private TurnHook handler;
 
@@ -123,14 +125,15 @@ public class Window extends JFrame {
 
         if(isMyTurn) {
             if (box instanceof Buyable) {
-                /*if (((Buyable) box).isBuyable()) {
+                if (((Buyable) box).isBuyable()) {
                     int res = JOptionPane.showConfirmDialog(contentPane, String.format("<html><h1>Vuoi comprare %s?</h1></html>", box.getName()));
 
                     if (res == 0) {
                         ((Buyable) box).buy(playingPlayer);
                         budgetIndicator.setText(String.valueOf(playingPlayer.getBudget()));
+                        updateMyOwnProps();
                     }
-                }*/
+                }
             } else if (box instanceof Unforeseen) {
 
             } else if (box instanceof DrinkingZone) {
@@ -141,7 +144,7 @@ public class Window extends JFrame {
                 }
             } else if (box instanceof ToTheGülag) {
                 street.get(playingPlayer.getPosition()).moveAwayPlayer(playingPlayer);
-                playingPlayer.deportToTheGülag();
+                playingPlayer.deportToTheGulag();
                 street.get(playingPlayer.getPosition()).hoverActualPlayer(playingPlayer);
 
                 JOptionPane.showMessageDialog(null, messageBuilder("Ti hanno catturato! <br>Sarai deportato nel Gülag mi raccomando stai attento al sapone...</h1></html>"));
@@ -151,16 +154,32 @@ public class Window extends JFrame {
 
     public void updateProprierties(ArrayList<Player> players) {
         for(Player player : players) {
-            for(Buyable proprierty : player.getProperties()) {
+            for(Buyable proprierty : player.getProperty()) {
+
+                proprierty.setOwner(player);
+                System.out.println(proprierty);
                 for(Box box : new ArrayList<>(street)) {
                     if(box.equals(proprierty)) {
-                        street.set(street.indexOf(box), proprierty);
+                        ((Buyable) street.get(street.indexOf(box))).setOwner(player);
                     }
                 }
             }
         }
     }
 
+    private void updateMyOwnProps() {
+        for(Buyable property : me.getProperty()) {
+            for(Triplet<JLabel, Buyable, Boolean> tuple : new ArrayList<>(ownedProps)) {
+                if(tuple.getValue1().equals(property)) {
+                    tuple.getValue0().setIcon(new ImageIcon(tuple.getValue1().getVerticalIcon().getImage().getScaledInstance(
+                            tuple.getValue0().getBounds().width != 0 ? tuple.getValue0().getBounds().width: 10,
+                            tuple.getValue0().getBounds().height != 0 ? tuple.getValue0().getBounds().height : 20,
+                            Image.SCALE_FAST
+                    )));
+                }
+            }
+        }
+    }
     public void loosePlayer(Player playerThatLoose) {
         JOptionPane.showMessageDialog(null, messageBuilder(String.format("Il compagno %s putroppo è disperso <br>beviamo vodka in sua memoria", playerThatLoose.getName())));
     }
@@ -270,7 +289,7 @@ public class Window extends JFrame {
             for(Box proprierty : proprieties.get(type)) {
                 if(proprierty instanceof Buyable) {
                     JLabel label = new JLabel();
-                    label.setIcon(new ImageIcon(((Buyable) proprierty).getVerticalIcon().getImage().getScaledInstance(
+                    label.setIcon(new ImageIcon(new ImageIcon("assets/mini_property/not_owned.png").getImage().getScaledInstance(
                             label.getBounds().width != 0 ? label.getBounds().width : 10,
                             label.getBounds().height != 0 ? label.getBounds().height : 10,
                             Image.SCALE_FAST
@@ -280,15 +299,28 @@ public class Window extends JFrame {
                         @Override
                         public void componentResized(ComponentEvent e) {
                             super.componentResized(e);
-                            label.setIcon(new ImageIcon(((Buyable) proprierty).getVerticalIcon().getImage().getScaledInstance(
-                                    label.getBounds().width,
-                                    label.getBounds().height,
-                                    Image.SCALE_FAST
-                            )));
+                            for(Triplet<JLabel, Buyable, Boolean> triplet : ownedProps) {
+                                if(label.equals(triplet.getValue0())) {
+                                    if(triplet.getValue2()) {
+                                        label.setIcon(new ImageIcon(((Buyable) proprierty).getVerticalIcon().getImage().getScaledInstance(
+                                                label.getBounds().width,
+                                                label.getBounds().height,
+                                                Image.SCALE_FAST
+                                        )));
+                                    } else {
+                                        label.setIcon(new ImageIcon(new ImageIcon("assets/mini_property/not_owned.png").getImage().getScaledInstance(
+                                                label.getBounds().width,
+                                                label.getBounds().height,
+                                                Image.SCALE_FAST
+                                        )));
+                                    }
+                                }
+                            }
+
                         }
                     });
 
-                    ownedProps.add(new Pair<>(label, (Buyable) proprierty));
+                    ownedProps.add(new Triplet<>(label, (Buyable) proprierty, false));
                     ownedProperties.add(label, new CC().width("60").height("100").minHeight("1").minHeight("1").grow());
                 }
             }

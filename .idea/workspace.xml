@@ -7,38 +7,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9b449004-755d-4559-8347-d0c883a27045" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/gulag.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/imprevisti_destra.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/imprevisti_giu.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/imprevisti_sinistra.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/imprevisti_su.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/property/BROKENVODKA.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/property/CASAGOPNIK.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/property/CASANOSTRA.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/property/CASAVLADIMIR.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/property/FAKEDAS.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/property/GLIASINIVOLANO.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/property/HARDBASSRAILWAY.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/property/ICRICETISERVONO.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/property/KALASHNIKOV.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/property/KVASS.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/property/PATATE.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/property/ROULETTE.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/property/RZD.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/property/SONOBUONELESCIMMIE.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/property/TRENOSPIA.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/property/VODKA.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/to_gulag.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/zona_calma.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/mini_property/not_owned.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/property/BLIN.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/javatuples-1.2-sources.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/javatuples-1.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/game/core/game/EventSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/JMonopoli_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/JMonopoli_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/Start.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/Start.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/main.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/main.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JMonopoli.iml" beforeDir="false" afterPath="$PROJECT_DIR$/JMonopoli.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/core/game/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/game/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/core/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/game/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/core/game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/game/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/core/game/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/game/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/Window.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/DrinkingZone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/DrinkingZone.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/Gülag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/Gülag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/Start.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/Start.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/ToTheGülag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/ToTheGülag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/Box.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/Box.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/Buyable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/Buyable.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -92,10 +75,10 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="last.edited.regexp" value="192.168.2.1" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/out/artifacts/JMonopoli_jar/JMonopoli.jar" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -158,7 +141,7 @@
       <workItem from="1577969251607" duration="71784000" />
       <workItem from="1578905438071" duration="1608000" />
       <workItem from="1579100280374" duration="30664000" />
-      <workItem from="1579461719768" duration="144868000" />
+      <workItem from="1579461719768" duration="160486000" />
     </task>
     <servers />
   </component>

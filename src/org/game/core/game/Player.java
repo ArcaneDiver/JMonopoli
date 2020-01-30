@@ -1,5 +1,6 @@
 package org.game.core.game;
 
+import com.google.gson.annotations.Expose;
 import org.game.gui.match.components.Buyable;
 
 import javax.swing.*;
@@ -7,17 +8,18 @@ import java.util.ArrayList;
 
 public class Player {
 
-    private int UUID = (int) java.util.UUID.randomUUID().getLeastSignificantBits();
 
-    private String name;
-    private Long budget;
-    private int position;
-    private ArrayList<Buyable> properties;
-    private boolean deported;
-    private boolean inGame;
+    @Expose private int UUID = (int) java.util.UUID.randomUUID().getLeastSignificantBits();
 
-    private ImageIcon pawn;
-    private String pawnPath;
+    @Expose private String name;
+    @Expose private Long budget;
+    @Expose private int position;
+    @Expose private ArrayList<Buyable> property;
+    @Expose private boolean deported;
+    @Expose private boolean inGame;
+
+    @Expose private ImageIcon pawn;
+    @Expose private String pawnPath;
 
     public Player(String name, Long startBudget, String icon) {
         this.name = name;
@@ -26,7 +28,7 @@ public class Player {
         pawn = new ImageIcon(icon);
         pawnPath = icon;
 
-        properties = new ArrayList<>();
+        property = new ArrayList<>();
 
         deported = false;
         inGame = true;
@@ -49,8 +51,9 @@ public class Player {
         }
     }
 
-    public boolean buy(int cost) {
+    public boolean buy(int cost, Buyable propertyToBuy) {
         budget -= cost;
+        property.add(propertyToBuy);
 
         return budget < 0;
     }
@@ -59,12 +62,12 @@ public class Player {
         return deported;
     }
 
-    public void deportToTheGülag() {
+    public void deportToTheGulag() {
         position = 10;
         deported = true;
     }
 
-    public void releaseFromTheGülag() {
+    public void releaseFromTheGulag() {
         deported = false;
     }
 
@@ -96,12 +99,12 @@ public class Player {
         return budget;
     }
 
-    public void setProperties(ArrayList<Buyable> properties) {
-        this.properties = properties;
+    public void setProperty(ArrayList<Buyable> property) {
+        this.property = property;
     }
 
-    public ArrayList<Buyable> getProperties() {
-        return properties;
+    public ArrayList<Buyable> getProperty() {
+        return property;
     }
 
     public ImageIcon getPawn() {

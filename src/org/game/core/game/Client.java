@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import xyz.farhanfarooqui.JRocket.JRocketClient;
 
 import javax.swing.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Client  {
@@ -41,10 +42,13 @@ public class Client  {
             try {
 
                 Player player = Game.GSON.fromJson(jsonObject.getString("player"), Player.class);
+                ArrayList<Player> players = Game.GSON.fromJson(jsonObject.getString("players"), new TypeToken<ArrayList<Player>>(){}.getType());
 
                 System.out.println(me.getName() + " turno di " + player.getName());
 
+                window.updateProprierties(players);
                 window.startNewTurn(player);
+
 
             } catch (JSONException e) {
                 e.printStackTrace();

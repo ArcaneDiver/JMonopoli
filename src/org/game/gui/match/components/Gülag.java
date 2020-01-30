@@ -5,7 +5,7 @@ import javax.swing.*;
 public class Gülag extends Box {
 
     public Gülag() {
-        super("Gülag", new ImageIcon("assets/corner.png"));
+        super("Gülag", new ImageIcon("assets/gulag.png"));
     }
 
 }

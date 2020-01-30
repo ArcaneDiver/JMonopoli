@@ -96,6 +96,11 @@ public class Server {
                         e.printStackTrace();
                     }
                 }
+
+                @Override
+                public void loose(Window window) {
+
+                }
             });
 
             try {

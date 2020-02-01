@@ -3,6 +3,7 @@ package org.game.core.game;
 import com.google.gson.reflect.TypeToken;
 import javafx.util.Pair;
 import org.game.gui.match.Window;
+import org.game.gui.match.components.Buyable;
 import org.json.JSONException;
 import org.json.JSONObject;
 import xyz.farhanfarooqui.JRocket.JRocketServer;
@@ -14,7 +15,7 @@ public class Server {
 
     private JRocketServer server;
     private ArrayList<Player> players;
-    private Player player;
+    private Player me;
 
     private Window window;
 
@@ -23,12 +24,12 @@ public class Server {
         this.server = server;
         this.players = players;
 
-        player = me;
+        this.me = me;
 
-        players.add(player);
+        players.add(this.me);
 
         initEvents();
-        initUI(player);
+        initUI(this.me);
 
     }
 
@@ -36,6 +37,8 @@ public class Server {
         server.onReceive("turn_done", (jsonObject, client) -> {
             try {
                 Player playerThatDone = Game.GSON.fromJson(jsonObject.getString("player"), Player.class);
+                players.get(players.indexOf(playerThatDone)).setProperty(playerThatDone.getProperty());
+
                 Pair<Player, Boolean> playerOfNextTurn = getNextPlayerInTheTurn(playerThatDone);
 
                 server.send("new_turn", new JSONObject()
@@ -43,7 +46,9 @@ public class Server {
                         .put("players", Game.GSON.toJson(players, new TypeToken<ArrayList<Player>>(){}.getType()))
                 );
 
+
                 window.startNewTurn(playerOfNextTurn.getKey());
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -53,11 +58,66 @@ public class Server {
             Pair<Integer, Integer> roll = Game.roll();
 
             try {
-                server.send("roll_res", new JSONObject()
-                        .put("data", Game.GSON.toJson(roll, new TypeToken<Pair<Integer, Integer>>(){}.getType()))
+                server.send("roll_complete", new JSONObject()
+                        .put("1", Game.GSON.toJson(roll.getKey(), new TypeToken<Integer>(){}.getType()))
+                        .put("2", Game.GSON.toJson(roll.getValue(), new TypeToken<Integer>(){}.getType()))
                 );
 
                 window.movePawn(roll);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        });
+
+        server.onReceive("buy", (jsonObject, client) -> {
+            try {
+                Player buyer = Game.GSON.fromJson(jsonObject.getString("buyer"), new TypeToken<Player>(){}.getType());
+                Buyable property = Game.GSON.fromJson(jsonObject.getString("property"), new TypeToken<Buyable>(){}.getType());
+
+                buyer.buy(property.getCostRelativeToHouses(), property);
+                players.set(players.indexOf(buyer), buyer);
+
+
+                server.send("buy_complete", new JSONObject()
+                    .put("buyer", Game.GSON.toJson(buyer, new TypeToken<Player>(){}.getType()))
+                    .put("property", Game.GSON.toJson(property, new TypeToken<Buyable>(){}.getType()))
+                );
+
+                window.buyComplete(buyer, property);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        });
+
+        server.onReceive("pay", (jsonObject, client) -> {
+            try {
+                Player payer = Game.GSON.fromJson(jsonObject.getString("payer"), new TypeToken<Player>(){}.getType());
+                Player toBePayed = Game.GSON.fromJson(jsonObject.getString("toBePayed"), new TypeToken<Player>(){}.getType());
+                int howMuchPay = Game.GSON.fromJson(jsonObject.getString("money"), new TypeToken<Integer>(){}.getType());
+
+                payer.pay(toBePayed, howMuchPay);
+
+                players.set(players.indexOf(payer), payer);
+                players.set(players.indexOf(toBePayed), toBePayed);
+
+
+                server.send("pay_complete", new JSONObject()
+                    .put("payer", Game.GSON.toJson(payer, new TypeToken<Player>(){}.getType()))
+                    .put("toBePayed", Game.GSON.toJson(toBePayed, new TypeToken<Player>(){}.getType()))
+                    .put("money", Game.GSON.toJson(howMuchPay, new TypeToken<Integer>(){}.getType()))
+                );
+
+                if(toBePayed.equals(me)) {
+                    me = toBePayed;
+                    window.updatePlayer(me);
+                } else if(payer.equals(me)) {
+                    me = payer;
+                    window.updatePlayer(me);
+                }
+
+
+
+                window.payComplete(payer, toBePayed, howMuchPay);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -77,6 +137,7 @@ public class Server {
                                 .put("players", Game.GSON.toJson(players, new TypeToken<ArrayList<Player>>(){}.getType()))
                         );
 
+                        window.updateProprierties(players);
                         window.startNewTurn(nextPlayer.getKey());
 
                     } catch (JSONException e) {
@@ -89,14 +150,58 @@ public class Server {
                     Pair<Integer, Integer> roll = Game.roll();
 
                     try {
-                        server.send("roll_res", new JSONObject()
-                                .put("data", Game.GSON.toJson(roll, new TypeToken<Pair<Integer, Integer>>(){}.getType()))
+                        server.send("roll_complete", new JSONObject()
+                                .put("1", Game.GSON.toJson(roll.getKey(), new TypeToken<Integer>(){}.getType()))
+                                .put("2", Game.GSON.toJson(roll.getValue(), new TypeToken<Integer>(){}.getType()))
                         );
+
 
                         window.movePawn(roll);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                }
+
+                @Override
+                public void buy(Window window, Buyable toBuy) {
+                    me = window.getPlayingPlayer();
+                    me.buy(toBuy.getCostRelativeToHouses(), toBuy);
+
+                    players.set(players.indexOf(me), me);
+
+                    try {
+                        server.send("buy_complete", new JSONObject()
+                                .put("buyer", Game.GSON.toJson(me, new TypeToken<Player>(){}.getType()))
+                                .put("property", Game.GSON.toJson(toBuy, new TypeToken<Buyable>(){}.getType()))
+                        );
+
+                        window.updatePlayer(me);
+                        window.buyComplete(me, toBuy);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                @Override
+                public void pay(Window window, Player toBePayed, int money) {
+                    me.pay(toBePayed, money);
+
+                    players.set(players.indexOf(me), me);
+                    players.set(players.indexOf(toBePayed), toBePayed);
+
+                    try {
+                        server.send("pay_complete", new JSONObject()
+                                .put("payer", Game.GSON.toJson(me, new TypeToken<Player>(){}.getType()))
+                                .put("toBePayed", Game.GSON.toJson(toBePayed, new TypeToken<Player>(){}.getType()))
+                                .put("money", Game.GSON.toJson(money, new TypeToken<Integer>(){}.getType()))
+                        );
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    window.updatePlayer(me);
+                    window.payComplete(me, toBePayed, money);
                 }
 
                 @Override

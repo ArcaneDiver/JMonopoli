@@ -53,7 +53,16 @@ public class Player {
 
     public boolean buy(int cost, Buyable propertyToBuy) {
         budget -= cost;
+
         property.add(propertyToBuy);
+
+        return budget < 0;
+    }
+
+    public boolean pay(Player toBePayed, int money) {
+        budget -= money;
+
+        toBePayed.setBudget(toBePayed.getBudget() + (budget < 0 ? money - ( - budget) : money));
 
         return budget < 0;
     }
@@ -123,4 +132,8 @@ public class Player {
         return UUID;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Name: %s, Property: %s, Position: %s, Budget: %s", name, property, position, budget);
+    }
 }

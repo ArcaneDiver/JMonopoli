@@ -7,21 +7,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9b449004-755d-4559-8347-d0c883a27045" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/mini_property/not_owned.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/property/BLIN.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/javatuples-1.2-sources.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/javatuples-1.2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/org/game/core/game/EventSystem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/property/lada.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/property/post-crash_car.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/property/vladicar.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/artifacts/JMonopoli_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/JMonopoli_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JMonopoli.iml" beforeDir="false" afterPath="$PROJECT_DIR$/JMonopoli.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pawn.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/pawn.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/property/BLIN.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/JMonopoli_jar/JMonopoli.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/JMonopoli_jar/JMonopoli.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/core/game/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/game/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/core/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/game/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/core/game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/game/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/core/game/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/game/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/core/game/TurnHook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/game/TurnHook.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/Window.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/Box.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/Box.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/Buyable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/Buyable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/Gülag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/Gulag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/ToTheGülag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/ToTheGulag.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -78,11 +81,11 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/lib" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
+    <property name="settings.editor.selected.configurable" value="MTConfigurable" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
@@ -141,7 +144,7 @@
       <workItem from="1577969251607" duration="71784000" />
       <workItem from="1578905438071" duration="1608000" />
       <workItem from="1579100280374" duration="30664000" />
-      <workItem from="1579461719768" duration="160486000" />
+      <workItem from="1579461719768" duration="191843000" />
     </task>
     <servers />
   </component>

@@ -14,6 +14,7 @@ public final class Game {
     public static final byte STREET_LENGTH = 40;
     public static final byte GÜLAG_POSITION = 10;
     public static final short PORT = 31234;
+    public static final String RUBLO = "RUB";
 
     // Global Context perchè non ho voglia di modificare i construttori
     public static ArrayList<Player> players;

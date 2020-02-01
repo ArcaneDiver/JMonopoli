@@ -56,6 +56,8 @@ public abstract class Box extends JPanel implements ComponentListener, MouseList
     }
 
     public void hoverActualPlayer(Player player) {
+
+        // https://stackoverflow.com/questions/9806421/concurrentmodificationexception-when-adding-inside-a-foreach-loop-in-arraylist
         for(Pair<JLabel, Player> pair : new ArrayList<>(pawns)) {
             if(pair.getValue1() == null) {
                 Pair<JLabel, Player> newPair = new Pair<>(pair.getValue0(), player);
@@ -74,27 +76,28 @@ public abstract class Box extends JPanel implements ComponentListener, MouseList
 
                 pair.getValue0().setVisible(true);
 
-                break;
+                return;
             }
         }
     }
 
     public void moveAwayPlayer(Player player) {
 
-        // https://stackoverflow.com/questions/9806421/concurrentmodificationexception-when-adding-inside-a-foreach-loop-in-arraylist
         for(Pair<JLabel, Player> pawn : pawns) {
             if(pawn == null) {
-                throw new Error("Sei un ritardato di merda impara a programmare");
+                throw new Error("Sei un ritardato, impara a programmare");
             } else {
-                System.out.println(pawn.getValue1());
+
                 if(pawn.getValue1() != null && pawn.getValue1().equals(player)) {
                     pawn.getValue0().setVisible(false);
-                    break;
+                    return;
                 }
             }
         }
+        throw new Error("Failed to remove the player form the box");
     }
 
+    @Override
     public String getName() {
         return name;
     }

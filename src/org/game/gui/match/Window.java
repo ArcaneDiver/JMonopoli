@@ -7,6 +7,7 @@ import net.miginfocom.layout.CC;
 import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
 import org.game.core.Utils;
+import org.game.core.game.Game;
 import org.game.core.game.Player;
 import org.game.core.game.PropertyType;
 import org.game.core.game.TurnHook;
@@ -30,7 +31,7 @@ public class Window extends JFrame {
     private HashMap<PropertyType, ArrayList<Box>> proprieties = new HashMap<>();
     private ArrayList<Triplet<JLabel, Buyable, Boolean>> ownedProps = new ArrayList<>();
     private ArrayList<Box> street = new ArrayList<>();
-    private TurnHook handler;
+    private TurnHook hook;
 
     private JPanel window;
 
@@ -50,9 +51,8 @@ public class Window extends JFrame {
         super("Monopoli");
 
         this.me = me;
-        this.handler = handleNextTurn;
+        this.hook = handleNextTurn;
 
-        System.out.println(me);
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -105,7 +105,7 @@ public class Window extends JFrame {
         actualPlayerName.setText(playingPlayer.getName());
 
         isMyTurn = playingPlayer.equals(me);
-        System.out.println(me.getName() + " dice " + isMyTurn);
+        System.out.println(isMyTurn ? "è il turno di " + me.getName() : "non è il turno " + me.getName());
     }
 
     public void movePawn(Pair<Integer, Integer> roll) {
@@ -114,61 +114,92 @@ public class Window extends JFrame {
 
         street.get(playingPlayer.getPosition()).moveAwayPlayer(playingPlayer);
 
-
+        System.out.println("Before: " + street.get(playingPlayer.getPosition()));
         if (playingPlayer.move(/*roll.getKey() + roll.getValue()*/ 1)) {
             playingPlayer.passedFromTheStart();
-            budgetIndicator.setText(String.valueOf(playingPlayer.getBudget()));
-        }
+            updatePlayerBudget();
 
+            JOptionPane.showMessageDialog(contentPane, messageBuilder(isMyTurn
+                    ? String.format("Sei passato dal via ecco a te %s %s", Game.START_GIFT, Game.RUBLO)
+                    : String.format("%s è passato dal via ed ha ritirato il premio", playingPlayer.getName())));
+        }
+        System.out.println("After: " +  street.get(playingPlayer.getPosition()));
+        System.out.println(playingPlayer);
         Box box = street.get(playingPlayer.getPosition());
         box.hoverActualPlayer(playingPlayer);
+
+        repaint();
 
         if(isMyTurn) {
             if (box instanceof Buyable) {
                 if (((Buyable) box).isBuyable()) {
-                    int res = JOptionPane.showConfirmDialog(contentPane, String.format("<html><h1>Vuoi comprare %s?</h1></html>", box.getName()));
+                    int res = JOptionPane.showConfirmDialog(contentPane, messageBuilder(String.format("Vuoi comprare %s<br>al prezzo di %s rubli", box.getName(), ((Buyable) box).getCostRelativeToHouses())));
 
                     if (res == 0) {
-                        ((Buyable) box).buy(playingPlayer);
-                        budgetIndicator.setText(String.valueOf(playingPlayer.getBudget()));
-                        updateMyOwnProps();
+                        hook.buy(this, (Buyable) box);
                     }
+                } else if(!((Buyable) box).getOwner().equals(me)) {
+                    hook.pay(this, ((Buyable) box).getOwner(), ((Buyable) box).getCostRelativeToHouses());
                 }
             } else if (box instanceof Unforeseen) {
 
             } else if (box instanceof DrinkingZone) {
-                JOptionPane.showMessageDialog(null, messageBuilder(String.format("Fratello %s bevi un bicchierino di vodka con noi", playingPlayer.getName())));
-            } else if (box instanceof Gülag) {
+                JOptionPane.showMessageDialog(contentPane, messageBuilder(String.format("Fratello %s bevi un bicchierino di vodka con noi", me.getName())));
+            } else if (box instanceof Gulag) {
                 if(playingPlayer.isDeported()) {
-                    JOptionPane.showMessageDialog(null, messageBuilder("Stai attento al sapone..."));
+                    JOptionPane.showMessageDialog(contentPane, messageBuilder("Stai attento al sapone..."));
                 }
-            } else if (box instanceof ToTheGülag) {
+            } else if (box instanceof ToTheGulag) {
                 street.get(playingPlayer.getPosition()).moveAwayPlayer(playingPlayer);
                 playingPlayer.deportToTheGulag();
                 street.get(playingPlayer.getPosition()).hoverActualPlayer(playingPlayer);
 
-                JOptionPane.showMessageDialog(null, messageBuilder("Ti hanno catturato! <br>Sarai deportato nel Gülag mi raccomando stai attento al sapone...</h1></html>"));
+                JOptionPane.showMessageDialog(contentPane, messageBuilder("Ti hanno catturato! <br>Sarai deportato nel Gülag mi raccomando stai attento al sapone...</h1></html>"));
             }
         }
     }
 
     public void updateProprierties(ArrayList<Player> players) {
         for(Player player : players) {
-            for(Buyable proprierty : player.getProperty()) {
-
-                proprierty.setOwner(player);
-                System.out.println(proprierty);
-                for(Box box : new ArrayList<>(street)) {
-                    if(box.equals(proprierty)) {
-                        ((Buyable) street.get(street.indexOf(box))).setOwner(player);
+            for(Buyable property : player.getProperty()) {
+                for (Box box : street) {
+                    if(property.equals(box)) {
+                        ((Buyable) box).setOwner(player);
                     }
                 }
             }
         }
     }
 
+    public void buyComplete(Player buyer, Buyable property) {
+
+        System.out.println("Buyer " + buyer);
+        ((Buyable) street.get(street.indexOf(property))).setOwner(buyer);
+
+
+        if(buyer.equals(me)) {
+            updateMyOwnProps();
+            updatePlayerBudget();
+            JOptionPane.showMessageDialog(contentPane, messageBuilder(String.format("%s ha complatato l' acquisto completato!", me.getName())));
+        } else {
+            JOptionPane.showMessageDialog(contentPane, messageBuilder(String.format("%s ha comprato %s", buyer.getName(), property.getName())));
+        }
+    }
+
+    public void payComplete(Player payer, Player paid, int cost) {
+        if(payer.equals(me)) {
+            updatePlayerBudget();
+            JOptionPane.showMessageDialog(contentPane, messageBuilder(String.format("Hai versato a %s %s %s", paid.getName(), cost, Game.RUBLO)));
+        } else if(paid.equals(me)) {
+            updatePlayerBudget();
+            JOptionPane.showMessageDialog(contentPane, messageBuilder(String.format("%s ti ha versato %s %s", payer.getName(), cost, Game.RUBLO)));
+        } else {
+            JOptionPane.showMessageDialog(contentPane, messageBuilder(String.format("%s ha pagato a %s<br>%s", payer.getName(), paid.getName(), cost)));
+        }
+    }
+
     private void updateMyOwnProps() {
-        for(Buyable property : me.getProperty()) {
+        for(Buyable property : playingPlayer.getProperty()) {
             for(Triplet<JLabel, Buyable, Boolean> tuple : new ArrayList<>(ownedProps)) {
                 if(tuple.getValue1().equals(property)) {
                     tuple.getValue0().setIcon(new ImageIcon(tuple.getValue1().getVerticalIcon().getImage().getScaledInstance(
@@ -180,8 +211,13 @@ public class Window extends JFrame {
             }
         }
     }
+
     public void loosePlayer(Player playerThatLoose) {
-        JOptionPane.showMessageDialog(null, messageBuilder(String.format("Il compagno %s putroppo è disperso <br>beviamo vodka in sua memoria", playerThatLoose.getName())));
+        if(playerThatLoose.equals(me)) {
+
+        } else {
+            JOptionPane.showMessageDialog(contentPane, messageBuilder(String.format("Il compagno %s putroppo è disperso <br>beviamo vodka in sua memoria", playerThatLoose.getName())));
+        }
     }
 
     private void buildBoard() {
@@ -214,7 +250,7 @@ public class Window extends JFrame {
 
         budgetContainer.setBackground(new Color(0, 0, 0));
 
-        budgetIndicator = new JLabel(String.valueOf(me.getBudget()));
+        budgetIndicator = new JLabel(me.getBudget() + " " + Game.RUBLO);
         budgetIndicator.setForeground(new Color(33, 255, 34));
         budgetIndicator.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
 
@@ -253,7 +289,7 @@ public class Window extends JFrame {
         ));
         rool.addActionListener(e -> {
             if(isMyTurn && !isRolled && !playingPlayer.isDeported()) {
-                handler.roll(this);
+                hook.roll(this);
             }
         });
 
@@ -273,7 +309,7 @@ public class Window extends JFrame {
                 if(!playingPlayer.isInGame()) {
                     dispose();
                 }
-                handler.next(this);
+                hook.next(this);
             }
         });
 
@@ -352,7 +388,7 @@ public class Window extends JFrame {
 
         buildSviluppo();
 
-        Gülag jail = new Gülag();
+        Gulag jail = new Gulag();
         board.add(jail, buildConstraintsWithWrap());
         street.add(jail);
     }
@@ -397,8 +433,8 @@ public class Window extends JFrame {
 
     private void buildBottomOfBoard() {
 
-        ToTheGülag toTheGülag = new ToTheGülag();
-        board.add(toTheGülag, buildConstraints());
+        ToTheGulag toTheGulag = new ToTheGulag();
+        board.add(toTheGulag, buildConstraints());
 
         buildSpaziale();
 
@@ -413,7 +449,7 @@ public class Window extends JFrame {
 
         ArrayList<Box> bottom = new ArrayList<>();
 
-        bottom.add(toTheGülag);
+        bottom.add(toTheGulag);
         bottom.addAll(proprieties.get(PropertyType.SPAZIALE));
         bottom.add(unforeseen);
         bottom.addAll(proprieties.get(PropertyType.AUTOMOBILISTICA));
@@ -607,16 +643,16 @@ public class Window extends JFrame {
     }
 
     private void buildAutomobilistica() {
-        Buyable automobilistica1 = new Buyable("", "assets/property/automobilistica.png", 1000, PropertyType.AUTOMOBILISTICA);
+        Buyable automobilistica1 = new Buyable("LADA", "assets/property/lada.png", 1000, PropertyType.AUTOMOBILISTICA);
         board.add(automobilistica1, buildConstraints(56, 98));
 
-        Buyable automobilistica2 = new Buyable("", "assets/property/automobilistica.png", 1000, PropertyType.AUTOMOBILISTICA);
+        Buyable automobilistica2 = new Buyable("VLADICAR", "assets/property/vladicar.png", 1000, PropertyType.AUTOMOBILISTICA);
         board.add(automobilistica2, buildConstraints(56, 98));
 
         Unforeseen unforeseen = new Unforeseen("assets/imprevisti_su.png");
         board.add(unforeseen, buildConstraints(56, 98));
 
-        Buyable automobilistica3 = new Buyable("", "assets/property/automobilistica.png", 1000, PropertyType.AUTOMOBILISTICA);
+        Buyable automobilistica3 = new Buyable("POST-CRASH CAR", "assets/property/post-crash_car.png", 1000, PropertyType.AUTOMOBILISTICA);
         board.add(automobilistica3, buildConstraints(56, 98));
 
         ArrayList<Box> vector = new ArrayList<>();
@@ -652,5 +688,17 @@ public class Window extends JFrame {
 
     private String messageBuilder(String body) {
         return String.format("<html><h1>%s</h1></html>", body);
+    }
+
+    private void updatePlayerBudget() {
+        budgetIndicator.setText(String.format("%s %s", me.getBudget(), Game.RUBLO));
+    }
+
+    public void updatePlayer(Player player) {
+        me = player;
+    }
+
+    public Player getPlayingPlayer() {
+        return playingPlayer;
     }
 }

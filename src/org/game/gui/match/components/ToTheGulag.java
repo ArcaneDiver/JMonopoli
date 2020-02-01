@@ -2,9 +2,9 @@ package org.game.gui.match.components;
 
 import javax.swing.*;
 
-public class ToTheGülag extends Box {
+public class ToTheGulag extends Box {
 
-    public ToTheGülag() {
+    public ToTheGulag() {
         super("To the Gülag", new ImageIcon("assets/to_gulag.png"));
     }
 

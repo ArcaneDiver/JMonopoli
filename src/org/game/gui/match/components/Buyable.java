@@ -10,13 +10,10 @@ public class Buyable extends Box {
 
 
     @Expose private Integer baseCost;
-
     @Expose private PropertyType type;
-
     @Expose(serialize = false) private Player owner;
 
     @Expose private ImageIcon verticalIcon;
-
     @Expose private Integer numberOfHouses = 0;
 
     public Buyable(String name, String iconName, Integer cost, PropertyType type) {
@@ -42,19 +39,21 @@ public class Buyable extends Box {
         owner = player;
     }
 
+    public Player getOwner(){
+        return owner;
+    }
+
     public void buyHome(Player player) {
 
     }
 
-    public Integer getCostRelativeToHouses(int houses) {
-        if(houses == 0) return baseCost;
-        else if(houses == 1) return (int) ( baseCost * 1.5 );
-        else return baseCost * ( houses + 1);
+    public Integer getCostRelativeToHouses() {
+        if(numberOfHouses == 0) return baseCost;
+        else if(numberOfHouses == 1) return (int) ( baseCost * 1.5 );
+        else return baseCost * ( numberOfHouses + 1);
     }
 
-    public boolean isOwnedBy(Player player) {
-        return player.equals(owner);
-    }
+
     public ImageIcon getVerticalIcon() {
         return verticalIcon;
     }
@@ -84,7 +83,7 @@ public class Buyable extends Box {
     @Override
     public String toString() {
         return super.toString() + "<br>" + String.format(
-                "<b>Costo per acquistare:</b> %s<br>" +
+                "<b>Costo per acquistare:</b> %s RUB<br>" +
                 "<b>Posseduto da:</b> <i>%s</i><br>" +
                 "<b>Tipologia:</b> %s<br>",
                 baseCost, owner == null ? "terreno aquistabile" : owner.getName(), type.name());

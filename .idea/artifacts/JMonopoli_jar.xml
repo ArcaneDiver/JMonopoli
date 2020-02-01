@@ -5,8 +5,10 @@
       <element id="module-output" name="JMonopoli" />
       <element id="extracted-dir" path="$USER_HOME$/Desktop/JRocket-master/out/artifacts/JRocket_master_jar/JRocket-master.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/miglayout-3.5.5.jar" path-in-jar="/" />
-      <element id="dir-copy" path="$PROJECT_DIR$/assets" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/javatuples-1.2.jar" path-in-jar="/" />
+      <element id="directory" name="assets">
+        <element id="dir-copy" path="$PROJECT_DIR$/assets" />
+      </element>
     </root>
   </artifact>
 </component>

@@ -2,6 +2,7 @@ package org.game.gui.networkConnection;
 
 import org.game.core.game.Player;
 import org.game.core.game.Game;
+import org.game.core.system.Network;
 import org.json.JSONException;
 import org.json.JSONObject;
 import xyz.farhanfarooqui.JRocket.JRocketServer;
@@ -50,10 +51,13 @@ class ServerManager extends JFrame {
         connectedClientContainer = new JPanel();
         connectedClientList = new DefaultListModel<>();
 
+        JLabel label = new JLabel("Client connessi: ");
+        label.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 40));
         JList<String> list = new JList<>(connectedClientList);
         JScrollPane scrollableList = new JScrollPane(list);
         JPanel startGameContainer = new JPanel();
         JButton startGameButton = new JButton("Inizia la partita");
+        JLabel actualIP = new JLabel("IP: " + Network.ip);
 
         connectedClientContainer.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         connectedClientContainer.setLayout(new BoxLayout(connectedClientContainer, BoxLayout.Y_AXIS));
@@ -79,18 +83,20 @@ class ServerManager extends JFrame {
                         "Nome giocatore",
                         JOptionPane.PLAIN_MESSAGE
                 );
-                callback.start(server, new Player(name, Game.INITIAL_BUDGET, "assets/pawn.png"), clients);
+                callback.start(server, new Player(name, Game.INITIAL_BUDGET, String.format("assets/pawn%s.png", clients.size())), clients);
             }
         });
+
+        actualIP.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
 
         startGameContainer.setLayout(new BoxLayout(startGameContainer, BoxLayout.LINE_AXIS));
         startGameContainer.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
 
-        JLabel label = new JLabel("Client connessi: ");
-        label.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 40));
+
 
         startGameContainer.add(startGameButton);
-
+        startGameContainer.add(Box.createRigidArea(new Dimension(30 ,0)));
+        startGameContainer.add(actualIP);
 
         connectedClientContainer.add(label);
         connectedClientContainer.add(scrollableList);
@@ -101,7 +107,8 @@ class ServerManager extends JFrame {
         try {
             server = JRocketServer.listen(port, 1000);
 
-            server.setOnClientConnectListener(client -> System.out.println("New client connected. ID: " + client.getId()));
+            server.setOnClientConnectListener(client -> {});
+
             server.setHeartBeatRate(3000);
 
             // Lo salvo solo se si "autentica" con un nome
@@ -132,10 +139,11 @@ class ServerManager extends JFrame {
         System.out.println("aggiungo un client " + name);
 
         connectedClientList.addElement(name);
-        Player player = new Player(name, Game.INITIAL_BUDGET, "assets/pawn.png");
+        Player player = new Player(name, Game.INITIAL_BUDGET, String.format("assets/pawn%s.png", clients.size()));
         clients.add(player);
 
-        paintComponents(getGraphics());
+        revalidate();
+        repaint();
 
         return player;
     }

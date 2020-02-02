@@ -5,9 +5,10 @@ import org.game.gui.match.components.Buyable;
 import org.json.JSONException;
 
 public interface TurnHook {
-    public void next(Window window);
-    public void roll(Window window);
-    public void buy(Window window, Buyable toBuy);
-    public void pay(Window window, Player toBePayed, int money);
-    public void loose(Window window);
+    void next(Window window);
+    void roll(Window window);
+    void buy(Window window, Buyable toBuy);
+    void pay(Window window, Player toBePayed, int money);
+    void requestUnforeseen(Window window);
+    void soapDropped(Window window);
 }

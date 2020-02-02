@@ -167,8 +167,6 @@ class ClientManager extends JFrame {
                     );
 
                     dispose();
-                    //netScanner.stop();
-
                     try {
                         callback.start(socketClient, Game.GSON.fromJson(jsonObject.getString("data"), Player.class));
                     } catch (JSONException e) {
@@ -180,9 +178,8 @@ class ClientManager extends JFrame {
 
             @Override
             public void onConnectFailed(JRocketClient socketClient) {
-                System.out.println("Failed");
                 JOptionPane.showMessageDialog(
-                        JOptionPane.getFrameForComponent(contentPane),
+                        contentPane,
                         "Connection failed with the server",
                         "Error",
                         JOptionPane.ERROR_MESSAGE
@@ -191,8 +188,13 @@ class ClientManager extends JFrame {
 
             @Override
             public void onDisconnect(JRocketClient jRocketClient) {
-                System.out.println("Disconnected");
-                jRocketClient.connect();
+                JOptionPane.showMessageDialog(
+                        contentPane,
+                        "Il server si è disconnesso",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+                System.exit(0);
             }
 
         });

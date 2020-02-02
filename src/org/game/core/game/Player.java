@@ -16,6 +16,7 @@ public class Player {
     @Expose private int position;
     @Expose private ArrayList<Buyable> property;
     @Expose private boolean deported;
+    @Expose private int remainingDeported;
     @Expose private boolean inGame;
 
     @Expose private ImageIcon pawn;
@@ -33,6 +34,7 @@ public class Player {
         deported = false;
         inGame = true;
         position = 0;
+        remainingDeported = 0;
     }
 
     public void passedFromTheStart() {
@@ -41,8 +43,14 @@ public class Player {
 
 
     public boolean move(int steps) {
+        if(deported) {
+            remainingDeported--;
 
-        if(position + steps > Game.STREET_LENGTH - 1) {
+            if (remainingDeported == 0) deported = false;
+            else return false;
+        }
+
+        if (position + steps > Game.STREET_LENGTH - 1) {
             position = steps - (Game.STREET_LENGTH - position);
             return true;
         } else {
@@ -51,20 +59,22 @@ public class Player {
         }
     }
 
-    public boolean buy(int cost, Buyable propertyToBuy) {
+    public void buy(int cost, Buyable propertyToBuy) {
         budget -= cost;
 
         property.add(propertyToBuy);
 
-        return budget < 0;
     }
 
-    public boolean pay(Player toBePayed, int money) {
+    public void pay(Player toBePayed, int money) {
         budget -= money;
 
         toBePayed.setBudget(toBePayed.getBudget() + (budget < 0 ? money - ( - budget) : money));
 
-        return budget < 0;
+    }
+
+    public void applyUnforeseen(UnforeseenEvent event) {
+        budget += event.getMoney();
     }
 
     public boolean isDeported() {
@@ -72,8 +82,9 @@ public class Player {
     }
 
     public void deportToTheGulag() {
-        position = 10;
+        position = Game.GULAG_POSITION;
         deported = true;
+        remainingDeported = Game.DEPORT_TIME;
     }
 
     public void releaseFromTheGulag() {

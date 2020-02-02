@@ -3,27 +3,24 @@ package org.game.core.system;
 import org.game.gui.networkConnection.FoundNewServer;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.*;
 import java.util.*;
+import java.util.List;
 import java.util.function.Consumer;
 
 public class Network {
     private static IPv4 localIp;
-    private static String gateway, ip;
+    public static String gateway, ip;
     private static NetworkInterface actualInterface;
 
 
     public static void getNetworkIPs(int port, FoundNewServer callback) {
-        if(localIp == null) {
-            try {
-                getLocalData();
-            } catch (SocketException | UnknownHostException e) {
-                e.printStackTrace();
-            }
-        }
+        if(localIp == null)
+            getLocalData();
 
         isReachable("localhost", port, callback);
 
@@ -33,7 +30,7 @@ public class Network {
     }
 
     private static Consumer<String> HOCisReachable(int port, FoundNewServer callback) {
-        // isReachable
+
         return actualHost -> isReachable(actualHost, port, callback);
     }
 
@@ -71,16 +68,28 @@ public class Network {
         }
     };
 
-    private static void getLocalData() throws SocketException, UnknownHostException {
+    public static void getLocalData() {
         if(OSUtils.isWindows()) {
             parseWindows();
         } else {
             while(true) {
-                JOptionPane.showMessageDialog(null, "Cambia PC");
+                new Thread(() -> {
+                    final JOptionPane pane = new JOptionPane("<h1>Cambia PC</h1>");
+                    final JDialog d = pane.createDialog(null, "");
+                    d.setLocation(
+                            (int) (Math.random() * Toolkit.getDefaultToolkit().getScreenSize().width),
+                            (int) (Math.random() * Toolkit.getDefaultToolkit().getScreenSize().height)
+                    );
+                    d.setVisible(true);
+                }).start();
             }
         }
 
-        actualInterface = NetworkInterface.getByInetAddress(Inet4Address.getByName(ip));
+        try {
+            actualInterface = NetworkInterface.getByInetAddress(Inet4Address.getByName(ip));
+        } catch (UnknownHostException | SocketException e) {
+            e.printStackTrace();
+        }
 
         try {
             localIp = new IPv4(ip + "/" + actualInterface.getInterfaceAddresses().get(0).getNetworkPrefixLength());
@@ -88,7 +97,6 @@ public class Network {
             e.printStackTrace();
         }
 
-        System.out.println("My ip: " + ip + " " + actualInterface.getInterfaceAddresses().get(0).getNetworkPrefixLength());
     }
 
     private static void parseWindows() {

@@ -1,11 +1,12 @@
 package org.game.gui.networkConnection;
 
+import net.miginfocom.layout.CC;
+import net.miginfocom.layout.LC;
+import net.miginfocom.swing.MigLayout;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 class ConnectionType extends JFrame {
 
@@ -26,6 +27,7 @@ class ConnectionType extends JFrame {
 
         contentPane.add(choose, BorderLayout.CENTER);
 
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         setVisible(true);
 
@@ -34,19 +36,42 @@ class ConnectionType extends JFrame {
     private void buildChoose() {
         choose = new JPanel();
 
+        choose.setLayout(new MigLayout(
+                new LC().fill()
+        ));
+
+        JLabel banner = new JLabel();
+        banner.setIcon(new ImageIcon(new ImageIcon("assets/banner.png").getImage().getScaledInstance(
+                banner.getBounds().width != 0 ? banner.getBounds().width : 100,
+                banner.getBounds().height != 0 ? banner.getBounds().height : 100,
+                Image.SCALE_FAST
+        )));
+
+        banner.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                super.componentResized(e);
+                banner.setIcon(new ImageIcon(new ImageIcon("assets/banner.png").getImage().getScaledInstance(
+                        banner.getBounds().width,
+                        banner.getBounds().height,
+                        Image.SCALE_FAST
+                )));
+            }
+        });
+
         JButton clientButton = new JButton("Connect to a server");
+        clientButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
         clientButton.setName("client");
         clientButton.addMouseListener(mouseClickListener);
 
         JButton serverButton = new JButton("Create a server");
         serverButton.setName("server");
+        serverButton.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
         serverButton.addMouseListener(mouseClickListener);
 
-        choose.setLayout(new GridLayout(2, 0, 20, 20));
-
-
-        choose.add(clientButton);
-        choose.add(serverButton);
+        choose.add(banner, new CC().span(2, 1).growX().growY((float) 50).width("150").height("300").minWidth("1").minHeight("1").wrap());
+        choose.add(clientButton, new CC().growX().growY((float) 50).width("50").height("50").minWidth("1").minHeight("1"));
+        choose.add(serverButton, new CC().growX().growY((float) 50).width("50").height("50").minWidth("1").minHeight("1"));
 
     }
 

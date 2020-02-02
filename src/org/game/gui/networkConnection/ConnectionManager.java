@@ -10,16 +10,7 @@ public class ConnectionManager {
 
     private Boolean isServer = null;
 
-    public ConnectionManager() {
-
-    }
-
     public void startConnectionFlow() {
-        chooseConnectionType();
-    }
-
-    // Se un idea per rendere asincrono un callback senza un while(true)...
-    private void chooseConnectionType() {
         SwingUtilities.invokeLater(() -> new ConnectionType(choose -> {
             isServer = choose;
             if(isServer) {
@@ -29,6 +20,7 @@ public class ConnectionManager {
             }
         }));
     }
+
 
     private void asServer() {
         SwingUtilities.invokeLater(() -> new ServerManager(Game.PORT, Server::new));

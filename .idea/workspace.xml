@@ -7,24 +7,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9b449004-755d-4559-8347-d0c883a27045" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/property/lada.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/property/post-crash_car.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/property/vladicar.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/famiglia.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JMonopoli.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/banner.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/pawn0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/pawn1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/pawn2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/pawn3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/soap.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/game/core/game/Event.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/game/core/game/GlobalEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/game/core/game/UnforeseenEvent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/artifacts/JMonopoli_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/JMonopoli_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/pawn.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/pawn.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/property/BLIN.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/JMonopoli_jar/JMonopoli.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/JMonopoli_jar/JMonopoli.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pawn.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/JMonopoli_jar/JMonopoli.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/Monopoli.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/Monopoli.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/core/game/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/game/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/core/game/EventSystem.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/core/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/game/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/core/game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/game/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/core/game/PropertyType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/game/PropertyType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/core/game/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/game/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/core/game/TurnHook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/game/TurnHook.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/core/system/Network.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/core/system/Network.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/Window.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/Box.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/Box.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/Buyable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/Buyable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/Gülag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/Gulag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/game/gui/match/components/ToTheGülag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/match/components/ToTheGulag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ClientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ClientManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ConnectionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ConnectionManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ConnectionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ConnectionType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ServerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/game/gui/networkConnection/ServerManager.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -69,6 +81,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="sqlite" />
     <property name="Downloaded.Files.Path.Enabled" value="false" />
     <property name="Repository.Attach.Annotations" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
@@ -77,8 +90,8 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="go.import.settings.migrated" value="true" />
-    <property name="last.edited.regexp" value="192.168.2.1" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib" />
+    <property name="last.edited.regexp" value="" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
     <property name="project.structure.last.edited" value="Artifacts" />
@@ -109,15 +122,16 @@
     </option>
   </component>
   <component name="RunManager" selected="Application.Monopoli">
-    <configuration name="JAR Monopoli" type="JarApplication">
-      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/JMonopoli_jar/JMonopoli.jar" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\famiglia\IdeaProjects\JMonopoli" />
-      <option name="ALTERNATIVE_JRE_PATH" />
+    <configuration name="Build" type="ShConfigurationType">
+      <option name="SCRIPT_PATH" value="" />
+      <option name="SCRIPT_OPTIONS" value="" />
+      <option name="INTERPRETER_PATH" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
       <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Application.Monopoli" />
-      <item itemvalue="JAR Application.JAR Monopoli" />
+      <item itemvalue="Shell Script.Build" />
     </list>
     <recent_temporary>
       <list>
@@ -128,6 +142,9 @@
   <component name="RustProjectSettings">
     <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
     <option name="version" value="2" />
+  </component>
+  <component name="StructureViewFactory">
+    <option name="ACTIVE_ACTIONS" value=",SHOW_LAMBDA" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -144,7 +161,7 @@
       <workItem from="1577969251607" duration="71784000" />
       <workItem from="1578905438071" duration="1608000" />
       <workItem from="1579100280374" duration="30664000" />
-      <workItem from="1579461719768" duration="191843000" />
+      <workItem from="1579461719768" duration="216136000" />
     </task>
     <servers />
   </component>
@@ -166,5 +183,15 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://C:/Program Files/Java/jdk1.8.0_221/src.zip!/java/lang/Long.java</url>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

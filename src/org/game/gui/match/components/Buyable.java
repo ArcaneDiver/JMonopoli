@@ -1,5 +1,6 @@
 package org.game.gui.match.components;
 
+import org.game.core.game.Game;
 import org.game.core.game.Player;
 import org.game.core.game.PropertyType;
 
@@ -10,6 +11,7 @@ public class Buyable extends Box {
 
 
     @Expose private Integer baseCost;
+    @Expose private Integer actualCost;
     @Expose private PropertyType type;
     @Expose(serialize = false) private Player owner;
 
@@ -22,6 +24,7 @@ public class Buyable extends Box {
         this.baseCost = cost;
         this.type = type;
         this.owner = null;
+        actualCost = baseCost;
         this.verticalIcon = new ImageIcon(getVerticalIconFromType(type));
     }
 
@@ -29,11 +32,6 @@ public class Buyable extends Box {
         return owner == null;
     }
 
-    public boolean buy(Player player) {
-        owner = player;
-
-        return player.buy(baseCost, this);
-    }
 
     public void setOwner(Player player) {
         owner = player;
@@ -48,11 +46,14 @@ public class Buyable extends Box {
     }
 
     public Integer getCostRelativeToHouses() {
-        if(numberOfHouses == 0) return baseCost;
-        else if(numberOfHouses == 1) return (int) ( baseCost * 1.5 );
-        else return baseCost * ( numberOfHouses + 1);
+        if(numberOfHouses == 0) return actualCost;
+        else if(numberOfHouses == 1) return (int) ( actualCost * 1.5 );
+        else return actualCost * ( numberOfHouses + 1);
     }
 
+    public void updatePrice() {
+        actualCost = (int) (baseCost * Game.EVENT_MULTIPLIER.get(type));
+    }
 
     public ImageIcon getVerticalIcon() {
         return verticalIcon;
@@ -68,7 +69,7 @@ public class Buyable extends Box {
                 return "assets/mini_property/tessile.png";
             case SVILUPPO:
                 return "assets/mini_property/sviluppo.png";
-            case ALBERGHIERE:
+            case CASE_DEL_POPOLO:
                 return "assets/mini_property/alberghiere.png";
             case ALIMENTARI:
                 return "assets/mini_property/alimentari.png";
@@ -83,9 +84,10 @@ public class Buyable extends Box {
     @Override
     public String toString() {
         return super.toString() + "<br>" + String.format(
-                "<b>Costo per acquistare:</b> %s RUB<br>" +
+                "<b>Costo:</b> %s RUB<br>" +
                 "<b>Posseduto da:</b> <i>%s</i><br>" +
-                "<b>Tipologia:</b> %s<br>",
-                baseCost, owner == null ? "terreno aquistabile" : owner.getName(), type.name());
+                "<b>Tipologia:</b> %s<br>" +
+                "<b>Costo di base</b> %s<br>",
+                actualCost, owner == null ? "terreno aquistabile" : owner.getName(), type.name(), baseCost);
     }
 }

@@ -16,6 +16,7 @@ public class Server {
     private JRocketServer server;
     private ArrayList<Player> players;
     private Player me;
+    private GlobalEvent actualEvent;
 
     private Window window;
 
@@ -25,11 +26,22 @@ public class Server {
         this.players = players;
 
         this.me = me;
+        this.actualEvent = null;
 
         players.add(this.me);
 
+        server.setOnClientDisconnectListener(client -> {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Un client si è disponnesso, impossibile continuare la partita",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            System.exit(0);
+        });
+
         initEvents();
-        initUI(this.me);
+        initUI();
 
     }
 
@@ -41,13 +53,26 @@ public class Server {
 
                 Pair<Player, Boolean> playerOfNextTurn = getNextPlayerInTheTurn(playerThatDone);
 
-                server.send("new_turn", new JSONObject()
-                        .put("player", Game.GSON.toJson(playerOfNextTurn.getKey(), Player.class))
-                        .put("players", Game.GSON.toJson(players, new TypeToken<ArrayList<Player>>(){}.getType()))
-                );
+                if(playerOfNextTurn.getValue()) { // Se è finito il giro
+                    actualEvent = GlobalEvent.getGlobalEvent();
+
+                    server.send("new_turn", new JSONObject()
+                            .put("player", Game.GSON.toJson(playerOfNextTurn.getKey(), new TypeToken<Player>(){}.getType()))
+                            .put("players", Game.GSON.toJson(players, new TypeToken<ArrayList<Player>>(){}.getType()))
+                            .put("event", Game.GSON.toJson(actualEvent, new TypeToken<GlobalEvent>(){}.getType()))
+                    );
+
+                    window.startNewTurn(playerOfNextTurn.getKey());
+                    window.setActiveEvent(actualEvent);
+                } else {
+                    server.send("new_turn", new JSONObject()
+                            .put("player", Game.GSON.toJson(playerOfNextTurn.getKey(), Player.class))
+                            .put("players", Game.GSON.toJson(players, new TypeToken<ArrayList<Player>>(){}.getType()))
+                    );
+                    window.startNewTurn(playerOfNextTurn.getKey());
+                }
 
 
-                window.startNewTurn(playerOfNextTurn.getKey());
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -122,23 +147,60 @@ public class Server {
                 e.printStackTrace();
             }
         });
+
+        server.onReceive("unforeseen", (jsonObject, client) -> {
+            try {
+                Player requester = Game.GSON.fromJson(jsonObject.getString("player"), new TypeToken<Player>(){}.getType());
+                UnforeseenEvent unforeseenEvent = UnforeseenEvent.getUnforeseenEvent();
+
+                requester.applyUnforeseen(unforeseenEvent);
+
+                players.set(players.indexOf(requester), requester);
+
+                server.send("unforeseen_applied", new JSONObject()
+                        .put("player", Game.GSON.toJson(requester, new TypeToken<Player>(){}.getType()))
+                        .put("event", Game.GSON.toJson(unforeseenEvent, new TypeToken<UnforeseenEvent>(){}.getType()))
+                );
+
+                window.showUnforeseen(requester, unforeseenEvent);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        });
+
+        server.onReceive("soap_dropped", (jsonObject, client) -> {
+
+        });
     }
 
-    private void initUI (Player player) {
+    private void initUI () {
         SwingUtilities.invokeLater(() -> {
-            window = new Window(player, new TurnHook() {
+            window = new Window(me, new TurnHook() {
                 @Override
                 public void next(Window window) {
+                    me = window.getPlayingPlayer();
+
                     try {
-                        Pair<Player, Boolean> nextPlayer = getNextPlayerInTheTurn(player);
+                        Pair<Player, Boolean> nextPlayer = getNextPlayerInTheTurn(me);
 
-                        server.send("new_turn", new JSONObject()
-                                .put("player", Game.GSON.toJson(nextPlayer.getKey(), new TypeToken<Player>(){}.getType()))
-                                .put("players", Game.GSON.toJson(players, new TypeToken<ArrayList<Player>>(){}.getType()))
-                        );
+                        if(nextPlayer.getValue()) { // Se è finito il giro
+                            actualEvent = GlobalEvent.getGlobalEvent();
 
-                        window.updateProprierties(players);
-                        window.startNewTurn(nextPlayer.getKey());
+                            server.send("new_turn", new JSONObject()
+                                    .put("player", Game.GSON.toJson(nextPlayer.getKey(), new TypeToken<Player>(){}.getType()))
+                                    .put("players", Game.GSON.toJson(players, new TypeToken<ArrayList<Player>>(){}.getType()))
+                                    .put("event", Game.GSON.toJson(actualEvent, new TypeToken<GlobalEvent>(){}.getType()))
+                            );
+
+                            window.startNewTurn(nextPlayer.getKey());
+                            window.setActiveEvent(actualEvent);
+                        } else {
+                            server.send("new_turn", new JSONObject()
+                                    .put("player", Game.GSON.toJson(nextPlayer.getKey(), Player.class))
+                                    .put("players", Game.GSON.toJson(players, new TypeToken<ArrayList<Player>>(){}.getType()))
+                            );
+                            window.startNewTurn(nextPlayer.getKey());
+                        }
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -147,6 +209,8 @@ public class Server {
 
                 @Override
                 public void roll(Window window) {
+                    me = window.getPlayingPlayer();
+
                     Pair<Integer, Integer> roll = Game.roll();
 
                     try {
@@ -165,6 +229,7 @@ public class Server {
                 @Override
                 public void buy(Window window, Buyable toBuy) {
                     me = window.getPlayingPlayer();
+
                     me.buy(toBuy.getCostRelativeToHouses(), toBuy);
 
                     players.set(players.indexOf(me), me);
@@ -185,6 +250,8 @@ public class Server {
 
                 @Override
                 public void pay(Window window, Player toBePayed, int money) {
+                    me = window.getPlayingPlayer();
+
                     me.pay(toBePayed, money);
 
                     players.set(players.indexOf(me), me);
@@ -205,8 +272,44 @@ public class Server {
                 }
 
                 @Override
-                public void loose(Window window) {
+                public void requestUnforeseen(Window window) {
+                    me = window.getPlayingPlayer();
 
+                    UnforeseenEvent unforeseenEvent = UnforeseenEvent.getUnforeseenEvent();
+
+                    me.applyUnforeseen(unforeseenEvent);
+
+                    players.set(players.indexOf(me), me);
+
+                    try {
+                        server.send("unforeseen_applied", new JSONObject()
+                                .put("player", Game.GSON.toJson(me, new TypeToken<Player>() {}.getType()))
+                                .put("event", Game.GSON.toJson(unforeseenEvent, new TypeToken<UnforeseenEvent>() {}.getType()))
+                        );
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    window.updatePlayer(me);
+                    window.showUnforeseen(me, unforeseenEvent);
+                }
+
+                @Override
+                public void soapDropped(Window window) {
+                    me = window.getPlayingPlayer();
+
+
+
+                    try {
+                        server.send("done_game", new JSONObject()
+                                .put("1", Game.GSON.toJson(me, new TypeToken<Player>(){}.getType()))
+                                .put("2", Game.GSON.toJson(me, new TypeToken<Player>(){}.getType()))
+                                .put("3", Game.GSON.toJson(me, new TypeToken<Player>(){}.getType()))
+                                .put("looser", Game.GSON.toJson(me, new TypeToken<Player>(){}.getType()))
+                        );
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
 
@@ -214,14 +317,15 @@ public class Server {
                 server.send("start_game", new JSONObject()
                         .put("players", Game.GSON.toJson(players, new TypeToken<ArrayList<Player>>(){}.getType()))
                 );
+
                 window.startGame(players);
 
                 server.send("new_turn", new JSONObject()
-                        .put("player", Game.GSON.toJson(player, Player.class))
+                        .put("player", Game.GSON.toJson(me, new TypeToken<Player>(){}.getType()))
                         .put("players", Game.GSON.toJson(players, new TypeToken<ArrayList<Player>>(){}.getType()))
                 );
 
-                window.startNewTurn(player);
+                window.startNewTurn(me);
 
             } catch (JSONException e) {
                 e.printStackTrace();

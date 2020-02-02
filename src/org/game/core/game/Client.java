@@ -9,8 +9,7 @@ import org.json.JSONObject;
 import xyz.farhanfarooqui.JRocket.JRocketClient;
 
 import javax.swing.*;
-import java.lang.management.PlatformLoggingMXBean;
-import java.lang.reflect.Array;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class Client  {
@@ -46,9 +45,14 @@ public class Client  {
                 Player player = Game.GSON.fromJson(jsonObject.getString("player"), Player.class);
                 ArrayList<Player> players = Game.GSON.fromJson(jsonObject.getString("players"), new TypeToken<ArrayList<Player>>(){}.getType());
 
+
                 window.updateProprierties(players);
                 window.startNewTurn(player);
 
+                if(jsonObject.has("event")) {
+                    GlobalEvent event = Game.GSON.fromJson(jsonObject.getString("event"), new TypeToken<GlobalEvent>(){}.getType());
+                    window.setActiveEvent(event);
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -109,7 +113,24 @@ public class Client  {
             }
         });
 
-        client.onReceive("loose", jsonObject -> {
+        client.onReceive("unforeseen_applied", jsonObject -> {
+            try {
+                Player requester = Game.GSON.fromJson(jsonObject.getString("player"), new TypeToken<Player>(){}.getType());
+                UnforeseenEvent event = Game.GSON.fromJson(jsonObject.getString("event"), new TypeToken<UnforeseenEvent>(){}.getType());
+
+                if(requester.equals(me)) {
+                    me = requester;
+                    window.updatePlayer(me);
+                }
+
+                window.showUnforeseen(requester, event);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        });
+
+
+        client.onReceive("done_game", jsonObject -> {
 
             try {
                 Player playerThatLoose = Game.GSON.fromJson(jsonObject.getString("player"), new TypeToken<Player>(){}.getType());
@@ -179,11 +200,24 @@ public class Client  {
             }
 
             @Override
-            public void loose(Window window) {
+            public void requestUnforeseen(Window window) {
                 me = window.getPlayingPlayer();
 
                 try {
-                    client.send("loose", new JSONObject()
+                    client.send("unforeseen", new JSONObject()
+                            .put("player", Game.GSON.toJson(me, new TypeToken<Player>(){}.getType()))
+                    );
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void soapDropped(Window window) {
+                me = window.getPlayingPlayer();
+
+                try {
+                    client.send("soap_dropped", new JSONObject()
                             .put("player", Game.GSON.toJson(me))
                     );
                 } catch (JSONException e) {
